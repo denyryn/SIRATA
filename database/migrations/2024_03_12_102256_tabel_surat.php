@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('tujuan_surat', 50);
             $table->integer('nomor_surat');
             $table->string('email_mahasiswa', 50);
-            $table->datetime('tanggal');
+            $table->datetime('tanggal_surat');
         });
     }
 
