@@ -12,12 +12,12 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('Mahasiswa',  function(Blueprint $table){
-            $table->integer('NIM')->primary();
-            $table->unsignedBigInteger('id_program_studi');
-            $table->char('id_Kelas', 10);
-            $table->string('Nama_Mhs', 100);
-            $table->string('Email_Mhs', 50);
-            $table->integer('Telp_Mhs');
+            $table->integer('nim')->primary();
+            $table->char('id_prodi');
+            $table->char('id_kelas');
+            $table->string('nama_mahasiswa', 100);
+            $table->string('email_mahasiswa', 50);
+            $table->integer('no_telp_mahasiswa');
 
           
     
@@ -30,7 +30,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('tabel_mahasiswa');
+        Schema::dropIfExists('Mahasiswa');
 
         //
     }
