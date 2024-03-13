@@ -16,7 +16,7 @@ return new class extends Migration
             $table->integer('id_dosen');
             $table->string('path_tanda_tangan');
 
-            $table->foreign('id_dosen')->references('NIP')->on('dosens');
+            $table->foreign('id_dosen')->references('id_dosen')->on('dosens');
 
         });
     }
