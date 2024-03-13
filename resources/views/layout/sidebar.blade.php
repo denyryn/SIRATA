@@ -7,9 +7,12 @@
 
 <aside id="default-sidebar" class="fixed top-0 left-0 z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0" aria-label="Sidebar">
     <div class="h-full px-3 py-4 overflow-y-auto bg-gray-50 dark:bg-gray-800">
-        <a href="https://flowbite.com/" class="flex items-center ps-2.5 mb-5">
-            <img src="https://flowbite.com/docs/images/logo.svg" class="h-6 me-3 sm:h-7" alt="Flowbite Logo" />
-            <span class="self-center text-xl font-semibold whitespace-nowrap dark:text-white">Flowbite</span>
+        <a href="#" class="flex flex-col items-center my-5" >
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQg9IQf_bkCGt7BNSzuDVv4xAbs8RcU1YxBzPwW0wTciA&s" class="h-6 sm:h-7" alt="Polines Logo" />
+            <div>
+                <span class="block">Deny Rianto</span>
+                <span class="block">4.33.22.1.06</span>
+            </div>
         </a>
         <ul class="space-y-2 font-medium">
             <li>

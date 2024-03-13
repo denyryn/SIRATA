@@ -8,6 +8,11 @@ export default {
   ],
   theme: {
     extend: {},
+    fontFamily: {
+        'poppins': [
+            'Poppins', 'system-ui'
+        ],
+    }
   },
   plugins: [
     require("daisyui"),
