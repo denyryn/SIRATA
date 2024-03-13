@@ -11,9 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('perihal', function (Blueprint $table) {
-            $table->unsignedBigInteger('id_perihal')->primary(); 
-            $table->string('keterangan_surat');
+        Schema::create('kelas', function (Blueprint $table) {
+            $table->integer('id_kelas')->primary();
+            $table->integer('id_prodi');
+            $table->string('nama_kelas', 30);
+
+            $table->foreign('id_prodi')->references('id_prodi')->on('program_studis');
         });
     }
 
@@ -22,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+        Schema::dropIfExists('kelas');
     }
 };

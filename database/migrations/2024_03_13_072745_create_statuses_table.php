@@ -11,10 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('kelas', function (Blueprint $table) {
-            $table->unsignedBigInteger('id_kelas')->primary(); 
-            $table->foreignId('id_prodi')->constrained('program_studi');
-            $table->string('nama_kelas');
+        Schema::create('statuses', function (Blueprint $table) {
+            $table->integer('id_status')->primary();
+            $table->string('nama_status', 10);
         });
     }
 
@@ -23,6 +22,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+        Schema::dropIfExists('statuses');
     }
 };

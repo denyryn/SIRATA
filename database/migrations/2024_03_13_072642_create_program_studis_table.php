@@ -9,14 +9,12 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up(): void {
-        Schema::create('Program_Studi', function (Blueprint $table) {
-            $table->integer('id_prodi')->primary();
-            $table->integer('id_kelas');
-            $table->string('nama_prodi', 50);
+    public function up(): void
+    {
+        Schema::create('program_studis', function (Blueprint $table) {
+            $table->Integer('id_prodi')->primary();
+            $table->string('nama_prodi');
         });
-        //
-    
     }
 
     /**
@@ -24,8 +22,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('Program_Studi');
-        //
+        Schema::dropIfExists('program_studis');
     }
 };
-

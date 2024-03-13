@@ -11,10 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('Kategori_Surat', function (Blueprint $table) {
-            $table->integer('id_kategori_surat')->primary();
-            $table->integer('id_surat');
-            $table->datetime('tanggal_masuk');
+        Schema::create('users', function (Blueprint $table) {
+            $table->integer('id_user')->primary();
+            $table->string('username', 30);
+            $table->char('password', 60);
+            $table->string('email', 100);
+            $table->boolean('akses_id');
         });
     }
 
@@ -23,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('Kategori_Surat');
+        Schema::dropIfExists('users');
     }
 };
