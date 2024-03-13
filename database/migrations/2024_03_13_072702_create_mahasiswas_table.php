@@ -13,7 +13,6 @@ return new class extends Migration
     {
         Schema::create('mahasiswas', function (Blueprint $table) {
             $table->integer('nim')->primary();
-            $table->integer('id_prodi'); //foreign
             $table->integer('id_kelas'); //foreign
             $table->string('nama_mahasiswa', 150);
             $table->string('email_mahasiswa', 100);
