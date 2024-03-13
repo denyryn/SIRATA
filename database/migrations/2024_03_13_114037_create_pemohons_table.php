@@ -15,6 +15,10 @@ return new class extends Migration
             $table->integer('id_pemohon')->primary();
             $table->integer('id_mahasiswa');
             $table->integer('id_surat');
+
+            $table->foreign('id_mahasiswa')->references('id_mahasiswa')->on('mahasiswas');
+            $table->foreign('id_surat')->references('id_surat')->on('surats');
+
         });
     }
 
