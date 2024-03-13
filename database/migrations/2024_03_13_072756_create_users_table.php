@@ -14,9 +14,9 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->integer('id_user')->primary();
             $table->string('username', 30);
-            $table->char('password', 60);
-            $table->string('email', 100);
-            $table->boolean('akses_id');
+            $table->string('password');
+            $table->string('email');
+            $table->string('akses');
         });
     }
 
