@@ -1,7 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\ProgramStudi;
+use App\Http\Controllers\userMahasiswa;
+use App\Http\Controllers\Welcome;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,8 +19,10 @@ use App\Http\Controllers\ProgramStudi;
 //     return view('welcome');
 // });
 
-Route::get('/admin/', [ProgramStudi::class, 'read'])->name('admin.index');
+Route::get('/', [Welcome::class, 'index']);
+Route::get('/login', [Welcome::class, 'login']);
+Route::get('/dashboard', [userMahasiswa::class, 'index']);
+Route::get('/dashboard/lacak', [userMahasiswa::class, 'lacak']);
 
-// Route::get('/', function () {
-//     return view('user.dashboard');
-// });
+
+
