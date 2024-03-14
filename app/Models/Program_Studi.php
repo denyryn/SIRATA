@@ -13,6 +13,6 @@ class Program_Studi extends Model
     protected $fillable = ['nama_prodi'];
 
     public function Kelas(){
-        return $this->hasMany('app/Models/Kelas','id_prodi');
+        return $this->hasMany('app\Models\Kelas','id_prodi');
     }
 }

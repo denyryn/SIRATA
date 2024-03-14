@@ -13,6 +13,6 @@ class Jabatan extends Model
     protected $fillable = ['keterangan_jabatan'];
 
     public function Dosen(){
-        return $this->hasMany('app/Models/Dosen','id_jabatan');
+        return $this->hasMany('app\Models\Dosen','id_jabatan');
     }
 }

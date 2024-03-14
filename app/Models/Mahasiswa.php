@@ -13,10 +13,10 @@ class Mahasiswa extends Model
     protected $fillable = ['nim','id_user','id_kelas','nama_mhs','email_mhs','telp_mhs'];
 
     public function User(){
-        return $this->belongsTo('app/Models/User','id_user');
+        return $this->belongsTo('app\Models\User','id_user');
     }
 
     public function Kelas(){
-        return $this->belongsTo('app/Models/Kelas','id_kelas');
+        return $this->belongsTo('app\Models\Kelas','id_kelas');
     }
 }
