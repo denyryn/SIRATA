@@ -13,10 +13,10 @@ class User extends Model
     protected $fillable = ['username','password','email','akses'];
 
     public function Mahasiswa(){
-        return $this->hasOne('app/Models/Mahasiswa','id_mahasiswa');
+        return $this->hasOne('app\Models\Mahasiswa','id_user');
     }
 
     public function Dosen(){
-        return $this->hasOne('app/Models/Dosen','id_dosen');
+        return $this->hasOne('app\Models\Dosen','id_user');
     }
 }
