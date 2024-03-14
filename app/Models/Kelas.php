@@ -19,4 +19,8 @@ class Kelas extends Model
     public function Program_Studi(){
         return $this->belongsTo('app\Models\Program_Studi','id_prodi');
     }
+
+    public function Mahasiswa(){
+        return $this->hasMany('app\Models\Mahasiswa','id_kelas');
+    }
 }
