@@ -8,6 +8,18 @@ export default {
   ],
   theme: {
     extend: {},
+    fontFamily: {
+        'poppins': [
+            'Poppins', 'system-ui'
+        ],
+    },
+    colors: {
+        blue: {
+            lighter : '#7D94FF',
+            light: '#5271FF',
+
+        }
+    }
   },
   plugins: [
     require("daisyui"),

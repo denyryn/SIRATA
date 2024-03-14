@@ -9,7 +9,7 @@
     {{-- <title>Trying Layouting</title> --}}
     <title>@yield('title')</title>
 </head>
-<body>
+<body class="font-poppins">
     @include("layout.sidebar")
 
     <div class="content p-4 sm:ml-64">
