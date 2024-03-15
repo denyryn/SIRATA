@@ -21,6 +21,11 @@ export default {
             plain: '#0060A6',
 
         }
+    },
+    backgroundImage: {
+        'GKT': "url('/public/images/GKT.jpeg')",
+
+
     }
   },
   plugins: [
