@@ -7,7 +7,7 @@
     <form method="POST" action="">
 
         @csrf
-        @method("POST")
+        @method('POST')
 
         <div>
             <label for="nama_pengaju">Nama Pengaju : </label>
