@@ -12,6 +12,6 @@ class userMahasiswa extends Controller
     }
 
     public function lacak () {
-        return view('mahasiswa.lacak');
+        return view('mahasiswa.lacak_surat');
     }
 }

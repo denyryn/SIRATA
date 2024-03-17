@@ -23,7 +23,7 @@ Route::get('/', [Welcome::class, 'index'])->name("welcome.index");
 Route::get('/login', [Welcome::class, 'login'])->name("welcome.login");
 
 Route::get('/dashboard', [userMahasiswa::class, 'index'])->name("mahasiswa.index");
-Route::get('/dashboard/lacak', [userMahasiswa::class, 'lacak'])->name("mahasiswa.lacak");
+Route::get('/dashboard/lacak', [userMahasiswa::class, 'lacak'])->name("mahasiswa.lacak_surat");
 
 
 
