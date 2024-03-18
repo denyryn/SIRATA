@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Mahasiswa extends Model
 {
     use HasFactory;
-    protected $table = 'Mahasiswa';
+    protected $table = 'mahasiswas';
     protected $primaryKey = 'id_mahasiswa';
     protected $fillable = ['nim','id_user','id_kelas','nama_mhs','email_mhs','telp_mhs'];
 
@@ -18,5 +18,9 @@ class Mahasiswa extends Model
 
     public function Kelas(){
         return $this->belongsTo('app\Models\Kelas','id_kelas');
+    }
+
+    public function Pemohon(){
+        return $this->hasMany('app\Models\Pemohon','id_mahasiswa');
     }
 }
