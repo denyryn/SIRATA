@@ -22,19 +22,23 @@ class Surat extends Model
 
     ];
 
-    public function Jabatan(){
-        return $this->belongsTo('app\Models\Jabatan','id_jabatan');
+    public function Jabatan()
+    {
+        return $this->belongsTo('app\Models\Jabatan', 'id_jabatan');
     }
 
-    public function Status(){
-        return $this->belongsTo('app\Models\Jabatan','id_status');
+    public function Status()
+    {
+        return $this->belongsTo('app\Models\Jabatan', 'id_status');
     }
 
-    public function Perihal(){
-        return $this->belongsTo('app\Models\Jabatan','id_perihal');
+    public function Perihal()
+    {
+        return $this->belongsTo('app\Models\Jabatan', 'id_perihal');
     }
 
-    public function Pemohon(){
-        return $this->hasMany('app\Models\Pemohon','id_surat');
+    public function Pemohon()
+    {
+        return $this->hasMany('app\Models\Pemohon', 'id_surat');
     }
 }

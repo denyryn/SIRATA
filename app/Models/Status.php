@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Status extends Model
 {
+    public $timestamps = false;
     use HasFactory;
     protected $table = 'statuses';
     protected $primaryKey = 'id_status';
@@ -14,7 +15,8 @@ class Status extends Model
         'nama_status'
     ];
 
-    public function Surat(){
-        return $this->belongsTo('app\Models\Surat','id_status');
+    public function Surat()
+    {
+        return $this->belongsTo('app\Models\Surat', 'id_status');
     }
 }

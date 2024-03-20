@@ -15,11 +15,13 @@ class Pemohon extends Model
         'id_surat'
     ];
 
-    public function Mahasiswa(){
-        return $this->belongsTo('app\Models\Mahasiswa','id_mahasiswa');
+    public function Mahasiswa()
+    {
+        return $this->belongsTo('app\Models\Mahasiswa', 'id_mahasiswa');
     }
 
-    public function Surat(){
-        return $this->belongsTo('app\Models\Surat','id_surat');
+    public function Surat()
+    {
+        return $this->belongsTo('app\Models\Surat', 'id_surat');
     }
 }

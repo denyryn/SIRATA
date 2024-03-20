@@ -15,7 +15,8 @@ class Tanda_Tangan extends Model
         'path_tanda_tangan'
     ];
 
-    public function Dosen(){
-        return $this->belongsTo('app\Models\Dosen','id_dosen');
+    public function Dosen()
+    {
+        return $this->belongsTo('app\Models\Dosen', 'id_dosen');
     }
 }

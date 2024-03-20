@@ -4,15 +4,14 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
     public function up(): void
     {
         Schema::create('program_studis', function (Blueprint $table) {
-            $table->Integer('id_prodi')->primary();
+            $table->bigIncrements('id_prodi');
             $table->string('nama_prodi');
         });
     }
