@@ -1,7 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\ProgramStudi;
+use App\Http\Controllers\userMahasiswa;
+use App\Http\Controllers\Welcome;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,12 +15,16 @@ use App\Http\Controllers\ProgramStudi;
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
+Route::get('/', [Welcome::class, 'index'])->name("welcome.index");
+Route::get('/login', [Welcome::class, 'login'])->name("welcome.login");
 
-Route::get('/admin/', [ProgramStudi::class, 'read'])->name('admin.index');
+Route::prefix('mahasiswa')->group(function () {
+    Route::get('/dashboard', [userMahasiswa::class, 'index'])->name("mahasiswa.index");
+    Route::get('/dashboard/lacak', [userMahasiswa::class, 'lacak'])->name("mahasiswa.lacak_surat");
+    Route::get('/layanan', [userMahasiswa::class, 'layanan'])->name("mahasiswa.layanan");
+}); //instead of one by one its better to use grouping :D
 
-// Route::get('/', function () {
-//     return view('user.dashboard');
-// });
+Route::get('/surat/form', function () {
+    return view('surat.form');
+})->name('surat.form');
+
