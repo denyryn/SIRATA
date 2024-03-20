@@ -18,6 +18,7 @@ export default {
             lightest : '#C4CFFF',
             lighter : '#7D94FF',
             light: '#5271FF',
+            plain: '#0060A6',
 
         }
     }

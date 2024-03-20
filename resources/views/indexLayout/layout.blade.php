@@ -9,10 +9,6 @@
     <title>@yield('title')</title>
 </head>
 <body class="font-poppins">
-
-    <div class="content p-4 sm:ml-64">
-        @yield('content')
-    </div>
-
+    @yield('content')
 </body>
 </html>
