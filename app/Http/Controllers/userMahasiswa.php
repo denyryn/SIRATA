@@ -6,12 +6,19 @@ use Illuminate\Http\Request;
 
 class userMahasiswa extends Controller
 {
-    public function index () {
+    public function index()
+    {
         //get data from db and fetch
         return view('mahasiswa.dashboard');
     }
 
-    public function lacak () {
+    public function lacak()
+    {
         return view('mahasiswa.lacak_surat');
+    }
+
+    public function layanan()
+    {
+        return view('surat.form');
     }
 }

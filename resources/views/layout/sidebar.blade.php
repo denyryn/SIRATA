@@ -1,6 +1,6 @@
 <button data-drawer-target="default-sidebar" data-drawer-toggle="default-sidebar" aria-controls="default-sidebar"
     type="button"
-    class="inline-flex items-center p-2 mt-2 ms-3 text-sm text-gray-500 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 ">
+    class="inline-flex items-center p-2 mt-2 text-sm text-gray-500 rounded-lg ms-3 sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 ">
     <span class="sr-only">Open sidebar</span>
     <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
         <path clip-rule="evenodd" fill-rule="evenodd"
@@ -16,18 +16,19 @@
 
         <div class="flex flex-col items-center my-5">
             <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
-                class="h-14 sm:h-14 m-3 rounded-full" alt="User" />
-            <div class="text-center text-sm text-white">
+                class="m-3 rounded-full h-14 sm:h-14" alt="User" />
+            <div class="text-sm text-center text-white">
                 <span class="block ">Deny Rianto</span>
                 <span class="block ">4.33.22.1.06</span>
             </div>
         </div>
 
         <ul class="space-y-2 font-medium text-white">
+            {{-- DASHOBARD --}}
             <li>
-                <a href="/surat" class="group">
-                    <div class="flex justify-start items-center p-2 w-full hover:bg-blue-lighter px-7 py-3">
-                        <svg class="w-5 h-5  transition duration-75" viewBox="0 0 48.00 48.00"
+                <a href="{{ route('mahasiswa.index') }}" class="group">
+                    <div class="flex items-center justify-start w-full p-2 py-3 hover:bg-blue-lighter px-7">
+                        <svg class="w-5 h-5 transition duration-75" viewBox="0 0 48.00 48.00"
                             xmlns="http://www.w3.org/2000/svg" fill="currentColor">
                             <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
                             <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"
@@ -63,9 +64,10 @@
                 </a>
             </li>
             <li>
-                <a href="{{ route('surat.form') }}" class="">
-                    <div class="flex justify-start items-center p-2 w-full hover:bg-blue-lighter px-7 py-3">
-                        <svg class="w-5 h-5  transition duration-75" viewBox="0 0 24 24" fill="none"
+                {{-- LAYANAN SURAT --}}
+                <a href="{{ route('mahasiswa.layanan') }}" class="">
+                    <div class="flex items-center justify-start w-full p-2 py-3 hover:bg-blue-lighter px-7">
+                        <svg class="w-5 h-5 transition duration-75" viewBox="0 0 24 24" fill="none"
                             xmlns="http://www.w3.org/2000/svg">
                             <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
                             <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
@@ -83,8 +85,8 @@
             </li>
             <li>
                 <a href="/surat" class="group">
-                    <div class="flex justify-start items-center p-2 w-full hover:bg-blue-lighter px-7 py-3">
-                        <svg class="w-5 h-5  transition duration-75" viewBox="0 0 20 20" version="1.1"
+                    <div class="flex items-center justify-start w-full p-2 py-3 hover:bg-blue-lighter px-7">
+                        <svg class="w-5 h-5 transition duration-75" viewBox="0 0 20 20" version="1.1"
                             xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
                             fill="#000000">
                             <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
@@ -112,8 +114,8 @@
             </li>
             <li>
                 <a href="/surat" class="group">
-                    <div class="flex justify-start items-center p-2 w-full hover:bg-blue-lighter px-7 py-3">
-                        <svg class="w-5 h-5  transition duration-75" viewBox="0 0 24 24" fill="none"
+                    <div class="flex items-center justify-start w-full p-2 py-3 hover:bg-blue-lighter px-7">
+                        <svg class="w-5 h-5 transition duration-75" viewBox="0 0 24 24" fill="none"
                             xmlns="http://www.w3.org/2000/svg">
                             <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
                             <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
