@@ -4,16 +4,15 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
     public function up(): void
     {
         Schema::create('perihals', function (Blueprint $table) {
-            $table->integer('id_perihal')->primary();
-            $table->integer('id_kategori_surat');
+            $table->bigIncrements('id_perihal');
+            $table->unsignedBigInteger('id_kategori_surat');
             $table->string('nama_perihal');
             $table->text('template')->nullable();
 
