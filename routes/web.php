@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ProgramStudi;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,6 +18,8 @@ use Illuminate\Support\Facades\Route;
 //     return view('welcome');
 // });
 
-Route::get('/', function () {
-    return view('user.dashboard');
-});
+Route::get('/admin/', [ProgramStudi::class, 'read'])->name('admin.index');
+
+// Route::get('/', function () {
+//     return view('user.dashboard');
+// });
