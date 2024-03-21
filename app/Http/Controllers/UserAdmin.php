@@ -12,6 +12,6 @@ class UserAdmin extends Controller
         $data_prodi = Program_Studi::all();
         $total_prodi = Program_Studi::count();
 
-        return view("admin.index", compact('data_prodi', 'total_prodi'));
+        return view("admin.dashboard", compact('data_prodi', 'total_prodi'));
     }
 }

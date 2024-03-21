@@ -14,6 +14,7 @@
 <body class="font-poppins">
     @include('layout.sidebar')
 
+    {{-- header --}}
     <div class="content p-4 sm:ml-64">
         <div class="text-blue-light">
             {{-- Head / Posisi --}}
@@ -51,7 +52,15 @@
                         </path>
                     </g>
                 </svg>
-                <h1 class="ms-2">@yield('header')</h1>
+
+                {{-- Membuat format path untuk header --}}
+                @php
+                    $path = str_replace('_', ' ', request()->path()); // Replace underscores with spaces
+                    $formattedPath = ucwords(str_replace('/', ' / ', $path)); // Capitalize each word and add spaces around slashes
+                @endphp
+                <h1 class="ms-2">
+                    Sirata / {{ $formattedPath }}
+                </h1>
             </div>
 
             @yield('content')

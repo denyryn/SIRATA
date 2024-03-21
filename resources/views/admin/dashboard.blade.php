@@ -1,57 +1,9 @@
 @extends('layout.layout')
 
 @section('title', 'Dashboard')
-@section('header', 'Sirata / Dashboard')
 
 @section('content')
     <div>
-        {{-- <table class="table table-zebra">
-            <thead>
-                <tr>
-                    <th>No</th>
-                    <th>Nama</th>
-                    <th>Aksi</th>
-                </tr>
-            </thead>
-            <tbody>
-                @if ($data_prodi->isEmpty())
-                    <tr>
-                        <td colspan="2">No data available.</td>
-                    </tr>
-                @else
-                    @foreach ($data_prodi as $prodi)
-                        <tr>
-                            <td>{{ $prodi->id_prodi }}</td>
-                            <td>{{ $prodi->nama_prodi }}</td>
-                            <form class="w-full" method="POST" action="{{ route('prodi.delete', $prodi->id_prodi) }}">
-                                @csrf
-                                @method('DELETE')
-                                <td class="grid grid-cols-2">
-                                    <a class="m-2 text-white bg-blue-600 btn no-animation hover:bg-blue-400"
-                                        href="{{ route('prodi.edit', $prodi->id_prodi) }}">
-                                        Edit
-                                    </a>
-
-                                    <button type="submit" class="m-2 text-white bg-red-600 btn no-animation hover:bg-red-400"
-                                        onclick="return confirm('Confirm delete?')">Delete</button>
-                                </td>
-                            </form>
-                        </tr>
-                    @endforeach
-                @endif
-            </tbody>
-        </table>
-
-
-        <form method="POST" action="{{ route('prodi.store') }}">
-            @csrf
-            <div>
-                <label for="nama_pengaju">Nama Prodi : </label>
-                <input id="nama_prodi" type="text" name="nama_prodi" placeholder="Nama Prodi">
-                <br>
-                <input class="btn" type="submit" value="submit">
-            </div>
-        </form> --}}
         <div class="grid grid-cols-2 gap-4 my-6 md:gap-12 md:grid-cols-3">
             <a href="" class="duration-150 hover:animate-pulse">
                 <div class="text-white rounded-md bg-blue-light h-36">
@@ -105,7 +57,9 @@
                 <div class="text-white rounded-md bg-red-light h-36">
                     <div class="h-[75%] grid grid-cols-2">
                         <div class="flex flex-col p-4 justify-evenly">
-                            <span class="block text-4xl font-semibold md:text-5xl">{{ $total_prodi }}</span>
+                            <span class="block text-4xl font-semibold md:text-5xl">
+                                {{ $total_prodi }}
+                            </span>
                             <span class="block text-sm font-light">Total Prodi</span>
                         </div>
                         <div class="flex items-center justify-center">

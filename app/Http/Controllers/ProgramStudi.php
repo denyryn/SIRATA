@@ -11,7 +11,7 @@ class ProgramStudi extends Controller
     {
         $data_prodi = Program_Studi::all();
 
-        return view("admin.manage_prodi", compact('data_prodi'));
+        return view("admin.program_studi.index", compact('data_prodi'));
     }
 
     public function create()
