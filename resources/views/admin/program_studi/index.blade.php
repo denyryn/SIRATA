@@ -34,6 +34,7 @@
                             <form class="w-full" method="POST" action="{{ route('prodi.delete', $prodi->id_prodi) }}">
                                 @csrf
                                 @method('DELETE')
+
                                 <td class="grid grid-cols-2">
                                     {{-- <a class="m-2 text-white bg-blue-600 btn no-animation hover:bg-blue-400"
                                         href="{{ route('prodi.edit', $prodi->id_prodi) }}">

@@ -24,6 +24,8 @@
             <!-- Modal body -->
             <form class="p-4 md:p-5" method="POST" action="{{ route('prodi.update', $prodi->id_prodi) }}">
                 @csrf
+                @method('PUT')
+
                 <div class="grid grid-cols-2 gap-4 mb-4">
                     <div class="col-span-2">
                         <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nama
