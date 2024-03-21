@@ -1,7 +1,6 @@
 @extends('layout.layout')
 
-@section('title', 'Dashboard')
-@section('header', 'Sirata / Dashboard / Lacak')
+@section('title', 'Lacak Surat')
 
 @section('content')
     <div>
