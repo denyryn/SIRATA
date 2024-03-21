@@ -18,6 +18,14 @@ export default {
                 light: "#5271FF",
                 plain: "#0060A6",
             },
+            red: {
+                light: "#FF5959",
+                plain: "#FF1F1F",
+            },
+            yellow: {
+                light: "#F39C12",
+                plain: "#DB8D10",
+            },
         },
         backgroundImage: {
             GKT: "url('/public/images/GKT.jpeg')",
