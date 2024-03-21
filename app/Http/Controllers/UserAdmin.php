@@ -1,0 +1,17 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use App\Models\Program_Studi;
+
+class UserAdmin extends Controller
+{
+    public function index(Request $request)
+    {
+        $data_prodi = Program_Studi::all();
+        $total_prodi = Program_Studi::count();
+
+        return view("admin.index", compact('data_prodi', 'total_prodi'));
+    }
+}
