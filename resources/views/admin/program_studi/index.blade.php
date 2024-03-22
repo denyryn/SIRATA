@@ -36,11 +36,6 @@
                                 @method('DELETE')
 
                                 <td class="grid grid-cols-2">
-                                    {{-- <a class="m-2 text-white bg-blue-600 btn no-animation hover:bg-blue-400"
-                                        href="{{ route('prodi.edit', $prodi->id_prodi) }}">
-                                        Edit
-                                    </a> --}}
-
                                     <a data-modal-target="edit-prodi-modal{{ $prodi->id_prodi }}"
                                         data-modal-toggle="edit-prodi-modal{{ $prodi->id_prodi }}"
                                         class="m-2 text-white bg-blue-600 btn no-animation hover:bg-blue-700"
