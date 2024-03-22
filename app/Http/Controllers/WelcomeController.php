@@ -4,13 +4,15 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class Welcome extends Controller
+class WelcomeController extends Controller
 {
-    public function index() {
+    public function index()
+    {
         return view('index.welcome');
     }
 
-    public function login(){
+    public function login()
+    {
         return view('index.login');
     }
 }

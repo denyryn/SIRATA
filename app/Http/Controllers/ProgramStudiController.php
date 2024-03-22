@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Program_Studi;
 
-class ProgramStudi extends Controller
+class ProgramStudiController extends Controller
 {
     public function index(Request $request)
     {

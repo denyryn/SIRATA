@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Program_Studi;
 
-class UserAdmin extends Controller
+class UserAdminController extends Controller
 {
     public function index(Request $request)
     {
