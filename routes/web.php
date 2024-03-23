@@ -4,7 +4,7 @@ use App\Http\Controllers\UserMahasiswaController;
 use App\Http\Controllers\ProgramStudiController;
 use App\Http\Controllers\UserAdminController;
 use App\Http\Controllers\WelcomeController;
-use App\Http\Controllers\JabatanControlle;
+use App\Http\Controllers\JabatanController;
 
 /*
 |--------------------------------------------------------------------------
