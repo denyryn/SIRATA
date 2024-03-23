@@ -6,6 +6,8 @@ use App\Http\Controllers\UserMahasiswaController;
 use App\Http\Controllers\ProgramStudiController;
 use App\Http\Controllers\UserAdminController;
 use App\Http\Controllers\WelcomeController;
+use App\Http\Controllers\JabatanController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -36,4 +38,11 @@ Route::prefix('admin')->group(function () {
         Route::put('/{id_prodi}', [ProgramStudiController::class, 'update'])->name("prodi.update");
         Route::delete('/{id_prodi}', [ProgramStudiController::class, 'delete'])->name("prodi.delete");
     });
+    Route::prefix('/dashboard/jabatan')->group(function () {
+        Route::get('/', [JabatanController::class, 'index'])->name("admin.jabatan");
+        Route::post('/', [JabatanController::class, 'store'])->name("jabatan.store");
+        Route::put('/{id_jabatan}', [JabatanController::class, 'update'])->name("jabatan.update");
+        Route::delete('/{id_jabatan}', [JabatanController::class, 'delete'])->name("jabatan.delete");
+    });
+
 });
