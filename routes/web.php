@@ -1,10 +1,10 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\UserMahasiswa;
-use App\Http\Controllers\ProgramStudi;
-use App\Http\Controllers\UserAdmin;
-use App\Http\Controllers\Welcome;
+use App\Http\Controllers\UserMahasiswaController;
+use App\Http\Controllers\ProgramStudiController;
+use App\Http\Controllers\UserAdminController;
+use App\Http\Controllers\WelcomeController;
+use App\Http\Controllers\JabatanControlle;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,14 +30,19 @@ Route::prefix('admin')->group(function () {
     Route::get('/dashboard', [userAdmin::class, 'index'])->name("admin.index");
     Route::get('/dashboard/program_studi', [ProgramStudi::class, 'index'])->name("admin.prodi");
 
-}); //instead of one by one its better to use grouping :D
+    Route::prefix('/dashboard/program_studi')->group(function () {
+        Route::get('/', [ProgramStudiController::class, 'index'])->name("admin.prodi");
+        Route::post('/', [ProgramStudiController::class, 'store'])->name("prodi.store");
+        Route::put('/{id_prodi}', [ProgramStudiController::class, 'update'])->name("prodi.update");
+        Route::delete('/{id_prodi}', [ProgramStudiController::class, 'delete'])->name("prodi.delete");
+    });
 
-Route::prefix('functionProdi')->group(function () {
-    Route::post('/dashboard', [ProgramStudi::class, 'store'])->name("prodi.store");
+    Route::prefix('/dashboard/jabatan')->group(function () {
+        Route::get('/', [JabatanController::class, 'index'])->name("admin.jabatan");
+        Route::post('/', [JabatanController::class, 'store'])->name("jabatan.store");
+        Route::put('/{id_jabatan}', [JabatanController::class, 'update'])->name("jabatan.update");
+        Route::delete('/{id_jabatan}', [JabatanController::class, 'delete'])->name("jabatan.delete");
+    });
 
-    Route::get('/dashboard/{id_prodi}/edit', [ProgramStudi::class, 'edit'])->name("prodi.edit");
-    Route::put('/dashboard/{id_prodi}', [ProgramStudi::class, 'update'])->name("prodi.update");
-
-    Route::delete('/dashboard/{id_prodi}', [ProgramStudi::class, 'delete'])->name("prodi.delete");
 });
 
