@@ -44,5 +44,7 @@ Route::prefix('admin')->group(function () {
         Route::delete('/{id_jabatan}', [JabatanController::class, 'delete'])->name("jabatan.delete");
     });
 
+    
+
 });
 
