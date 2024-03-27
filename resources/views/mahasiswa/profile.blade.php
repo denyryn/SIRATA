@@ -4,6 +4,6 @@
 
 @section('content')
     <div class="font-">
-        Halo Laravel asik
+        Halo Saya Fatika
     </div>
 @endsection
