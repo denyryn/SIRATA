@@ -18,8 +18,8 @@
             <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
                 class="m-3 rounded-full h-14 sm:h-14" alt="User" />
             <div class="text-sm text-center text-white">
-                <span class="block ">Deny Rianto</span>
-                <span class="block ">4.33.22.1.06</span>
+                <span class="block ">Y.Dimas Agung Nugroho</span>
+                <span class="block ">4.33.22.1.26</span>
             </div>
         </div>
 
