@@ -21,4 +21,8 @@ class UserMahasiswaController extends Controller
     {
         return view('surat.form');
     }
+
+    public function profile(){
+        return view('mahasiswa.profile');
+    }
 }

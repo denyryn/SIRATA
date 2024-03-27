@@ -27,6 +27,7 @@ Route::prefix('mahasiswa')->group(function () {
     Route::get('/dashboard', [UserMahasiswaController::class, 'index'])->name("mahasiswa.index");
     Route::get('/dashboard/lacak_surat', [UserMahasiswaController::class, 'lacak'])->name("mahasiswa.lacak_surat");
     Route::get('/layanan', [UserMahasiswaController::class, 'layanan'])->name("mahasiswa.layanan");
+    Route::get('/profile', [UserMahasiswaController::class, 'profile'])->name("mahasiswa.profile");
 });
 
 Route::prefix('admin')->group(function () {
