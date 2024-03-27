@@ -49,4 +49,12 @@ Route::prefix('admin')->group(function () {
         Route::put('/{id_jabatan}', [JabatanController::class, 'update'])->name("jabatan.update");
         Route::delete('/{id_jabatan}', [JabatanController::class, 'delete'])->name("jabatan.delete");
     });
+
+    // Perihal Routes
+    Route::prefix('/dashboard/perihal')->group(function () {
+        Route::get('/', [JabatanController::class, 'index'])->name("admin.perihal");
+        Route::post('/', [JabatanController::class, 'store'])->name("perihal.store");
+        Route::put('/{id_perihal}', [JabatanController::class, 'update'])->name("perihal.update");
+        Route::delete('/{id_perihal}', [JabatanController::class, 'delete'])->name("perihal.delete");
+    });
 });
