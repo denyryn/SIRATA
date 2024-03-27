@@ -26,6 +26,10 @@ export default {
                 light: "#F39C12",
                 plain: "#DB8D10",
             },
+            green: {
+                light: "#63BC66",
+                plain: "#429340",
+            },
         },
         backgroundImage: {
             GKT: "url('/public/images/GKT.jpeg')",
