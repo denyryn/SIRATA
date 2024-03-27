@@ -9,6 +9,7 @@ use App\Http\Controllers\WelcomeController;
 use App\Http\Controllers\JabatanController;
 use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\PerihalController;
+use App\Http\Controllers\StatusController;
 
 
 
@@ -54,6 +55,15 @@ Route::prefix('admin')->group(function () {
         Route::post('/', [KategoriController::class, 'store'])->name("kategori.store");
         Route::put('/{id_kategori}', [KategoriController::class, 'update'])->name("kategori.update");
         Route::delete('/{id_kategori}', [KategoriController::class, 'delete'])->name("kategori.delete");
+    });
+
+    Route::prefix('/dashboard/status')->group(function () {
+        Route::get('/', [StatusController::class, 'index'])->name("admin.status");
+        Route::get('/{nama_status}', [StatusController::class, 'show'])->name("status.show");
+        Route::get('/create', [StatusController::class, 'create'])->name("status.create");
+        Route::post('/', [StatusController::class, 'store'])->name("status.store");
+        Route::put('/{id_status}', [StatusController::class, 'update'])->name("status.update");
+        Route::delete('/{id_status}', [StatusController::class, 'delete'])->name("status.delete");
     });
 
     Route::prefix('/dashboard/perihal')->group(function () {
