@@ -6,10 +6,10 @@
     <div>
         <div class="flex justify-end">
             <!-- Button untuk trigger modals, modals harus diinclude (di bawah) -->
-            <a href="{{ route('perihal.create') }}" class="m-2 text-white bg-blue-600 btn no-animation hover:bg-blue-700"
-                type="button">
+            <button data-modal-target="add-perihal-modal" data-modal-toggle="add-perihal-modal"
+                class="m-2 text-white bg-blue-600 btn no-animation hover:bg-blue-700" type="button">
                 Tambah Perihal
-            </a>
+            </button>
         </div>
 
         {{-- Menampilkan Data Program Studi --}}
@@ -17,9 +17,8 @@
             <thead>
                 <tr>
                     <th>ID</th>
-                    <th>Nama</th>
-                    <th>Kategori Surat</th>
-                    <th>Template</th>
+                    <th>perihal</th>
+                    <th>Aksi</th>
                 </tr>
             </thead>
             <tbody>
@@ -37,8 +36,15 @@
                                 @method('DELETE')
 
                                 <td class="grid grid-cols-2">
-                                    <a class="m-2 text-white bg-blue-600 btn no-animation hover:bg-blue-400"
+                                    {{-- <a class="m-2 text-white bg-blue-600 btn no-animation hover:bg-blue-400"
                                         href="{{ route('perihal.edit', $perihal->id_perihal) }}">
+                                        Edit
+                                    </a> --}}
+
+                                    <a data-modal-target="edit-perihal-modal{{ $perihal->id_perihal }}"
+                                        data-modal-toggle="edit-perihal-modal{{ $perihal->id_perihal }}"
+                                        class="m-2 text-white bg-blue-600 btn no-animation hover:bg-blue-700"
+                                        href="#">
                                         Edit
                                     </a>
 
@@ -53,5 +59,13 @@
             </tbody>
         </table>
     </div>
+
+    {{-- Include modals supaya form popup keluar --}}
+    @include('admin.perihal.modals.create')
+
+    {{-- Iterasi supaya modals edit dari semua data dapat keluar --}}
+    @foreach ($data_perihal as $perihal)
+        @include('admin.perihal.modals.edit')
+    @endforeach
 
 @endsection

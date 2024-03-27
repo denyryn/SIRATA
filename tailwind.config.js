@@ -30,6 +30,14 @@ export default {
                 light: "#63BC66",
                 plain: "#429340",
             },
+            orange: {
+                light: "#FF8B49",
+                plain: "#FF701F",
+            },
+            pink: {
+                light: "#FF669C",
+                plain: "#FF327B",
+            },
         },
         backgroundImage: {
             GKT: "url('/public/images/GKT.jpeg')",

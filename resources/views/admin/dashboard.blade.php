@@ -104,7 +104,7 @@
             </a>
 
             <a href="{{ route('admin.kategori') }}">
-                <div class="text-white rounded-md bg-yellow-light h-36">
+                <div class="text-white rounded-md bg-pink-light h-36">
                     <div class="h-[75%] grid grid-cols-2">
                         <div class="flex flex-col p-4 justify-evenly">
                             <span class="block text-4xl font-semibold md:text-5xl">
@@ -113,7 +113,7 @@
                             <span class="block text-sm font-light">Kategori Surat</span>
                         </div>
                         <div class="flex items-center justify-center">
-                            <svg class="text-yellow-700 size-16 md:size-20" fill="currentColor" viewBox="-5.5 0 32 32"
+                            <svg class="text-pink-700 size-16 md:size-20" fill="currentColor" viewBox="-5.5 0 32 32"
                                 version="1.1" xmlns="http://www.w3.org/2000/svg">
                                 <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
                                 <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
@@ -126,7 +126,7 @@
                             </svg>
                         </div>
                     </div>
-                    <div class="flex flex-row items-center justify-center rounded-md h-[25%] bg-yellow-plain">
+                    <div class="flex flex-row items-center justify-center rounded-md h-[25%] bg-pink-plain">
                         <span>More Info</span>
                         <div class="absolute hidden size-4 ms-48 md:flex">
                             <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#ffffff">
@@ -211,6 +211,48 @@
                         </div>
                     </div>
                     <div class="flex flex-row items-center justify-center rounded-md h-[25%] bg-yellow-plain">
+                        <span>More Info</span>
+                        <div class="absolute hidden size-4 ms-48 md:flex">
+                            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#ffffff">
+                                <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                                <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                                <g id="SVGRepo_iconCarrier">
+                                    <path
+                                        d="M16.9995 15.9995L20.9995 11.9995M20.9995 11.9995L16.9995 7.99951M20.9995 11.9995H8.99951M12.9995 20.9995H6.20029C5.08019 20.9995 4.52014 20.9995 4.09231 20.7815C3.71599 20.5898 3.41003 20.2838 3.21828 19.9075C3.00029 19.4797 3.00029 18.9196 3.00029 17.7995V6.19951C3.00029 5.07941 3.00029 4.51935 3.21828 4.09153C3.41003 3.71521 3.71599 3.40925 4.09231 3.2175C4.52014 2.99951 5.08019 2.99951 6.20029 2.99951L12.9995 2.99951"
+                                        stroke="#ffffff" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round">
+                                    </path>
+                                </g>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </a>
+
+            <a class="cursor-not-allowed" href="{{ route('admin.perihal') }}">
+                <div class="text-white rounded-md bg-orange-light h-36">
+                    <div class="h-[75%] grid grid-cols-2">
+                        <div class="flex flex-col p-4 justify-evenly">
+                            <span class="block text-4xl font-semibold md:text-5xl">
+                                {{ $total_perihal }}
+                            </span>
+                            <span class="block text-sm font-light">Total Perihal</span>
+                        </div>
+                        <div class="flex items-center justify-center">
+                            <svg class="text-orange-700 size-16 md:size-20" fill="currentColor" viewBox="0 0 24 24"
+                                id="heading-0" data-name="Flat Color" xmlns="http://www.w3.org/2000/svg"
+                                class="icon flat-color">
+                                <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                                <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                                <g id="SVGRepo_iconCarrier">
+                                    <path id="primary"
+                                        d="M20,22H15a1,1,0,0,1,0-2h1V13H8v7H9a1,1,0,0,1,0,2H4a1,1,0,0,1,0-2H5V4H4A1,1,0,0,1,4,2H9A1,1,0,0,1,9,4H8v7h8V4H15a1,1,0,0,1,0-2h5a1,1,0,0,1,0,2H19V20h1a1,1,0,0,1,0,2Z"
+                                        style="fill: currentColor;"></path>
+                                </g>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="flex flex-row items-center justify-center rounded-md h-[25%] bg-orange-plain">
                         <span>More Info</span>
                         <div class="absolute hidden size-4 ms-48 md:flex">
                             <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#ffffff">
