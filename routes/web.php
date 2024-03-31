@@ -6,6 +6,7 @@ use App\Http\Controllers\UserMahasiswaController;
 use App\Http\Controllers\ProgramStudiController;
 use App\Http\Controllers\UserAdminController;
 use App\Http\Controllers\WelcomeController;
+use App\Http\Controllers\KategoriSuratController;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,4 +37,12 @@ Route::prefix('admin')->group(function () {
         Route::put('/{id_prodi}', [ProgramStudiController::class, 'update'])->name("prodi.update");
         Route::delete('/{id_prodi}', [ProgramStudiController::class, 'delete'])->name("prodi.delete");
     });
+
+    Route::prefix('/dashboard/kategori_surat')->group(function () {
+        Route::get('/', [KategoriSuratController::class, 'index'])->name("admin.kategori");
+        Route::get('/{id}/edit', [KategoriSuratController::class, 'edit'])->name("kategori.edit");
+        Route::post('/', [KategoriSuratController::class, 'store'])->name("kategori.store");
+        Route::put('/{id_kategori_surat}', [KategoriSuratController::class, 'update'])->name("kategori.update");
+        Route::delete('/{id_kategori_surat}', [KategoriSuratController::class, 'delete'])->name("kategori.delete");
+    });  
 });

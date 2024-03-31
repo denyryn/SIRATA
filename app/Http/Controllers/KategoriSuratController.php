@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Kategori_Surat;
 
-class Kategori extends Controller
+class KategoriSuratController extends Controller
 {
     public function index(Request $request)
     {
@@ -30,7 +30,7 @@ class Kategori extends Controller
     public function edit(Request $request, $id_kategori)
     {
         $kategori = Kategori_Surat::find($id_kategori);
-        return view('admin.kategori', compact('kategori'));
+        return view('admin.kategori_surat.index', compact('kategori'));
     }
 
     public function update(Request $request, $id_kategori)
