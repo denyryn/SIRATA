@@ -13,7 +13,7 @@ class Surat extends Model
     protected $fillable = [
         'id_perihal',
         'id_jabatan',
-        'id_status',
+        'id_riwayat',
         'tujuan_surat', //Is it necessary?????
         'nomor_surat',
         'email_mahasiswa',
@@ -27,10 +27,6 @@ class Surat extends Model
         return $this->belongsTo('app\Models\Jabatan', 'id_jabatan');
     }
 
-    public function Status()
-    {
-        return $this->belongsTo('app\Models\Jabatan', 'id_status');
-    }
 
     public function Perihal()
     {
@@ -40,5 +36,10 @@ class Surat extends Model
     public function Pemohon()
     {
         return $this->hasMany('app\Models\Pemohon', 'id_surat');
+    }
+
+    public function Riwayat()
+    {
+        return $this->hasMany('app\Models\Riwayat', 'id_surat');
     }
 }
