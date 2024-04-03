@@ -3,9 +3,9 @@
 @section('title', 'Login')
 
 @section('content')
-    <div class="bg-blue-light min-h-screen py-10 px-4 flex justify-center items-center">
+    <div class="flex items-center justify-center min-h-screen px-4 py-10 bg-blue-light">
         <div class="bg-white w-max h-max rounded-xl">
-            <div class="m-14 flex items-center flex-col">
+            <div class="flex flex-col items-center m-14">
 
                 <div class="mb-5">
                     <img class="h-14 w-14"
@@ -15,17 +15,17 @@
 
                 <div class="flex flex-col md:flex-row">
                     <div class="m-4 flex flex-col items-start md:min-w-[50vh]">
-                        <span class="font-bold self-center md:self-start tracking-tight">Masukkan Username dan
+                        <span class="self-center font-bold tracking-tight md:self-start">Masukkan Username dan
                             Password</span>
-                        <form action="{{ route('mahasiswa.index') }}" class="w-full">
+                        <form action="{{ route('admin.index') }}" class="w-full">
                             <div class="form-control">
                                 <label for="username" class="label">
                                     <span class="label-text">Username</span>
                                 </label>
                                 <input id="username" name="username" type="text" placeholder="NIM/NIP"
-                                    class="input input-bordered rounded-2xl w-full" required />
+                                    class="w-full input input-bordered rounded-2xl" required />
                             </div>
-                            <table class="border-separate border-spacing-y-4 min-w-full">
+                            <table class="min-w-full border-separate border-spacing-y-4">
                                 <tr>
 
                                 </tr>
@@ -43,13 +43,13 @@
                                 <a href="#" class="label-text-alt link link-hover">Forgot password?</a>
                             </label>
                             <div class="mt-1 form-control">
-                                <button class="text-white bg-blue-plain btn border-none hover:bg-blue-light">Login</button>
+                                <button class="text-white border-none bg-blue-plain btn hover:bg-blue-light">Login</button>
                             </div>
 
                         </form>
                     </div>
                     <div class="m-4 flex-col items-start md:max-w-[50vh] text-justify hidden md:flex">
-                        <span class="font-bold tracking-tighter mb-2">SIRATA (Sistem Informasi Surat Terpadu)<br>Politeknik
+                        <span class="mb-2 font-bold tracking-tighter">SIRATA (Sistem Informasi Surat Terpadu)<br>Politeknik
                             Negeri Semarang</span>
                         <div class="text-sm tracking-tight">
                             <p class="my-2">
