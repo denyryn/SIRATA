@@ -18,15 +18,15 @@
             <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
                 class="m-3 rounded-full h-14 sm:h-14" alt="User" />
             <div class="text-sm text-center text-white">
-                <span class="block ">Aria V</span>
-                <span class="block ">4.33.22.1.02</span>
+                <span class="block ">Administrator</span>
+                <span class="block ">00.00.00.00</span>
             </div>
         </div>
 
         <ul class="space-y-2 font-medium text-white">
             {{-- DASHOBARD --}}
             <li>
-                <a href="{{ route('mahasiswa.index') }}" class="group">
+                <a href="{{ route('admin.index') }}" class="group">
                     <div class="flex items-center justify-start w-full p-2 py-3 hover:bg-blue-lighter px-7">
                         <svg class="w-5 h-5 transition duration-75" viewBox="0 0 48.00 48.00"
                             xmlns="http://www.w3.org/2000/svg" fill="currentColor">
@@ -63,6 +63,61 @@
                     </div>
                 </a>
             </li>
+
+            <li>
+                <button type="button"
+                    class="flex items-center justify-start w-full p-2 py-3 hover:bg-blue-lighter px-7"
+                    aria-controls="dropdown-master" data-collapse-toggle="dropdown-master">
+                    <svg class="w-5 h-5 transition duration-75" aria-hidden="true" viewBox="0 0 24 24" fill="none"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                        <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                        <g id="SVGRepo_iconCarrier">
+                            <path
+                                d="M4 8L6 20H18L20 8M4 8L5.71624 9.37299C6.83218 10.2657 7.39014 10.7121 7.95256 10.7814C8.4453 10.8421 8.94299 10.7173 9.34885 10.4314C9.81211 10.1051 10.0936 9.4483 10.6565 8.13476L12 5M4 8C4.55228 8 5 7.55228 5 7C5 6.44772 4.55228 6 4 6C3.44772 6 3 6.44772 3 7C3 7.55228 3.44772 8 4 8ZM20 8L18.2838 9.373C17.1678 10.2657 16.6099 10.7121 16.0474 10.7814C15.5547 10.8421 15.057 10.7173 14.6511 10.4314C14.1879 10.1051 13.9064 9.4483 13.3435 8.13476L12 5M20 8C20.5523 8 21 7.55228 21 7C21 6.44772 20.5523 6 20 6C19.4477 6 19 6.44772 19 7C19 7.55228 19.4477 8 20 8ZM12 5C12.5523 5 13 4.55228 13 4C13 3.44772 12.5523 3 12 3C11.4477 3 11 3.44772 11 4C11 4.55228 11.4477 5 12 5ZM12 4H12.01M20 7H20.01M4 7H4.01"
+                                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            </path>
+                        </g>
+                    </svg>
+                    <span class="flex-1 text-left ms-3 rtl:text-right whitespace-nowrap">Master</span>
+                    <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                        viewBox="0 0 10 6">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="m1 1 4 4 4-4" />
+                    </svg>
+                </button>
+                <ul id="dropdown-master" class="hidden py-2 space-y-2">
+                    <li>
+                        <a href="{{ route('admin.prodi') }}"
+                            class="flex items-center justify-start w-full p-2 pl-11 hover:bg-blue-lighter">
+                            Program Studi</a>
+                    </li>
+                    <li>
+                        <a href="{{ route('admin.kategori') }}"
+                            class="flex items-center justify-start w-full p-2 pl-11 hover:bg-blue-lighter">
+                            Kategori Surat</a>
+                    </li>
+                    <li>
+                        <a href="{{ route('admin.jabatan') }}"
+                            class="flex items-center justify-start w-full p-2 pl-11 hover:bg-blue-lighter">
+                            Jabatan
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('admin.status') }}"
+                            class="flex items-center justify-start w-full p-2 pl-11 hover:bg-blue-lighter">
+                            Status
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('admin.perihal') }}"
+                            class="flex items-center justify-start w-full p-2 pl-11 hover:bg-blue-lighter">
+                            Perihal
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
             <li>
                 {{-- LAYANAN SURAT --}}
                 <a href="{{ route('mahasiswa.layanan') }}" class="">
@@ -95,7 +150,8 @@
                                 <title>profile_round [#1342]</title>
                                 <desc>Created with Sketch.</desc>
                                 <defs> </defs>
-                                <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                <g id="Page-1" stroke="none" stroke-width="1" fill="none"
+                                    fill-rule="evenodd">
                                     <g id="Dribbble-Light-Preview" transform="translate(-140.000000, -2159.000000)"
                                         fill="currentColor">
                                         <g id="icons" transform="translate(56.000000, 160.000000)">
@@ -113,14 +169,17 @@
                 </a>
             </li>
             <li>
-                <a href="/surat" class="group">
-                    <div class="flex items-center justify-start w-full p-2 py-3 hover:bg-blue-lighter px-7">
+                <form action="{{ route('logout') }}" method="POST">
+                    @csrf
+                    <button type="submit"
+                    class="flex items-center justify-start w-full p-2 py-3 hover:bg-blue-lighter px-7">
                         <svg class="w-5 h-5 transition duration-75" viewBox="0 0 24 24" fill="none"
                             xmlns="http://www.w3.org/2000/svg">
                             <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
                             <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
                             <g id="SVGRepo_iconCarrier">
-                                <path d="M21 12L13 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                <path
+                                    d="M21 12L13 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                     stroke-linejoin="round"></path>
                                 <path
                                     d="M18 15L20.913 12.087V12.087C20.961 12.039 20.961 11.961 20.913 11.913V11.913L18 9"
@@ -134,8 +193,8 @@
                         </svg>
 
                         <span class="ms-3">Logout</span>
-                    </div>
-                </a>
+                    </button>
+                </form>
             </li>
         </ul>
     </div>

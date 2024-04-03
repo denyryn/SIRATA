@@ -44,10 +44,10 @@
                 </thead>
                 <tbody class="text-gray-900">
                     <td>1</td>
-                    <td>17-09-1945</td>
-                    <td>Proklamasi</td>
-                    <td>Urgensi</td>
-                    <td>03.00 AM</td>
+                    <td>25-03-2024</td>
+                    <td>Permohonan Beasiswa</td>
+                    <td>Beasiswa</td>
+                    <td>07.00 AM</td>
                     <td>
                         <a href="{{ route('mahasiswa.lacak_surat') }}">
                             <button
