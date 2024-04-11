@@ -15,10 +15,18 @@
     @include('layout.sidebar')
 
     {{-- header --}}
-    <div class="content p-4 sm:ml-64">
+    <div class="p-4 content sm:ml-64">
+        <div class="flex flex-row items-center my-4 justify-evenly md:justify-end">
+            <img class="h-10" src="{{ asset('images/polines-wquote.png') }}" alt="">
+            <img class="h-10 ms-2" src="{{ asset('images/hme.png') }}" alt="">
+            <div class="flex flex-row items-center ms-2">
+                <img class="size-8" src="{{ asset('images/sirata-gradient-logo.png') }}" alt="">
+                <img class="h-10 ms-1" src="{{ asset('images/sirata-gradient-letters.png') }}" alt="">
+            </div>
+        </div>
         <div class="text-blue-light">
             {{-- Head / Posisi --}}
-            <div class="w-full bg-blue-100 h-14 rounded-xl p-4 items-center font-normal flex mb-4">
+            <div class="flex items-center w-full p-4 mb-4 font-normal bg-blue-100 h-14 rounded-xl">
                 <svg class="h-5" version="1.1" id="Icons" xmlns="http://www.w3.org/2000/svg"
                     xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 32 32" xml:space="preserve"
                     fill="currentColor">
