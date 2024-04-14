@@ -15,10 +15,10 @@
     @include('layout.sidebar')
 
     {{-- header --}}
-    <div class="content p-4 sm:ml-64">
+    <div class="p-4 content sm:ml-64">
         <div class="text-blue-light">
             {{-- Head / Posisi --}}
-            <div class="w-full bg-blue-100 h-14 rounded-xl p-4 items-center font-normal flex mb-4">
+            <div class="flex items-center w-full p-4 mb-4 font-normal bg-blue-100 h-14 rounded-xl">
                 <svg class="h-5" version="1.1" id="Icons" xmlns="http://www.w3.org/2000/svg"
                     xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 32 32" xml:space="preserve"
                     fill="currentColor">
@@ -63,7 +63,9 @@
                 </h1>
             </div>
 
-            @yield('content')
+            <div>
+                @yield('content')
+            </div>
 
         </div>
     </div>

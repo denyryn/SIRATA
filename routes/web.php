@@ -10,6 +10,7 @@ use App\Http\Controllers\JabatanController;
 use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\PerihalController;
 use App\Http\Controllers\StatusController;
+use App\Http\Controllers\TampilTemplateSuratController;
 
 
 /*
@@ -60,7 +61,11 @@ Route::prefix('admin')->group(function () {
         Route::post('/', [PerihalController::class, 'store'])->name("perihal.store");
         Route::put('/{id_perihal}', [PerihalController::class, 'update'])->name("perihal.update");
         Route::delete('/{id_perihal}', [PerihalController::class, 'delete'])->name("perihal.delete");
+
+        Route::get('/create', [PerihalController::class, 'create'])->name("perihal.create");
+        Route::get('/edit/{id_perihal}', [PerihalController::class, 'edit'])->name("perihal.edit");
     });
+
     Route::prefix('/dashboard/kategori_surat')->group(function () {
         Route::get('/', [KategoriController::class, 'index'])->name("admin.kategori");
         Route::post('/', [KategoriController::class, 'store'])->name("kategori.store");
@@ -87,4 +92,7 @@ Route::prefix('admin')->group(function () {
 
 });
 
-
+Route::prefix('/surat/template')->group(function () {
+    Route::get('/allinone', [TampilTemplateSuratController::class, 'allinone'])->name("template.allinone");
+    Route::get('/buildone', [TampilTemplateSuratController::class, 'build'])->name("template.build");
+});

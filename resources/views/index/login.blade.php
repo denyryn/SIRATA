@@ -1,4 +1,4 @@
-@extends('indexLayout.layout')
+@extends('minimal_layout.layout')
 
 @section('title', 'Login')
 

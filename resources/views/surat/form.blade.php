@@ -6,12 +6,6 @@
 @section('content')
     {{-- Bar Pencarian Surat --}}
     <nav class="flex items-center justify-end w-full p-2 font-normal bg-blue-500 h-fit rounded-xl">
-        {{-- <div class="searchbox">
-            <form action="">
-                <input type="search" placeholder="Cari Template"
-                    class="py-1 text-sm border-none rounded-md outline-none focus:border-blue-500">
-            </form>
-        </div> --}}
         <div class="justify-end">
             <form class="flex items-center max-w-sm mx-auto">
                 <label for="simple-search" class="sr-only">Search</label>
