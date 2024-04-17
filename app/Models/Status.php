@@ -15,8 +15,8 @@ class Status extends Model
         'nama_status'
     ];
 
-    public function Surat()
+    public function Riwayat()
     {
-        return $this->belongsTo('app\Models\Surat', 'id_status');
+        return $this->hasMany('app\Models\Riwayat', 'id_riwayat');
     }
 }
