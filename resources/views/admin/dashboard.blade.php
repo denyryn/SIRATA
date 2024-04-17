@@ -229,7 +229,7 @@
                 </div>
             </a>
 
-            <a class="cursor-not-allowed pointer-events-none" href="{{ route('admin.perihal') }}">
+            <a href="{{ route('admin.perihal') }}">
                 <div class="text-white rounded-md bg-orange-light h-36">
                     <div class="h-[75%] grid grid-cols-2">
                         <div class="flex flex-col p-4 justify-evenly">
