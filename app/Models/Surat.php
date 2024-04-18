@@ -11,16 +11,21 @@ class Surat extends Model
     protected $table = 'surats';
     protected $primaryKey = 'id_surat';
     protected $fillable = [
+        'id_user',
         'id_perihal',
         'id_jabatan',
         'id_riwayat',
         'tujuan_surat', //Is it necessary?????
         'nomor_surat',
-        'email_mahasiswa',
         'tanggal_surat',
         'lampiran'
 
     ];
+
+    public function User()
+    {
+        return $this->belongsTo('app\Models\User', 'id_user');
+    }
 
     public function Jabatan()
     {
