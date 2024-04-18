@@ -15,6 +15,8 @@ return new class extends Migration {
             $table->unsignedBigInteger('id_kategori_surat');
             $table->string('nama_perihal');
             $table->text('template')->nullable();
+            $table->text('body')->nullable();
+            $table->text('footer')->nullable();
 
             $table->foreign('id_kategori_surat')->references('id_kategori_surat')->on('kategori_surats');
         });

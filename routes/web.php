@@ -10,6 +10,7 @@ use App\Http\Controllers\JabatanController;
 use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\PerihalController;
 use App\Http\Controllers\StatusController;
+use App\Http\Controllers\TemplateController;
 
 
 /*
@@ -54,13 +55,6 @@ Route::prefix('admin')->group(function () {
         Route::delete('/{id_jabatan}', [JabatanController::class, 'delete'])->name("jabatan.delete");
     });
 
-    // Perihal Routes
-    Route::prefix('/dashboard/perihal')->group(function () {
-        Route::get('/', [PerihalController::class, 'index'])->name("admin.perihal");
-        Route::post('/', [PerihalController::class, 'store'])->name("perihal.store");
-        Route::put('/{id_perihal}', [PerihalController::class, 'update'])->name("perihal.update");
-        Route::delete('/{id_perihal}', [PerihalController::class, 'delete'])->name("perihal.delete");
-    });
     Route::prefix('/dashboard/kategori_surat')->group(function () {
         Route::get('/', [KategoriController::class, 'index'])->name("admin.kategori");
         Route::post('/', [KategoriController::class, 'store'])->name("kategori.store");
@@ -77,14 +71,17 @@ Route::prefix('admin')->group(function () {
         Route::delete('/{id_status}', [StatusController::class, 'delete'])->name("status.delete");
     });
 
-    // Route::prefix('/dashboard/perihal')->group(function () {
-    //     Route::get('/', [PerihalController::class, 'index'])->name("admin.perihal");
-    //     Route::get('/{nama_perihal}', [PerihalController::class, 'show'])->name("perihal.show");
-    //     Route::get('/create', [PerihalController::class, 'create'])->name("perihal.create");
-    //     Route::post('/', [PerihalController::class, 'store'])->name("perihal.store");
-    //     Route::put('/{id_perihal}', [PerihalController::class, 'update'])->name("perihal.update");
-    // });
+    Route::prefix('/dashboard/perihal')->group(function () {
+        Route::get('/', [PerihalController::class, 'index'])->name("admin.perihal");
+        Route::get('/create', [PerihalController::class, 'create'])->name("perihal.create");
+        Route::get('/details/{id_perihal}', [PerihalController::class, 'read'])->name("perihal.read");
+        Route::post('/', [PerihalController::class, 'store'])->name("perihal.store");
+        Route::put('/{id_perihal}', [PerihalController::class, 'update'])->name("perihal.update");
+    });
 
 });
 
-
+// Mahasiswa Routes
+Route::prefix('template')->group(function () {
+    Route::get('/build', [TemplateController::class, 'create'])->name("template.build");
+});
