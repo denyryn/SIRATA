@@ -24,6 +24,6 @@ class User extends Model
 
     public function Surat()
     {
-        return $this->hasMany('app\Models\Surat', 'id_surat');
+        return $this->hasMany('app\Models\Surat', 'id_user');
     }
 }
