@@ -8,11 +8,12 @@ class WelcomeController extends Controller
 {
     public function index()
     {
-        return view('index.welcome');
+        // return view('auths.welcome');
+        return redirect(route('welcome.login'));
     }
 
     public function login()
     {
-        return view('index.login');
+        return view('auths.login');
     }
 }

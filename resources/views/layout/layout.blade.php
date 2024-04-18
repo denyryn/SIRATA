@@ -15,7 +15,7 @@
     @include('layout.sidebar')
 
     {{-- header --}}
-    <div class="p-4 content sm:ml-64">
+    <div class="content p-4 sm:ml-64">
         <div class="text-blue-light">
             {{-- Head / Posisi --}}
             <div class="flex items-center w-full p-4 mb-4 font-normal bg-blue-100 h-14 rounded-xl">

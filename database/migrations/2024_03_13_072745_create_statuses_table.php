@@ -12,7 +12,7 @@ return new class extends Migration {
     {
         Schema::create('statuses', function (Blueprint $table) {
             $table->bigIncrements('id_status');
-            $table->string('nama_status', 10);
+            $table->string('nama_status', 50);
         });
     }
 
