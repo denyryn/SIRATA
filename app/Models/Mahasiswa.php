@@ -22,8 +22,4 @@ class Mahasiswa extends Model
         return $this->belongsTo('app\Models\Kelas', 'id_kelas');
     }
 
-    public function Pemohon()
-    {
-        return $this->hasMany('app\Models\Pemohon', 'id_mahasiswa');
-    }
 }

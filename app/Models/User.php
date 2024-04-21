@@ -26,4 +26,14 @@ class User extends Model
     {
         return $this->hasMany('app\Models\Surat', 'id_user');
     }
+
+    public function Pemohon()
+    {
+        return $this->hasMany('app\Models\Pemohon', 'id_user');
+    }
+
+    public function Tanda_Tangan()
+    {
+        return $this->hasOne('app\Models\Tanda_Tangan', 'id_user');
+    }
 }

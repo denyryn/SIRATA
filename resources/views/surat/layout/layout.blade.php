@@ -15,10 +15,14 @@
             /* F4 paper height */
             margin: 0 auto;
         }
+
+        .table-border-black {
+            border-color: black;
+        }
     </style>
 
     <title>@yield('title')</title>
-    
+
 </head>
 
 <body class="font-surat px-[3cm] py-[5cm]">
@@ -26,3 +30,4 @@
 </body>
 
 </html>
+

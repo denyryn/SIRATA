@@ -5,9 +5,10 @@
 @section('content')
 
     <div class="grid grid-cols-12">
-        <form action="{{ route('perihal.store') }}" method="POST" class="grid w-1/2 min-w-full col-start-1 col-end-6 grid-">
+        <form action="{{ route('perihal.update', $data_perihal->id_perihal) }}" method="POST"
+            class="grid w-1/2 min-w-full col-start-1 col-end-6 grid-">
             @csrf
-            @method('POST')
+            @method('PUT')
 
             <div class="mb-5">
                 <label for="nama_perihal" class="block mb-2 text-sm font-medium text-gray-900 ">
@@ -15,8 +16,8 @@
                 </label>
                 <input type="text"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                    id="perihal" name="nama_perihal" placeholder="Masukkan Nama Perihal" required
-                    oninput="updateContent()" />
+                    id="perihal" name="nama_perihal" placeholder="Masukkan Nama Perihal" required oninput="updateContent()"
+                    value="{{ $data_perihal->nama_perihal }}" />
             </div>
             <div class="mb-5">
                 <label for="id_kategori_surat" class="block mb-2 text-sm font-medium text-gray-900 ">
@@ -26,8 +27,9 @@
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                     name="id_kategori_surat" id="id_kategori_surat" required onchange="showContent()">
                     <option value="">Pilih Kategori</option>
-                    @foreach ($opsi_kategori as $id => $nama)
-                        <option value="{{ $id }}">{{ $nama }}</option>
+                    @foreach ($opsi_kategori as $id_kategori => $nama)
+                        <option value="{{ $id_kategori }}" @if ($id_kategori == $data_perihal->id_kategori_surat) selected @endif>
+                            {{ $nama }}</option>
                     @endforeach
                 </select>
             </div>
@@ -38,7 +40,7 @@
                 <textarea
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                     id="nama_tujuan" name="nama_tujuan" cols="30" rows="4" placeholder="Masukkan Nama Tujuan"
-                    oninput="updateContent()"></textarea>
+                    oninput="updateContent()">{{ $data_perihal->nama_tujuan }}</textarea>
             </div>
             <div class="mb-5">
                 <label for="alamat_tujuan" class="block mb-2 text-sm font-medium text-gray-900">
@@ -47,7 +49,7 @@
                 <textarea
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                     id="alamat_tujuan" name="alamat_tujuan" cols="30" rows="4" placeholder="Masukkan Alamat Tujuan"
-                    oninput="updateContent()"></textarea>
+                    oninput="updateContent()">{{ $data_perihal->alamat_tujuan }}</textarea>
             </div>
             <div class="mb-5">
                 <label for="upper_body" class="block mb-2 text-sm font-medium text-gray-900">
@@ -56,7 +58,7 @@
                 <textarea
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                     id="upper_body" name="upper_body" cols="30" rows="4" placeholder="Masukkan Upper Body"
-                    oninput="updateContent()"></textarea>
+                    oninput="updateContent()">{{ $data_perihal->upper_body }}</textarea>
             </div>
             <div class="mb-5">
                 <label for="lower_body" class="block mb-2 text-sm font-medium text-gray-900">
@@ -65,7 +67,7 @@
                 <textarea
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                     id="lower_body" name="lower_body" cols="30" rows="4" placeholder="Masukkan Lower Body"
-                    oninput="updateContent()"></textarea>
+                    oninput="updateContent()">{{ $data_perihal->lower_body }}</textarea>
             </div>
 
             <button type=" submit"

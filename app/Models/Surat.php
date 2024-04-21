@@ -12,12 +12,14 @@ class Surat extends Model
     protected $primaryKey = 'id_surat';
     protected $fillable = [
         'id_user',
-        'id_perihal',
         'id_jabatan',
         'id_riwayat',
-        'tujuan_surat', //Is it necessary?????
+        'perihal',
+        'tujuan_surat',
         'nomor_surat',
         'tanggal_surat',
+        'body',
+        'lower',
         'lampiran'
 
     ];
@@ -30,12 +32,6 @@ class Surat extends Model
     public function Jabatan()
     {
         return $this->belongsTo('app\Models\Jabatan', 'id_jabatan');
-    }
-
-
-    public function Perihal()
-    {
-        return $this->belongsTo('app\Models\Jabatan', 'id_perihal');
     }
 
     public function Pemohon()

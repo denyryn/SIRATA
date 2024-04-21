@@ -2,8 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 
-use App\Http\Controllers\UserMahasiswaController;
 use App\Http\Controllers\ProgramStudiController;
+use App\Http\Controllers\UserMahasiswaController;
 use App\Http\Controllers\UserAdminController;
 use App\Http\Controllers\WelcomeController;
 use App\Http\Controllers\JabatanController;
@@ -11,6 +11,7 @@ use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\PerihalController;
 use App\Http\Controllers\StatusController;
 use App\Http\Controllers\TemplateController;
+use App\Http\Controllers\LayananSuratController;
 
 
 /*
@@ -24,18 +25,21 @@ use App\Http\Controllers\TemplateController;
 |
 */
 
-// Welcome Routes
+// =============================== AUTH ROUTE ================================
 Route::get('/', [WelcomeController::class, 'index'])->name("welcome.index");
 Route::get('/login', [WelcomeController::class, 'login'])->name("welcome.login");
 
-// Mahasiswa Routes
+// =============================== GROUP ROUTE MAHASISWA ================================
 Route::prefix('mahasiswa')->group(function () {
     Route::get('/dashboard', [UserMahasiswaController::class, 'index'])->name("mahasiswa.index");
-    Route::get('/dashboard/lacak_surat', [UserMahasiswaController::class, 'lacak'])->name("mahasiswa.lacak_surat");
-    Route::get('/layanan', [UserMahasiswaController::class, 'layanan'])->name("mahasiswa.layanan");
+    Route::get('/dashboard/lacak_surat', [LayananSuratController::class, 'lacak'])->name("mahasiswa.lacak_surat");
+    Route::prefix('/layanan')->group(function () {
+        Route::get('/', [LayananSuratController::class, 'index'])->name("mahasiswa.layanan");
+        Route::get('/{nama_kategori}', [LayananSuratController::class, 'create'])->name("mahasiswa.layanan.surat");
+    });
 });
 
-// Admin Routes
+// =============================== GROUP ROUTE ADMIN ================================
 Route::prefix('admin')->group(function () {
     Route::get('/dashboard', [UserAdminController::class, 'index'])->name("admin.index");
 
@@ -64,7 +68,7 @@ Route::prefix('admin')->group(function () {
 
     Route::prefix('/dashboard/status')->group(function () {
         Route::get('/', [StatusController::class, 'index'])->name("admin.status");
-        Route::get('/{nama_status}', [StatusController::class, 'show'])->name("status.show");
+        Route::get('/{id_status}', [StatusController::class, 'show'])->name("status.show");
         Route::get('/create', [StatusController::class, 'create'])->name("status.create");
         Route::post('/', [StatusController::class, 'store'])->name("status.store");
         Route::put('/{id_status}', [StatusController::class, 'update'])->name("status.update");
@@ -76,12 +80,15 @@ Route::prefix('admin')->group(function () {
         Route::get('/create', [PerihalController::class, 'create'])->name("perihal.create");
         Route::get('/details/{id_perihal}', [PerihalController::class, 'read'])->name("perihal.read");
         Route::post('/', [PerihalController::class, 'store'])->name("perihal.store");
+        Route::get('/edit/{id_perihal}', [PerihalController::class, 'edit'])->name("perihal.edit");
         Route::put('/{id_perihal}', [PerihalController::class, 'update'])->name("perihal.update");
+        Route::delete('/{id_perihal}', [PerihalController::class, 'delete'])->name("perihal.delete");
+
     });
 
 });
 
-// Mahasiswa Routes
+// =============================== GROUP ROUTE TEMPLATE ================================
 Route::prefix('template')->group(function () {
     Route::get('/build', [TemplateController::class, 'create'])->name("template.build");
 });

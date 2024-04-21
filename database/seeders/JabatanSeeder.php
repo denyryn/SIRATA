@@ -14,7 +14,11 @@ class JabatanSeeder extends Seeder
     public function run(): void
     {
         $jabatans = [
-            ["nama_jabatan" => "Kepala Program Studi"]
+            ["nama_jabatan" => "Ketua Jurusan Elektro"],
+            ["nama_jabatan" => "Kepala Program Studi Teknologi Rekayasa Komputer"],
+            ["nama_jabatan" => "Kepala Program Studi Teknik Elektro"],
+
+
         ];
 
         Jabatan::insert($jabatans);
