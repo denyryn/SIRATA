@@ -13,7 +13,8 @@
 </head>
 
 <body class="font-poppins">
-    @include('layout.sidebar')
+    {{-- @include('layout.sidebars.mahasiswa_sidebar') --}}
+    @include('layout.sidebars.admin_sidebar')
 
     {{-- header --}}
     <div class="p-4 content sm:ml-64">

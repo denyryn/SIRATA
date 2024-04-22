@@ -8,7 +8,7 @@
         <div class="flex justify-end mb-4 ">
             <div>
                 <form class="flex items-center max-w-sm mx-auto">
-                    <label for="simple-search" class="sr-only">Search</label>
+                    <label for="simple-search rounded-lg" class="sr-only">Search</label>
                     <div class="relative w-full">
                         <div class="absolute inset-y-0 flex items-center pointer-events-none start-0 ps-3">
                             <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" fill="currentColor"
@@ -95,3 +95,4 @@
         </div>
     </div>
 @endsection
+

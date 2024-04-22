@@ -6,14 +6,27 @@
     <table>
         <tr>
             <td>
-                Perihal
+                Nomor
             </td>
             <td>
-                &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp : &nbsp
+                &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp : &nbsp
+            </td>
+            <td>
+                <p>
+                    {!! isset($data_surat->nomor_surat) ? $data_surat->nomor_surat : '...........' !!}
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Hal
+            </td>
+            <td>
+                &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp : &nbsp
             </td>
             <td>
                 <p id="perihalContent">
-                    {{ isset($data_perihal->nama_perihal) ? $data_perihal->nama_perihal : '...........' }}
+                    {!! isset($data_perihal->nama_perihal) ? $data_perihal->nama_perihal : '...........' !!}
                 </p>
             </td>
         </tr>
@@ -26,20 +39,20 @@
             <tr>
                 <td>
                     <p id="namaTujuanContent">
-                        {{ isset($data_perihal->nama_tujuan) ? $data_perihal->nama_tujuan : '...........' }}
+                        {!! isset($data_perihal->nama_tujuan) ? $data_perihal->nama_tujuan : '...........' !!}
                     </p>
                 </td>
             </tr>
         </table>
         <p id="alamatTujuanContent">
-            {{ isset($data_perihal->alamat_tujuan) ? $data_perihal->alamat_tujuan : '...........' }}
+            {!! isset($data_perihal->alamat_tujuan) ? $data_perihal->alamat_tujuan : '...........' !!}
         </p>
     </div>
 
     <div class="p-[0.5cm]"></div>
 
     <p id="upperBodyContent">
-        {{ isset($data_perihal->upper_body) ? $data_perihal->upper_body : '...........' }}
+        {!! isset($data_perihal->upper_body) ? $data_perihal->upper_body : '...........' !!}
     </p>
 
     <div class="p-[0.3cm]"></div>
@@ -57,16 +70,16 @@
                     <!-- foreach($data as $row) -->
                     <tr class="border px-[0.1cm] py-[0.1cm] ps-[0.2cm]">
                         <td class="border px-[0.1cm] py-[0.1cm] ps-[0.2cm] text-center">
-                            {{ $no }}
+                            {!! $no !!}
                         </td>
                         <td class="border px-[0.1cm] py-[0.1cm] ps-[0.2cm] text-center">
-                            {{ isset($surat->nama) ? $surat->nama : '...........' }}
+                            {!! isset($surat->nama) ? $surat->nama : '...........' !!}
                         </td>
                         <td class="border px-[0.1cm] py-[0.1cm] ps-[0.2cm] text-center">
-                            {{ isset($surat->nim) ? $surat->nim : '...........' }}
+                            {!! isset($surat->nim) ? $surat->nim : '...........' !!}
                         </td>
                         <td class="border px-[0.1cm] py-[0.1cm] ps-[0.2cm] text-center">
-                            {{ isset($surat->program_studi) ? $surat->program_studi : '...........' }}
+                            {!! isset($surat->program_studi) ? $surat->program_studi : '...........' !!}
                         </td>
                     </tr>
                     <!-- endforeach -->
@@ -80,7 +93,7 @@
 
     <div>
         <p id="lowerBodyContent">
-            {{ isset($data_perihal->lower_body) ? $data_perihal->lower_body : '...........' }}
+            {!! isset($data_perihal->lower_body) ? $data_perihal->lower_body : '...........' !!}
         </p>
     </div>
 
@@ -90,7 +103,7 @@
         <table>
             <tr>
                 <td>Semarang,
-                    {{ isset($surat->date) ? $surat->date : (isset($tanggal_sekarang) ? $tanggal_sekarang : '...........') }}
+                    {!! isset($surat->date) ? $surat->date : (isset($tanggal_sekarang) ? $tanggal_sekarang : '...........') !!}
                 </td>
             </tr>
             <tr>
@@ -103,12 +116,12 @@
             </tr>
             <tr>
                 <td>
-                    {{ isset($surat->nama[0]) ? $surat->nama[0] : '...........' }}
+                    {!! isset($surat->nama[0]) ? $surat->nama[0] : '...........' !!}
                 </td>
             </tr>
             <tr>
                 <td>
-                    NIM. {{ isset($surat->nim[0]) ? $surat->nim[0] : '...........' }}
+                    NIM. {!! isset($surat->nim[0]) ? $surat->nim[0] : '...........' !!}
                 </td>
             </tr>
         </table>

@@ -54,6 +54,11 @@ class perihalController extends Controller
         $nama_kategori = strtolower(str_replace(' ', '_', $data_perihal->kategori_Surat->nama_kategori ?? ''));
         $no = 1;
         $tanggal_sekarang = Carbon::now()->translatedFormat('F Y');
+
+        if (!view()->exists('surat.template.' . $nama_kategori)) {
+            return abort(404, 'Template not found'); // Or redirect to appropriate error page
+        }
+
         $rendered_template = view('surat.template.' . $nama_kategori, compact('no', 'data_perihal', 'tanggal_sekarang'))->render();
         return view('admin.perihal.detail', compact('no', 'data_perihal', 'rendered_template'));
     }
@@ -80,8 +85,10 @@ class perihalController extends Controller
         $data_perihal = perihal::find($id_perihal);
         $data_perihal->nama_perihal = $request->nama_perihal;
         $data_perihal->id_kategori_surat = $request->id_kategori_surat;
+        $data_perihal->nama_tujuan = $request->nama_tujuan;
+        $data_perihal->alamat_tujuan = $request->alamat_tujuan;
         $data_perihal->upper_body = $request->upper_body;
-        $data_perihal->lower_body = $request->lower_body; //gotta change the table name to lower ASAP
+        $data_perihal->lower_body = $request->lower_body;
         $data_perihal->update();
         return redirect(route('admin.perihal'));
     }

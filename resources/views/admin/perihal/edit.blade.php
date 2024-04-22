@@ -39,7 +39,7 @@
                 </label>
                 <textarea
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                    id="nama_tujuan" name="nama_tujuan" cols="30" rows="4" placeholder="Masukkan Nama Tujuan"
+                    id="nama_tujuan" name="nama_tujuan" cols="30" rows="2" placeholder="Masukkan Nama Tujuan"
                     oninput="updateContent()">{{ $data_perihal->nama_tujuan }}</textarea>
             </div>
             <div class="mb-5">
@@ -48,7 +48,7 @@
                 </label>
                 <textarea
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                    id="alamat_tujuan" name="alamat_tujuan" cols="30" rows="4" placeholder="Masukkan Alamat Tujuan"
+                    id="alamat_tujuan" name="alamat_tujuan" cols="30" rows="2" placeholder="Masukkan Alamat Tujuan"
                     oninput="updateContent()">{{ $data_perihal->alamat_tujuan }}</textarea>
             </div>
             <div class="mb-5">
@@ -163,6 +163,28 @@
             zoomLevel = Math.max(zoomLevel - 0.1, 0.1);
             templateDoc.documentElement.style.transform = `scale(${zoomLevel})`;
         }
+    </script>
+
+    <script>
+        const textarea = document.getElementById('lower_body');
+
+        textarea.addEventListener('keydown', function(event) {
+            // Check if Enter key is pressed (key code 13)
+            if (event.keyCode === 13) {
+                // Prevent the default behavior of the Enter key
+                event.preventDefault();
+
+                // Insert <br> tag at the cursor position
+                const cursorPos = textarea.selectionStart;
+                const textBeforeCursor = textarea.value.substring(0, cursorPos);
+                const textAfterCursor = textarea.value.substring(cursorPos);
+                textarea.value = textBeforeCursor + '<br>\n' + textAfterCursor;
+
+                // Move the cursor position after the inserted <br> tag
+                const newPos = cursorPos + 5; // 4 characters for <br>
+                textarea.setSelectionRange(newPos, newPos);
+            }
+        });
     </script>
 
 @endsection
