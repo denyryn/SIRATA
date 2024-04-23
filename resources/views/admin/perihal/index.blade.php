@@ -12,6 +12,10 @@
             </button>
         </div>
 
+        <div class="my-5">
+            {{ $data_perihal->links() }}
+        </div>
+
         {{-- Menampilkan Data Program Studi --}}
         <table class="table text-black table-zebra">
             <thead>
@@ -57,6 +61,11 @@
                 @endif
             </tbody>
         </table>
+
+        <div class="my-5">
+            {{ $data_perihal->links() }}
+        </div>
+
     </div>
 
     {{-- Include modals supaya form popup keluar --}}

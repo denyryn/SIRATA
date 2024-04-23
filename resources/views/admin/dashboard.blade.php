@@ -6,7 +6,8 @@
     <div>
         <div class="grid grid-cols-2 gap-4 my-6 md:gap-12 md:grid-cols-3">
 
-            <a href="#" class="duration-150 cursor-not-allowed">
+            <a href="#"
+                class="duration-150 rounded-md cursor-not-allowed focus:outline outline-4 outline-offset-2 outline-blue-400">
                 <div class="text-white rounded-md bg-blue-light h-36">
                     <div class="h-[75%] grid grid-cols-2">
                         <div class="flex flex-col p-4 justify-evenly">
@@ -54,8 +55,9 @@
                 </div>
             </a>
 
-            <a href="{{ route('admin.prodi') }}">
-                <div class="text-white rounded-md bg-red-light h-36">
+            <a href="{{ route('admin.prodi') }}"
+                class="duration-150 rounded-md focus:outline outline-4 outline-offset-2 outline-blue-400">
+                <div class="text-white rounded-md bg-red-light h-36 ">
                     <div class="h-[75%] grid grid-cols-2">
                         <div class="flex flex-col p-4 justify-evenly">
                             <span class="block text-4xl font-semibold md:text-5xl">
@@ -103,7 +105,8 @@
                 </div>
             </a>
 
-            <a href="{{ route('admin.kategori') }}">
+            <a href="{{ route('admin.kategori') }}"
+                class="duration-150 rounded-md focus:outline outline-4 outline-offset-2 outline-blue-400">
                 <div class="text-white rounded-md bg-pink-light h-36">
                     <div class="h-[75%] grid grid-cols-2">
                         <div class="flex flex-col p-4 justify-evenly">
@@ -145,7 +148,8 @@
                 </div>
             </a>
 
-            <a href="{{ route('admin.jabatan') }}">
+            <a href="{{ route('admin.jabatan') }}"
+                class="duration-150 rounded-md focus:outline outline-4 outline-offset-2 outline-blue-400">
                 <div class="text-white rounded-md bg-green-light h-36">
                     <div class="h-[75%] grid grid-cols-2">
                         <div class="flex flex-col p-4 justify-evenly">
@@ -188,7 +192,8 @@
                 </div>
             </a>
 
-            <a href="{{ route('admin.status') }}">
+            <a href="{{ route('admin.status') }}"
+                class="duration-150 rounded-md focus:outline outline-4 outline-offset-2 outline-blue-400">
                 <div class="text-white rounded-md bg-yellow-light h-36">
                     <div class="h-[75%] grid grid-cols-2">
                         <div class="flex flex-col p-4 justify-evenly">
@@ -229,7 +234,8 @@
                 </div>
             </a>
 
-            <a href="{{ route('admin.perihal') }}">
+            <a href="{{ route('admin.perihal') }}"
+                class="duration-150 rounded-md focus:outline outline-4 outline-offset-2 outline-blue-400">
                 <div class="text-white rounded-md bg-orange-light h-36">
                     <div class="h-[75%] grid grid-cols-2">
                         <div class="flex flex-col p-4 justify-evenly">

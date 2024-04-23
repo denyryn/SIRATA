@@ -17,9 +17,4 @@ class Jabatan extends Model
     {
         return $this->hasMany('app\Models\Dosen', 'id_jabatan');
     }
-
-    public function Surat()
-    {
-        return $this->hasMany('app\Models\Surat', 'id_jabatan');
-    }
 }

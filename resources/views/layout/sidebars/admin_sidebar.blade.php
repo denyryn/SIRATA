@@ -25,8 +25,8 @@
 
         <ul class="space-y-2 font-medium text-white">
             {{-- DASHOBARD --}}
-            <li>
-                <a href="{{ route('admin.index') }}" class="border-none outline-none group">
+            <li class="focus:bg-blue-lighter">
+                <a href="{{ route('admin.index') }}" class="border-none outline-none group ">
                     <div
                         class="flex items-center justify-start w-full p-2 py-3 border-none outline-none hover:bg-blue-lighter px-7">
                         <svg class="w-5 h-5 transition duration-75" viewBox="0 0 48.00 48.00"
@@ -121,7 +121,7 @@
 
             <li>
                 {{-- LAYANAN SURAT --}}
-                <a href="{{ route('mahasiswa.layanan') }}" class="border-none outline-none group">
+                <a href="{{ route('admin.surat.layanan') }}" class="border-none outline-none group">
                     <div
                         class="flex items-center justify-start w-full p-2 py-3 border-none outline-none hover:bg-blue-lighter px-7">
                         <svg class="w-5 h-5 transition duration-75" viewBox="0 0 24 24" fill="none"

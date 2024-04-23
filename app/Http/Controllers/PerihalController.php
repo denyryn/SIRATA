@@ -13,7 +13,7 @@ class perihalController extends Controller
 {
     public function index(Request $request)
     {
-        $data_perihal = perihal::all();
+        $data_perihal = perihal::paginate(5);
 
         $opsi_kategori = Kategori_Surat::pluck('nama_kategori', 'id_kategori_surat');
 
@@ -56,7 +56,7 @@ class perihalController extends Controller
         $tanggal_sekarang = Carbon::now()->translatedFormat('F Y');
 
         if (!view()->exists('surat.template.' . $nama_kategori)) {
-            return abort(404, 'Template not found'); // Or redirect to appropriate error page
+            return abort(404, "Template " . $nama_kategori . " tidak ditemukan. Segera hubungi tim IT.");            // Or redirect to appropriate error page
         }
 
         $rendered_template = view('surat.template.' . $nama_kategori, compact('no', 'data_perihal', 'tanggal_sekarang'))->render();
@@ -69,14 +69,19 @@ class perihalController extends Controller
 
         if (!$data_perihal) {
             // Handle case where perihal with $id_perihal is not found
-            return abort(404, 'Perihal not found'); // Or redirect to appropriate error page
+            abort(404, __('Perihal not found.')); // Or redirect to appropriate error page
         }
 
         $opsi_kategori = Kategori_Surat::pluck('nama_kategori', 'id_kategori_surat');
         $nama_kategori = strtolower(str_replace(' ', '_', $data_perihal->kategori_Surat->nama_kategori ?? ''));
         $no = 1;
         $tanggal_sekarang = Carbon::now()->translatedFormat('F Y');
-        $rendered_template = view('surat.template.' . $nama_kategori, compact('no', 'data_perihal', 'tanggal_sekarang'))->render();
+        $template = 'surat.template.' . $nama_kategori;
+
+        if (!view()->exists($template)) {
+            abort(404, __('Template not found.'));
+        }
+        $rendered_template = view($template, compact('no', 'data_perihal', 'tanggal_sekarang'))->render();
         return view('admin.perihal.edit', compact('no', 'data_perihal', 'rendered_template', 'opsi_kategori'));
     }
 

@@ -12,8 +12,8 @@ class Surat extends Model
     protected $primaryKey = 'id_surat';
     protected $fillable = [
         'id_user',
-        'id_jabatan',
         'id_riwayat',
+        'id_kategori_surat',
         'perihal',
         'tujuan_surat',
         'nomor_surat',
@@ -29,9 +29,9 @@ class Surat extends Model
         return $this->belongsTo('app\Models\User', 'id_user');
     }
 
-    public function Jabatan()
+    public function Kategori_Surat()
     {
-        return $this->belongsTo('app\Models\Jabatan', 'id_jabatan');
+        return $this->belongsTo('app\Models\Kategori_Surat', 'id_kategori_surat');
     }
 
     public function Pemohon()
