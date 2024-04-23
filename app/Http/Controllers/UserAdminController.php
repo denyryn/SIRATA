@@ -8,11 +8,14 @@ use App\Models\Jabatan;
 use App\Models\Kategori_Surat;
 use App\Models\Status;
 use App\Models\Perihal;
+use App\Models\Surat;
 
 class UserAdminController extends Controller
 {
     public function index(Request $request)
     {
+        $total_surat = Surat::count();
+
         $total_prodi = Program_Studi::count();
 
         $total_jabatan = Jabatan::count();
@@ -23,6 +26,6 @@ class UserAdminController extends Controller
 
         $total_perihal = Perihal::count();
 
-        return view("admin.dashboard", compact('total_prodi', 'total_jabatan', 'total_kategori', 'total_status', 'total_perihal'));
+        return view("admin.dashboard", compact('total_surat', 'total_prodi', 'total_jabatan', 'total_kategori', 'total_status', 'total_perihal'));
     }
 }

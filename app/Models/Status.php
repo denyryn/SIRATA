@@ -17,6 +17,6 @@ class Status extends Model
 
     public function Riwayat()
     {
-        return $this->hasMany('app\Models\Riwayat', 'id_riwayat');
+        return $this->hasMany('app\Models\Riwayat', 'id_status');
     }
 }

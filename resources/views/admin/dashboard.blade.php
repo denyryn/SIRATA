@@ -6,12 +6,14 @@
     <div>
         <div class="grid grid-cols-2 gap-4 my-6 md:gap-12 md:grid-cols-3">
 
-            <a href="#"
-                class="duration-150 rounded-md cursor-not-allowed focus:outline outline-4 outline-offset-2 outline-blue-400">
+            <a href="{{ route('admin.surat') }}"
+                class="duration-150 rounded-md focus:outline outline-4 outline-offset-2 outline-blue-400">
                 <div class="text-white rounded-md bg-blue-light h-36">
                     <div class="h-[75%] grid grid-cols-2">
                         <div class="flex flex-col p-4 justify-evenly">
-                            <span class="block text-4xl font-semibold md:text-5xl">60</span>
+                            <span class="block text-4xl font-semibold md:text-5xl">
+                                {{ $total_surat }}
+                            </span>
                             <span class="block text-sm font-light">Total Surat</span>
                         </div>
                         <div class="flex items-center justify-center">

@@ -11,13 +11,12 @@ class Surat extends Model
     protected $table = 'surats';
     protected $primaryKey = 'id_surat';
     protected $fillable = [
-        'id_user',
-        'id_riwayat',
+        // 'id_riwayat',
         'id_kategori_surat',
-        'perihal',
+        'nama_perihal',
         'tujuan_surat',
         'nomor_surat',
-        'tanggal_surat',
+        // 'tanggal_surat',
         'body',
         'lower',
         'lampiran'

@@ -10,7 +10,7 @@ use App\Http\Controllers\JabatanController;
 use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\PerihalController;
 use App\Http\Controllers\StatusController;
-use App\Http\Controllers\TemplateController;
+use App\Http\Controllers\SuratController;
 use App\Http\Controllers\LayananSuratAdminController;
 use App\Http\Controllers\LayananSuratMahasiswaController;
 use App\Http\Controllers\CariLayananSuratController;
@@ -46,6 +46,14 @@ Route::prefix('admin')->group(function () {
     Route::get('/dashboard', [UserAdminController::class, 'index'])->name("admin.index");
 
     Route::prefix('/dashboard')->group(function () {
+        // Program Studi Routes
+        Route::prefix('/surat')->group(function () {
+            Route::get('/', [SuratController::class, 'index'])->name("admin.surat");
+            // Route::post('/', [ProgramStudiController::class, 'store'])->name("surat.store");
+            // Route::put('/{id_prodi}', [ProgramStudiController::class, 'update'])->name("prodi.update");
+            // Route::delete('/{id_prodi}', [ProgramStudiController::class, 'delete'])->name("prodi.delete");
+        });
+
         // Program Studi Routes
         Route::prefix('/program_studi')->group(function () {
             Route::get('/', [ProgramStudiController::class, 'index'])->name("admin.prodi");

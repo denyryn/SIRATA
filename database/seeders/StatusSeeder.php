@@ -15,9 +15,11 @@ class StatusSeeder extends Seeder
     {
         $statuses = [
             [
+                "nama_status" => "Pending"
+            ],
+            [
                 "nama_status" => "Ditinjau oleh Admin"
             ],
-
             [
                 "nama_status" => "Ditolak oleh Admin"
             ],

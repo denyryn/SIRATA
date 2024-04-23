@@ -17,11 +17,11 @@ class Riwayat extends Model
 
     public function Surat()
     {
-        return $this->belongsTo('app\Models\Surat','id_surat');
+        return $this->belongsTo('app\Models\Surat', 'id_surat');
     }
 
     public function Status()
     {
-        return $this->belongsTo('app\Models\Status','id_status');
+        return $this->belongsTo(Status::class, 'id_status');
     }
 }

@@ -10,6 +10,32 @@
             @csrf
             @method('POST')
 
+            <input type="number" id="id_kategori_surat" name="id_kategori_surat" hidden
+                value="{{ $data_perihal->id_kategori_surat }}" />
+
+            <div class="mb-5">
+                <label for="id_user" class="block mb-2 text-sm font-medium text-gray-900 ">
+                    Pengaju
+                </label>
+                <div class="flex flex-row items-end w-full">
+                    <div id="pengajuContainer" class="flex flex-col w-full">
+                        <select
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 mt-1"
+                            name="id_user" id="pengaju" required>
+                            <option value="">Pilih Mahasiswa Pengaju</option>
+                            @foreach ($mahasiswas as $mahasiswa)
+                                <option value="{{ $mahasiswa->id_user }}">
+                                    {{ $mahasiswa->username }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <button class="ml-1 text-xl text-white btn bg-blue-light hover:bg-blue-plain" type="button"
+                        id="removePengajuBtn"> - </button>
+                    <button class="ml-1 text-xl text-white btn bg-blue-light hover:bg-blue-plain" type="button"
+                        id="addPengajuBtn"> + </button>
+                </div>
+            </div>
             <div class="mb-5">
                 <label for="nama_perihal" class="block mb-2 text-sm font-medium text-gray-900 ">
                     Nama Perihal
@@ -17,7 +43,7 @@
                 <input type="text"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                     id="perihal" name="nama_perihal" placeholder="Masukkan Nama Perihal" required
-                    oninput="updateContent()" />
+                    oninput="updateContent()" value="{{ $data_perihal->nama_perihal }}" />
             </div>
             <div class="mb-5">
                 <label for="nama_tujuan" class="block mb-2 text-sm font-medium text-gray-900">
@@ -26,7 +52,7 @@
                 <textarea
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                     id="nama_tujuan" name="nama_tujuan" cols="30" rows="2" placeholder="Masukkan Nama Tujuan"
-                    oninput="updateContent()"></textarea>
+                    oninput="updateContent()">{{ $data_perihal->nama_tujuan }}</textarea>
             </div>
             <div class="mb-5">
                 <label for="alamat_tujuan" class="block mb-2 text-sm font-medium text-gray-900">
@@ -35,7 +61,7 @@
                 <textarea
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                     id="alamat_tujuan" name="alamat_tujuan" cols="30" rows="2" placeholder="Masukkan Alamat Tujuan"
-                    oninput="updateContent()"></textarea>
+                    oninput="updateContent()">{{ $data_perihal->alamat_tujuan }}</textarea>
             </div>
             <div class="mb-5">
                 <label for="upper_body" class="block mb-2 text-sm font-medium text-gray-900">
@@ -44,7 +70,7 @@
                 <textarea
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                     id="upper_body" name="upper_body" cols="30" rows="4" placeholder="Masukkan Upper Body"
-                    oninput="updateContent()"></textarea>
+                    oninput="updateContent()">{{ $data_perihal->upper_body }}</textarea>
             </div>
             <div class="mb-5">
                 <label for="lower_body" class="block mb-2 text-sm font-medium text-gray-900">
@@ -53,7 +79,7 @@
                 <textarea
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                     id="lower_body" name="lower_body" cols="30" rows="4" placeholder="Masukkan Lower Body"
-                    oninput="updateContent()"></textarea>
+                    oninput="updateContent()">{{ $data_perihal->lower_body }}</textarea>
             </div>
 
             <button type=" submit"
@@ -93,5 +119,136 @@
                 srcdoc="{{ $rendered_template }}" frameborder="0"></iframe>
         </div>
     </div>
+
+    <script>
+        function updateContent() {
+            // Get the iframe element
+            const templateFrame = document.getElementById("templateFrame");
+
+            // Access the content document of the iframe
+            const templateDocument = templateFrame.contentDocument || templateFrame.contentWindow.document;
+
+            // Get the body element inside the iframe
+            const perihalElement = templateDocument.getElementById("perihalContent");
+            const namaTujuanElement = templateDocument.getElementById("namaTujuanContent");
+            const alamatTujuanElement = templateDocument.getElementById("alamatTujuanContent");
+            const upperBodyElement = templateDocument.getElementById("upperBodyContent");
+            const lowerBodyElement = templateDocument.getElementById("lowerBodyContent");
+
+            // Get the body data from the input in the parent document
+            const perihalData = document.getElementById("perihal").value;
+            const namaTujuanData = document.getElementById("nama_tujuan").value;
+            const alamatTujuanData = document.getElementById("alamat_tujuan").value;
+            const upperBodyData = document.getElementById("upper_body").value;
+            const lowerBodyData = document.getElementById("lower_body").value;
+
+            perihalElement.innerHTML = perihalData;
+            namaTujuanElement.innerHTML = namaTujuanData;
+            alamatTujuanElement.innerHTML = alamatTujuanData;
+            upperBodyElement.innerHTML = upperBodyData;
+            lowerBodyElement.innerHTML = lowerBodyData;
+        }
+    </script>
+
+    <script>
+        // Get a reference to the iframe element
+        const templateFrame = document.getElementById('templateFrame');
+        let zoomLevel = 1;
+
+        // Function to zoom the iframe content
+        function zoomIn() {
+            // Check if secure context allows access
+            const templateDoc = templateFrame.contentDocument || templateFrame.contentWindow.document;
+            if (!templateDoc) return; // Abort if document access is not allowed
+
+            // Apply zoom using CSS transform on secure context
+            templateDoc.documentElement.style.transform = `scale(${zoomLevel + 0.1})`;
+            zoomLevel += 0.1;
+        }
+
+        function zoomOut() {
+            // Check if secure context allows access
+            const templateDoc = templateFrame.contentDocument || templateFrame.contentWindow.document;
+            if (!templateDoc) return; // Abort if document access is not allowed
+
+            // Ensure zoom doesn't go negative
+            zoomLevel = Math.max(zoomLevel - 0.1, 0.1);
+            templateDoc.documentElement.style.transform = `scale(${zoomLevel})`;
+        }
+    </script>
+
+    <script>
+        const textarea = document.getElementById('lower_body');
+
+        textarea.addEventListener('keydown', function(event) {
+            // Check if Enter key is pressed (key code 13)
+            if (event.keyCode === 13) {
+                // Prevent the default behavior of the Enter key
+                event.preventDefault();
+
+                // Insert <br> tag at the cursor position
+                const cursorPos = textarea.selectionStart;
+                const textBeforeCursor = textarea.value.substring(0, cursorPos);
+                const textAfterCursor = textarea.value.substring(cursorPos);
+                textarea.value = textBeforeCursor + '<br>\n' + textAfterCursor;
+
+                // Move the cursor position after the inserted <br> tag
+                const newPos = cursorPos + 5; // 4 characters for <br>
+                textarea.setSelectionRange(newPos, newPos);
+            }
+        });
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const container = document.getElementById('pengajuContainer');
+            const addButton = document.getElementById('addPengajuBtn');
+            const removeButton = document.getElementById('removePengajuBtn');
+
+            let count = 1;
+
+            addButton.addEventListener('click', function() {
+                if (count <= 8) {
+                    count++;
+
+                    const newSelect = createSelectElement();
+                    container.appendChild(newSelect);
+                } else {
+                    alert('Maximum limit reached (8)');
+                }
+            });
+
+            removeButton.addEventListener('click', function() {
+                if (count > 1) {
+                    count--;
+                    container.removeChild(container.lastElementChild);
+                }
+            });
+
+            function createSelectElement() {
+                const newSelect = document.createElement('select');
+                newSelect.setAttribute('class',
+                    'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 mt-1'
+                );
+                newSelect.setAttribute('name', 'id_user[]'); // Use array notation for multiple selections
+                newSelect.setAttribute('required', 'required');
+
+                const option = document.createElement('option');
+                option.setAttribute('value', '');
+                option.textContent = 'Pilih Mahasiswa Pengaju';
+                newSelect.appendChild(option);
+
+                // Add options from existing data (e.g., mahasiswas)
+                @foreach ($mahasiswas as $mahasiswa)
+                    const newOption = document.createElement('option');
+                    newOption.setAttribute('value', '{{ $mahasiswa->id_user }}');
+                    newOption.textContent = '{{ $mahasiswa->username }}';
+                    newSelect.appendChild(newOption);
+                @endforeach
+
+                return newSelect;
+            }
+        });
+    </script>
 @endsection
 
