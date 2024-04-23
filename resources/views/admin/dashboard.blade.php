@@ -150,9 +150,9 @@
                     <div class="h-[75%] grid grid-cols-2">
                         <div class="flex flex-col p-4 justify-evenly">
                             <span class="block text-4xl font-semibold md:text-5xl">
-                                {{ $total_prodi }}
+                                {{ $total_jabatan }}
                             </span>
-                            <span class="block text-sm font-light">Total Jabatan</span>
+                            <span class="block text-sm font-light">Total jabatan</span>
                         </div>
                         <div class="flex items-center justify-center">
                             <svg class="text-green-700 size-16 md:size-20" fill="currentColor" version="1.1"

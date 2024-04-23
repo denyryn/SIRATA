@@ -15,6 +15,8 @@ class UserAdminController extends Controller
     {
         $data_prodi = Program_Studi::all();
         $total_prodi = Program_Studi::count();
+        $data_jabatan = Jabatan::all();
+        $total_jabatan = Jabatan::count();
 
         $data_jabatan = Jabatan::all();
         $total_jabatan = Jabatan::count();

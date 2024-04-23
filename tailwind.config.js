@@ -10,6 +10,7 @@ export default {
         extend: {},
         fontFamily: {
             poppins: ["Poppins", "system-ui"],
+            surat: ["PT Serif", "Serif"],
         },
         colors: {
             blue: {
