@@ -23,7 +23,7 @@
                     <div class="m-4 flex flex-col items-start md:min-w-[50vh]">
                         <span class="self-center font-bold tracking-tight md:self-start">Masukkan Username dan
                             Password</span>
-                        <form action="{{ route('admin.index') }}" class="w-full">
+                        <form action="{{ route('postlogin') }}" class="w-full">
                             <div class="form-control">
                                 <label for="username" class="label">
                                     <span class="label-text">Username</span>

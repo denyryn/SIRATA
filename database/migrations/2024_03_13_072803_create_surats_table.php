@@ -26,7 +26,7 @@ return new class extends Migration {
             $table->foreign('id_perihal')->references('id_perihal')->on('perihals');
             $table->foreign('id_jabatan')->references('id_jabatan')->on('jabatans');
             $table->foreign('id_status')->references('id_status')->on('statuses');
-            $table->foreign('id_user')->references('id_user')->on('users');
+            // $table->foreign('id_user')->references('id_user')->on('users');
 
         });
     }
