@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-<<<<<<< HEAD
+
 use Auth;
 class LoginController extends Controller
 {
@@ -38,10 +38,7 @@ class LoginController extends Controller
         Auth::logout();
         return redirect('/login');
     }
+
+}
 =======
 
-class LoginController extends Controller
-{
-    //
->>>>>>> 146b8730695eccff5ef35fbe415f77257ff12163
-}
