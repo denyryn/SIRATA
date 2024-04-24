@@ -4,72 +4,312 @@
 @section('header', 'Sirata / Layanan Surat')
 
 @section('content')
-    {{-- Bar Pencarian Surat --}}
-    <nav class="flex items-center justify-end w-full p-2 font-normal bg-blue-500 h-fit rounded-xl">
-        <div class="justify-end">
-            <form class="flex items-center max-w-sm mx-auto">
-                <label for="simple-search" class="sr-only">Search</label>
-                <div class="relative w-full">
-                    <div class="absolute inset-y-0 flex items-center pointer-events-none start-0 ps-3">
-                        <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" viewBox="0 0 24 24"
-                            version="1.1" xml:space="preserve" xmlns="http://www.w3.org/2000/svg"
-                            xmlns:xlink="http://www.w3.org/1999/xlink" fill="#919191">
-                            <g id="SVGRepo_bgCarrier" stroke-width="2"></g>
-                            <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
-                            <g id="SVGRepo_iconCarrier">
-                                <style type="text/css">
-                                    .st0 {
-                                        opacity: 0.2;
-                                        fill: none;
-                                        stroke: #000000;
-                                        stroke-width: 5.000000e-02;
-                                        stroke-miterlimit: 10;
-                                    }
-                                </style>
-                                <g id="Layer_1"></g>
-                                <g id="Layer_2">
-                                    <g>
-                                        <path
-                                            d="M12,20H8c-1.1,0-2-0.9-2-2V6c0-1.1,0.9-2,2-2h3v3c0,2.2,1.8,4,4,4h3v1.9c0,0.6,0.4,1,1,1s1-0.4,1-1V10c0,0,0,0,0-0.1 c0-0.1,0-0.2-0.1-0.3c0,0,0-0.1,0-0.1c0-0.1-0.1-0.2-0.2-0.3c0,0,0,0,0,0l-7-7c-0.1-0.1-0.2-0.1-0.3-0.2c0,0-0.1,0-0.1,0 c-0.1,0-0.2,0-0.3-0.1c0,0,0,0-0.1,0H8C5.8,2,4,3.8,4,6v12c0,2.2,1.8,4,4,4h4c0.6,0,1-0.4,1-1S12.6,20,12,20z M13,5.4L16.6,9H15 c-1.1,0-2-0.9-2-2V5.4z">
-                                        </path>
-                                        <path
-                                            d="M20.7,20.3l-1-1c0,0-0.1-0.1-0.2-0.1c0.3-0.5,0.5-1.1,0.5-1.7c0-1.9-1.6-3.5-3.5-3.5S13,15.6,13,17.5s1.6,3.5,3.5,3.5 c0.6,0,1.2-0.2,1.7-0.5c0,0.1,0.1,0.1,0.1,0.2l1,1c0.2,0.2,0.5,0.3,0.7,0.3s0.5-0.1,0.7-0.3C21.1,21.3,21.1,20.7,20.7,20.3z M16.5,19c-0.8,0-1.5-0.7-1.5-1.5s0.7-1.5,1.5-1.5s1.5,0.7,1.5,1.5S17.3,19,16.5,19z">
-                                        </path>
-                                    </g>
-                                </g>
-                            </g>
-                        </svg>
-                    </div>
-                    <input type="text" id="simple-search"
-                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                        placeholder="Cari Template..." required />
-                </div>
-            </form>
-        </div>
-    </nav>
-
-    {{-- Form Surat --}}
-    <div class="container mx-auto mt-10">
-        <form method="POST" action="" class="max-w-md p-6 mx-auto bg-white rounded-md shadow-md">
+    <div class="grid grid-cols-12">
+        <form id="surat_form" action="{{ route(Session::get('akses') . '.surat.form.store') }}" method="POST"
+            class="grid w-1/2 min-w-full col-start-1 col-end-6 grid-">
             @csrf
             @method('POST')
-            <div class="mb-4">
-                <label for="nama_pengaju" class="block mb-2 font-semibold text-gray-700">Nama Pengaju :</label>
-                <input id="nama_pengaju" type="text" name="nama_pengaju" placeholder="Nama Pengaju"
-                    class="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-blue-500">
+
+            <input type="number" id="id_kategori_surat" name="id_kategori_surat" hidden
+                value="{{ $data_perihal->id_kategori_surat }}" />
+
+            <div class="mb-5">
+                <label for="id_user1" class="block mb-2 text-sm font-medium text-gray-900 ">
+                    Pengaju
+                </label>
+                <div class="flex flex-row items-end w-full">
+                    <div id="pengajuContainer" class="flex flex-col w-full">
+
+                        <select
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 mt-1"
+                            name="id_user1" id="id_user1" required>
+                            <option value="">Pilih Mahasiswa Pengaju</option>
+                            @if (Session::get('akses') == 'mahasiswa')
+                                @foreach ($mahasiswas as $mahasiswa)
+                                    <option value="{{ $mahasiswa->id_user }}"
+                                        {{ $mahasiswa->id_user == $user_sekarang->id_user ? 'selected' : 'hidden' }}>
+                                        {{ $mahasiswa->nama_mahasiswa }}
+                                    </option>
+                                    {{-- <p id="nim_pengaju" hidden onloadStart="updateContent()">$mahasiswa->nim</p>
+                                    <p id="nama_pengaju" hidden onloadstart="updateContent()"> --}}
+                                    {{ $mahasiswa->nama_mahasiswa }}
+                                    </p>
+                                @endforeach
+                            @else
+                                @foreach ($mahasiswas as $mahasiswa)
+                                    <option value="{{ $mahasiswa->id_user }}">
+                                        {{ $mahasiswa->nama_mahasiswa }}
+                                    </option>
+                                @endforeach
+                            @endif
+                        </select>
+
+                    </div>
+                    <button class="ml-1 text-xl text-white btn bg-blue-light hover:bg-blue-plain" type="button"
+                        id="removePengajuBtn"> - </button>
+                    <button class="ml-1 text-xl text-white btn bg-blue-light hover:bg-blue-plain" type="button"
+                        id="addPengajuBtn"> + </button>
+                </div>
             </div>
-            <div class="mb-4">
-                <label for="perihal" class="block mb-2 font-semibold text-gray-700">Perihal :</label>
-                <input type="text" name="perihal" id="perihal" placeholder="Perihal"
-                    class="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-blue-500">
+            <div class="mb-5">
+                <label for="nama_perihal" class="block mb-2 text-sm font-medium text-gray-900 ">
+                    Nama Perihal
+                </label>
+                <input type="text"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                    id="perihal" name="nama_perihal" placeholder="Masukkan Nama Perihal" required
+                    oninput="updateContent()" value="{{ $data_perihal->nama_perihal }}" />
             </div>
-            <div class="text-center">
-                <button type="submit"
-                    class="px-4 py-2 text-white bg-blue-500 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600">
-                    Submit
-                </button>
+            <div class="mb-5">
+                <label for="nama_tujuan" class="block mb-2 text-sm font-medium text-gray-900">
+                    Nama Tujuan
+                </label>
+                <textarea
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                    id="nama_tujuan" name="nama_tujuan" cols="30" rows="2" placeholder="Masukkan Nama Tujuan"
+                    oninput="updateContent()">{{ $data_perihal->nama_tujuan }}</textarea>
             </div>
+            <div class="mb-5">
+                <label for="alamat_tujuan" class="block mb-2 text-sm font-medium text-gray-900">
+                    Alamat Tujuan
+                </label>
+                <textarea
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                    id="alamat_tujuan" name="alamat_tujuan" cols="30" rows="2" placeholder="Masukkan Alamat Tujuan"
+                    oninput="updateContent()">{{ $data_perihal->alamat_tujuan }}</textarea>
+            </div>
+            <div class="mb-5">
+                <label for="upper_body" class="block mb-2 text-sm font-medium text-gray-900">
+                    Upper Body
+                </label>
+                <textarea
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                    id="upper_body" name="upper_body" cols="30" rows="4" placeholder="Masukkan Upper Body"
+                    oninput="updateContent()">{{ $data_perihal->upper_body }}</textarea>
+            </div>
+            <div class="mb-5">
+                <label for="lower_body" class="block mb-2 text-sm font-medium text-gray-900">
+                    Lower Body
+                </label>
+                <textarea
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                    id="lower_body" name="lower_body" cols="30" rows="4" placeholder="Masukkan Lower Body"
+                    oninput="updateContent()">{{ $data_perihal->lower_body }}</textarea>
+            </div>
+
+            <button type=" submit"
+                class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">Submit</button>
         </form>
+        <div class="col-start-7 col-end-13 p-2 rounded-[1rem] shadow-xl bg-blue-lighter">
+            <button class="p-1 bg-white rounded-[0.5rem] " onclick="zoomIn()">
+                <svg class="text-gray-700 size-6" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                    <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                    <g id="SVGRepo_iconCarrier">
+                        <path fill-rule="evenodd" clip-rule="evenodd"
+                            d="M4 11C4 7.13401 7.13401 4 11 4C14.866 4 18 7.13401 18 11C18 14.866 14.866 18 11 18C7.13401 18 4 14.866 4 11ZM11 2C6.02944 2 2 6.02944 2 11C2 15.9706 6.02944 20 11 20C13.125 20 15.078 19.2635 16.6177 18.0319L20.2929 21.7071C20.6834 22.0976 21.3166 22.0976 21.7071 21.7071C22.0976 21.3166 22.0976 20.6834 21.7071 20.2929L18.0319 16.6177C19.2635 15.078 20 13.125 20 11C20 6.02944 15.9706 2 11 2Z"
+                            fill="currentColor"></path>
+                        <path fill-rule="evenodd" clip-rule="evenodd"
+                            d="M10 14C10 14.5523 10.4477 15 11 15C11.5523 15 12 14.5523 12 14V12H14C14.5523 12 15 11.5523 15 11C15 10.4477 14.5523 10 14 10H12V8C12 7.44772 11.5523 7 11 7C10.4477 7 10 7.44772 10 8V10H8C7.44772 10 7 10.4477 7 11C7 11.5523 7.44772 12 8 12H10V14Z"
+                            fill="currentColor"></path>
+                    </g>
+                </svg>
+            </button>
+            <button class="p-1 bg-white rounded-[0.5rem] " onclick="zoomOut()">
+                <svg class="text-gray-700 size-6" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                    <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                    <g id="SVGRepo_iconCarrier">
+                        <path fill-rule="evenodd" clip-rule="evenodd"
+                            d="M4 11C4 7.13401 7.13401 4 11 4C14.866 4 18 7.13401 18 11C18 14.866 14.866 18 11 18C7.13401 18 4 14.866 4 11ZM11 2C6.02944 2 2 6.02944 2 11C2 15.9706 6.02944 20 11 20C13.125 20 15.078 19.2635 16.6177 18.0319L20.2929 21.7071C20.6834 22.0976 21.3166 22.0976 21.7071 21.7071C22.0976 21.3166 22.0976 20.6834 21.7071 20.2929L18.0319 16.6177C19.2635 15.078 20 13.125 20 11C20 6.02944 15.9706 2 11 2Z"
+                            fill="currentColor"></path>
+                        <path fill-rule="evenodd" clip-rule="evenodd"
+                            d="M7 11C7 10.4477 7.44772 10 8 10H14C14.5523 10 15 10.4477 15 11C15 11.5523 14.5523 12 14 12H8C7.44772 12 7 11.5523 7 11Z"
+                            fill="currentColor"></path>
+                    </g>
+                </svg>
+            </button>
+            <iframe id="templateFrame"
+                class="w-full h-[92%] border-black rounded-[0.5rem] overflow-scroll border-0 transform scale-100 align-middle mt-1"
+                srcdoc="{{ $rendered_template }}" frameborder="0"></iframe>
+        </div>
     </div>
-    </main>
+
+    <script>
+        function updateContent() {
+            // Get the iframe element
+            const templateFrame = document.getElementById("templateFrame");
+
+            // Access the content document of the iframe
+            const templateDocument = templateFrame.contentDocument || templateFrame.contentWindow.document;
+
+            // Get the body element inside the iframe
+            const perihalElement = templateDocument.getElementById("perihalContent");
+            const namaTujuanElement = templateDocument.getElementById("namaTujuanContent");
+            const alamatTujuanElement = templateDocument.getElementById("alamatTujuanContent");
+            const upperBodyElement = templateDocument.getElementById("upperBodyContent");
+            const lowerBodyElement = templateDocument.getElementById("lowerBodyContent");
+            const namaPengajuElement = templateDocument.getElementById("namaPengajuContent");
+            const nimPengajuElement = templateDocument.getElementById("nimPengajuContent");
+
+            // Get the body data from the input in the parent document
+            const perihalData = document.getElementById("perihal").value;
+            const namaTujuanData = document.getElementById("nama_tujuan").value;
+            const alamatTujuanData = document.getElementById("alamat_tujuan").value;
+            const upperBodyData = document.getElementById("upper_body").value;
+            const lowerBodyData = document.getElementById("lower_body").value;
+            const namaPengajuData = document.getElementById("nama_pengaju").value;
+            const nimPengajuData = document.getElementById("nim_pengaju").value;
+
+            perihalElement.innerHTML = perihalData;
+            namaTujuanElement.innerHTML = namaTujuanData;
+            alamatTujuanElement.innerHTML = alamatTujuanData;
+            upperBodyElement.innerHTML = upperBodyData;
+            lowerBodyElement.innerHTML = lowerBodyData;
+            namaPengajuElement.innerHTML = namaPengajuData;
+            nimPengajuElement.innerHTML = nimPengajuData;
+        }
+    </script>
+
+    <script>
+        // Get a reference to the iframe element
+        const templateFrame = document.getElementById('templateFrame');
+        let zoomLevel = 1;
+
+        // Function to zoom the iframe content
+        function zoomIn() {
+            // Check if secure context allows access
+            const templateDoc = templateFrame.contentDocument || templateFrame.contentWindow.document;
+            if (!templateDoc) return; // Abort if document access is not allowed
+
+            // Apply zoom using CSS transform on secure context
+            templateDoc.documentElement.style.transform = `scale(${zoomLevel + 0.1})`;
+            zoomLevel += 0.1;
+        }
+
+        function zoomOut() {
+            // Check if secure context allows access
+            const templateDoc = templateFrame.contentDocument || templateFrame.contentWindow.document;
+            if (!templateDoc) return; // Abort if document access is not allowed
+
+            // Ensure zoom doesn't go negative
+            zoomLevel = Math.max(zoomLevel - 0.1, 0.1);
+            templateDoc.documentElement.style.transform = `scale(${zoomLevel})`;
+        }
+    </script>
+
+    <script>
+        const textarea = document.getElementById('lower_body');
+
+        textarea.addEventListener('keydown', function(event) {
+            // Check if Enter key is pressed (key code 13)
+            if (event.keyCode === 13) {
+                // Prevent the default behavior of the Enter key
+                event.preventDefault();
+
+                // Insert <br> tag at the cursor position
+                const cursorPos = textarea.selectionStart;
+                const textBeforeCursor = textarea.value.substring(0, cursorPos);
+                const textAfterCursor = textarea.value.substring(cursorPos);
+                textarea.value = textBeforeCursor + '<br>\n' + textAfterCursor;
+
+                // Move the cursor position after the inserted <br> tag
+                const newPos = cursorPos + 5; // 4 characters for <br>
+                textarea.setSelectionRange(newPos, newPos);
+            }
+        });
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const container = document.getElementById('pengajuContainer');
+            const addButton = document.getElementById('addPengajuBtn');
+            const removeButton = document.getElementById('removePengajuBtn');
+            const form = document.getElementById('surat_form');
+            let newOption;
+
+            let count = 1;
+
+            addButton.addEventListener('click', function() {
+                if (count <= 8) {
+                    count++;
+
+                    const newSelect = createSelectElement(count);
+                    container.appendChild(newSelect);
+                } else {
+                    alert('Maximum limit reached (8)');
+                }
+            });
+
+            removeButton.addEventListener('click', function() {
+                if (count > 1) {
+                    count--;
+                    container.removeChild(container.lastElementChild);
+                }
+            });
+
+            form.addEventListener('submit', function(event) {
+                event.preventDefault();
+
+                // Get all select elements
+                const selectElements = document.querySelectorAll('select[name^="id_user"]');
+                const selectedValues = {};
+
+                // Loop through select elements and get selected values
+                selectElements.forEach(function(select) {
+                    const selectedOption = select.options[select.selectedIndex];
+                    if (selectedOption.value !== '') {
+                        const name = select.getAttribute('name');
+                        selectedValues[name] = selectedOption.value;
+                    }
+                });
+
+                // Set the selected values to hidden input fields in the form
+                Object.keys(selectedValues).forEach(function(key) {
+                    const hiddenInput = document.createElement('input');
+                    hiddenInput.setAttribute('type', 'hidden');
+                    hiddenInput.setAttribute('name', key);
+                    hiddenInput.setAttribute('value', selectedValues[key]);
+                    form.appendChild(hiddenInput);
+                });
+
+                // Set the final count value to a hidden input field in the form
+                const countInput = document.createElement('input');
+                countInput.setAttribute('type', 'hidden');
+                countInput.setAttribute('name', 'count');
+                countInput.setAttribute('value', count);
+                form.appendChild(countInput);
+
+                // Submit the form
+                form.submit();
+            });
+
+            function createSelectElement(index) {
+                const newSelect = document.createElement('select');
+                newSelect.setAttribute('class',
+                    'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 mt-1'
+                );
+                newSelect.setAttribute('name', `id_user${index}`); // Use array notation for multiple selections
+                newSelect.setAttribute('id', `id_user${index}`); // Use array notation for multiple selections
+                newSelect.setAttribute('required', 'required');
+
+                const option = document.createElement('option');
+                option.setAttribute('value', '');
+                option.textContent = 'Pilih Mahasiswa Pengaju';
+                newSelect.appendChild(option);
+
+                // Add options from existing data (e.g., mahasiswas)
+                @foreach ($mahasiswas as $mahasiswa)
+                    // Create a new option element for each mahasiswa
+                    newOption = document.createElement('option');
+                    newOption.setAttribute('value', '{{ $mahasiswa->id_user }}');
+                    newOption.textContent = '{{ $mahasiswa->nama_mahasiswa }}';
+                    newSelect.appendChild(newOption);
+                @endforeach
+
+                return newSelect;
+            }
+        });
+    </script>
 @endsection
+

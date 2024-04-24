@@ -9,7 +9,7 @@ class ProgramStudiController extends Controller
 {
     public function index(Request $request)
     {
-        $data_prodi = Program_Studi::all();
+        $data_prodi = Program_Studi::paginate(5);
 
         return view("admin.program_studi.index", compact('data_prodi'));
     }

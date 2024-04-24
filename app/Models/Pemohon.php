@@ -11,17 +11,17 @@ class Pemohon extends Model
     protected $table = 'pemohons';
     protected $primaryKey = 'id_pemohon';
     protected $fillable = [
-        'id_mahasiswa', //daripada memakai NIM or any suggestion?
+        'id_user',
         'id_surat'
     ];
 
-    public function Mahasiswa()
+    public function User()
     {
-        return $this->belongsTo('app\Models\Mahasiswa', 'id_mahasiswa');
+        return $this->belongsTo(User::class, 'id_user');
     }
 
     public function Surat()
     {
-        return $this->belongsTo('app\Models\Surat', 'id_surat');
+        return $this->belongsTo(Surat::class, 'id_surat');
     }
 }

@@ -1,4 +1,5 @@
-@extends('minimal_layout.layout')
+{{-- Ada perubahan kecil pada penamaan file layout untuk halaman login --}}
+@extends('layout.layout_minimal')
 
 @section('title', 'Welcome')
 
@@ -16,3 +17,4 @@
         </div>
     </div>
 @endsection
+
