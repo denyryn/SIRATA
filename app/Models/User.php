@@ -3,37 +3,51 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 
-class User extends Model
+class User extends Authenticatable
 {
     use HasFactory;
     protected $table = 'users';
     protected $primaryKey = 'id_user';
-    protected $fillable = ['username', 'password', 'email', 'akses'];
+    protected $fillable = ['username', 'password', 'email'];
 
     public function Mahasiswa()
     {
-        return $this->hasOne('app\Models\Mahasiswa', 'id_user');
+        return $this->hasOne(Mahasiswa::class, 'id_user');
     }
 
     public function Dosen()
     {
-        return $this->hasOne('app\Models\Dosen', 'id_user');
+        return $this->hasOne(Dosen::class, 'id_user');
     }
 
     public function Surat()
     {
-        return $this->hasMany('app\Models\Surat', 'id_user');
+        return $this->hasMany(Surat::class, 'id_user');
     }
 
-    public function Pemohon()
-    {
-        return $this->hasMany('app\Models\Pemohon', 'id_user');
-    }
+    /**
+     * The attributes that should be hidden for serialization.
+     *
+     * @var array<int, string>
+     */
+    protected $hidden = [
+        'password',
+        'remember_token',
+    ];
 
-    public function Tanda_Tangan()
+    /**
+     * Get the attributes that should be cast.
+     *
+     * @return array<string, string>
+     */
+    protected function casts(): array
     {
-        return $this->hasOne('app\Models\Tanda_Tangan', 'id_user');
+        return [
+            'email_verified_at' => 'datetime',
+            'password' => 'hashed',
+        ];
     }
 }

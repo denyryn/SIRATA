@@ -13,8 +13,13 @@
 </head>
 
 <body class="font-poppins">
-    {{-- @include('layout.sidebars.mahasiswa_sidebar') --}}
-    @include('layout.sidebars.admin_sidebar')
+    @if (Session::has('akses'))
+        @if (Session::get('akses') === 'admin')
+            @include('layout.sidebars.admin_sidebar')
+        @elseif(Session::get('akses') === 'mahasiswa')
+            @include('layout.sidebars.mahasiswa_sidebar')
+        @endif
+    @endif
 
     {{-- header --}}
     <div class="p-4 content sm:ml-64">

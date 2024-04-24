@@ -10,16 +10,16 @@ class Mahasiswa extends Model
     use HasFactory;
     protected $table = 'mahasiswas';
     protected $primaryKey = 'id_mahasiswa';
-    protected $fillable = ['nim', 'id_user', 'id_kelas', 'nama_mhs', 'telp_mhs'];
+    protected $fillable = ['nim', 'id_user', 'id_kelas', 'nama_mahasiswa'];
 
     public function User()
     {
-        return $this->belongsTo('app\Models\User', 'id_user');
+        return $this->belongsTo(User::class, 'id_user');
     }
 
     public function Kelas()
     {
-        return $this->belongsTo('app\Models\Kelas', 'id_kelas');
+        return $this->belongsTo(kelas::class, 'id_kelas');
     }
 
 }

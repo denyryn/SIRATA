@@ -20,11 +20,11 @@ class SuratController extends Controller
             $item->jam_buat = Carbon::parse($item->created_at)->format('H:i:s');
 
             // Fetch the latest related Riwayat entry for this Surat
-            $latest_riwayat = Riwayat::where('id_surat', $item->id_surat)
+            $riwayat_terbaru = Riwayat::where('id_surat', $item->id_surat)
                 ->latest('created_at')
                 ->first();
 
-            $item->latest_status = $latest_riwayat->status->nama_status;
+            $item->status_terbaru = $riwayat_terbaru->status->nama_status;
 
             // Fetch all related Riwayat entries for this Surat
             $riwayat = Riwayat::where('id_surat', $item->id_surat)->get();

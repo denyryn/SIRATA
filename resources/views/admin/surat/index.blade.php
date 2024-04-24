@@ -44,24 +44,28 @@
                 </thead>
                 <tbody class="text-gray-900">
                     @foreach ($data_surat as $surat)
-                        <td>{{ $surat->id_surat }}</td>
-                        <td>{{ $surat->tanggal_buat }}</td>
-                        <td>{{ $surat->nama_perihal }}</td>
-                        <td>{{ $surat->id_kategori_surat }}</td>
-                        <td>{{ $surat->jam_buat }}</td>
-                        <td>
-                            <a href="{{ route('mahasiswa.lacak_surat') }}">
-                                <button
-                                    class="p-2 px-4 text-center text-white duration-150 bg-orange-400 rounded-lg hover:bg-orange-500 active:ring-orange-400">
-                                    Lacak Surat
-                                </button>
-                            </a>
-                        </td>
-                        <td>
-                            <div class="p-2 text-center text-white bg-green-400 rounded-lg">
-                                {{ $surat->latest_status }}
-                            </div>
-                        </td>
+                        <tr>
+                            <td>{{ $surat->id_surat }}</td>
+                            <td>{{ $surat->tanggal_buat }}</td>
+                            <td>{{ $surat->nama_perihal }}</td>
+                            <td>{{ $surat->id_kategori_surat }}</td>
+                            <td>{{ $surat->jam_buat }}</td>
+                            <td>
+                                <a href="">
+                                    <button
+                                        class="p-2
+                                px-4 text-center text-white duration-150 bg-orange-400 rounded-lg hover:bg-orange-500
+                                active:ring-orange-400">
+                                        Lacak Surat
+                                    </button>
+                                </a>
+                            </td>
+                            <td>
+                                <div class="p-2 text-center text-white bg-green-400 rounded-lg">
+                                    {{ $surat->status_terbaru }}
+                                </div>
+                            </td>
+                        </tr>
                     @endforeach
                 </tbody>
             </table>

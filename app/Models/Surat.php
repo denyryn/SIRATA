@@ -30,16 +30,16 @@ class Surat extends Model
 
     public function Kategori_Surat()
     {
-        return $this->belongsTo('app\Models\Kategori_Surat', 'id_kategori_surat');
+        return $this->belongsTo(Kategori_Surat::class, 'id_kategori_surat');
     }
 
     public function Pemohon()
     {
-        return $this->hasMany('app\Models\Pemohon', 'id_surat');
+        return $this->hasMany(Pemohon::class, 'id_surat');
     }
 
     public function Riwayat()
     {
-        return $this->hasMany('app\Models\Riwayat', 'id_surat');
+        return $this->hasMany(Riwayat::class, 'id_surat');
     }
 }

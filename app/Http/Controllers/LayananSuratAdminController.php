@@ -10,6 +10,7 @@ use App\Models\User;
 use App\Models\Riwayat;
 use App\Models\Pemohon;
 use App\Models\Status;
+use App\Models\Mahasiswa;
 
 use Carbon\Carbon;
 
@@ -56,7 +57,7 @@ class LayananSuratAdminController extends Controller
             abort(404, __('Template not found.'));
         }
 
-        $mahasiswas = User::where('akses', 'mahasiswa')->get();
+        $mahasiswas = Mahasiswa::all();
 
         $rendered_template = view($template, compact('no', 'data_perihal', 'tanggal_sekarang'))->render();
         return view('surat.form', compact('data_perihal', 'rendered_template', 'mahasiswas'));
@@ -65,6 +66,7 @@ class LayananSuratAdminController extends Controller
     public function store(Request $request)
     {
         $status_awal = Status::where('nama_status', 'Pending')->first('id_status');
+        $count = $request->input('count');
 
         $data_surat = new surat;
         // $data_surat->id_user = $request->id_user;
@@ -76,10 +78,16 @@ class LayananSuratAdminController extends Controller
         $data_surat->lower_body = $request->lower_body;
         $data_surat->save();
 
-        $data_pemohon = new pemohon;
-        $data_pemohon->id_user = $request->id_user;
-        $data_pemohon->id_surat = $data_surat->id_surat;
-        $data_pemohon->save();
+        for ($i = 1; $i <= $count; $i++) {
+            if ($request->has("id_user$i")) {
+                $id_user = $request->input("id_user$i");
+
+                $data_pemohon = new pemohon;
+                $data_pemohon->id_user = $id_user;
+                $data_pemohon->id_surat = $data_surat->id_surat;
+                $data_pemohon->save();
+            }
+        }
 
         $data_riwayat = new riwayat;
         $data_riwayat->id_status = $status_awal->id_status;

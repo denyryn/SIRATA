@@ -7,7 +7,8 @@
     {{-- Bar Pencarian Surat --}}
     <nav class="flex items-center justify-end w-full p-2 font-normal bg-blue-500 h-fit rounded-xl">
         <div class="justify-end">
-            <form action="{{ route('admin.surat.search') }}" method="GET" class="flex items-center max-w-sm mx-auto">
+            <form action="{{ route(Session::get('akses') . '.surat.search') }}" method="GET"
+                class="flex items-center max-w-sm mx-auto">
                 @csrf
                 @method('GET')
 
@@ -43,7 +44,7 @@
     {{-- Main Content --}}
     <main class="grid grid-cols-3 gap-4 mt-5 lg:grid-cols-5 grid-flow-dense">
         @foreach ($data_perihal as $perihal)
-            <a href="{{ route('admin.surat.form', $perihal['perihal']->id_perihal) }}" class="">
+            <a href="{{ route(Session::get('akses') . '.surat.form', $perihal['perihal']->id_perihal) }}" class="">
                 <div class="flex-col w-full h-64 p-3 duration-100 rounded-md bg-blue-light hover:bg-blue-400">
                     <div class="">
                         <div class="w-2/3 h-3 my-1 bg-gray-200 rounded-sm"></div>

@@ -17,7 +17,7 @@ class Riwayat extends Model
 
     public function Surat()
     {
-        return $this->belongsTo('app\Models\Surat', 'id_surat');
+        return $this->belongsTo(Surat::class, 'id_surat');
     }
 
     public function Status()

@@ -102,12 +102,12 @@
                 </td>
             </tr>
             <tr>
-                <td>
+                <td id="namaPengajuContent">
                     {!! isset($surat->nama[0]) ? $surat->nama[0] : '...........' !!}
                 </td>
             </tr>
             <tr>
-                <td>
+                <td id="nimPengajuContent">
                     NIM. {!! isset($surat->nim[0]) ? $surat->nim[0] : '...........' !!}
                 </td>
             </tr>

@@ -5,7 +5,7 @@
 
 @section('content')
     <div class="grid grid-cols-12">
-        <form action="{{ route('admin.surat.form.store') }}" method="POST"
+        <form id="surat_form" action="{{ route(Session::get('akses') . '.surat.form.store') }}" method="POST"
             class="grid w-1/2 min-w-full col-start-1 col-end-6 grid-">
             @csrf
             @method('POST')
@@ -14,21 +14,36 @@
                 value="{{ $data_perihal->id_kategori_surat }}" />
 
             <div class="mb-5">
-                <label for="id_user" class="block mb-2 text-sm font-medium text-gray-900 ">
+                <label for="id_user1" class="block mb-2 text-sm font-medium text-gray-900 ">
                     Pengaju
                 </label>
                 <div class="flex flex-row items-end w-full">
                     <div id="pengajuContainer" class="flex flex-col w-full">
+
                         <select
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 mt-1"
-                            name="id_user" id="pengaju" required>
+                            name="id_user1" id="id_user1" required>
                             <option value="">Pilih Mahasiswa Pengaju</option>
-                            @foreach ($mahasiswas as $mahasiswa)
-                                <option value="{{ $mahasiswa->id_user }}">
-                                    {{ $mahasiswa->username }}
-                                </option>
-                            @endforeach
+                            @if (Session::get('akses') == 'mahasiswa')
+                                @foreach ($mahasiswas as $mahasiswa)
+                                    <option value="{{ $mahasiswa->id_user }}"
+                                        {{ $mahasiswa->id_user == $user_sekarang->id_user ? 'selected' : 'hidden' }}>
+                                        {{ $mahasiswa->nama_mahasiswa }}
+                                    </option>
+                                    {{-- <p id="nim_pengaju" hidden onloadStart="updateContent()">$mahasiswa->nim</p>
+                                    <p id="nama_pengaju" hidden onloadstart="updateContent()"> --}}
+                                    {{ $mahasiswa->nama_mahasiswa }}
+                                    </p>
+                                @endforeach
+                            @else
+                                @foreach ($mahasiswas as $mahasiswa)
+                                    <option value="{{ $mahasiswa->id_user }}">
+                                        {{ $mahasiswa->nama_mahasiswa }}
+                                    </option>
+                                @endforeach
+                            @endif
                         </select>
+
                     </div>
                     <button class="ml-1 text-xl text-white btn bg-blue-light hover:bg-blue-plain" type="button"
                         id="removePengajuBtn"> - </button>
@@ -114,7 +129,7 @@
                     </g>
                 </svg>
             </button>
-            <iframe id="templateFrame" onload="lazy"
+            <iframe id="templateFrame"
                 class="w-full h-[92%] border-black rounded-[0.5rem] overflow-scroll border-0 transform scale-100 align-middle mt-1"
                 srcdoc="{{ $rendered_template }}" frameborder="0"></iframe>
         </div>
@@ -134,6 +149,8 @@
             const alamatTujuanElement = templateDocument.getElementById("alamatTujuanContent");
             const upperBodyElement = templateDocument.getElementById("upperBodyContent");
             const lowerBodyElement = templateDocument.getElementById("lowerBodyContent");
+            const namaPengajuElement = templateDocument.getElementById("namaPengajuContent");
+            const nimPengajuElement = templateDocument.getElementById("nimPengajuContent");
 
             // Get the body data from the input in the parent document
             const perihalData = document.getElementById("perihal").value;
@@ -141,12 +158,16 @@
             const alamatTujuanData = document.getElementById("alamat_tujuan").value;
             const upperBodyData = document.getElementById("upper_body").value;
             const lowerBodyData = document.getElementById("lower_body").value;
+            const namaPengajuData = document.getElementById("nama_pengaju").value;
+            const nimPengajuData = document.getElementById("nim_pengaju").value;
 
             perihalElement.innerHTML = perihalData;
             namaTujuanElement.innerHTML = namaTujuanData;
             alamatTujuanElement.innerHTML = alamatTujuanData;
             upperBodyElement.innerHTML = upperBodyData;
             lowerBodyElement.innerHTML = lowerBodyData;
+            namaPengajuElement.innerHTML = namaPengajuData;
+            nimPengajuElement.innerHTML = nimPengajuData;
         }
     </script>
 
@@ -204,6 +225,8 @@
             const container = document.getElementById('pengajuContainer');
             const addButton = document.getElementById('addPengajuBtn');
             const removeButton = document.getElementById('removePengajuBtn');
+            const form = document.getElementById('surat_form');
+            let newOption;
 
             let count = 1;
 
@@ -211,7 +234,7 @@
                 if (count <= 8) {
                     count++;
 
-                    const newSelect = createSelectElement();
+                    const newSelect = createSelectElement(count);
                     container.appendChild(newSelect);
                 } else {
                     alert('Maximum limit reached (8)');
@@ -225,12 +248,49 @@
                 }
             });
 
-            function createSelectElement() {
+            form.addEventListener('submit', function(event) {
+                event.preventDefault();
+
+                // Get all select elements
+                const selectElements = document.querySelectorAll('select[name^="id_user"]');
+                const selectedValues = {};
+
+                // Loop through select elements and get selected values
+                selectElements.forEach(function(select) {
+                    const selectedOption = select.options[select.selectedIndex];
+                    if (selectedOption.value !== '') {
+                        const name = select.getAttribute('name');
+                        selectedValues[name] = selectedOption.value;
+                    }
+                });
+
+                // Set the selected values to hidden input fields in the form
+                Object.keys(selectedValues).forEach(function(key) {
+                    const hiddenInput = document.createElement('input');
+                    hiddenInput.setAttribute('type', 'hidden');
+                    hiddenInput.setAttribute('name', key);
+                    hiddenInput.setAttribute('value', selectedValues[key]);
+                    form.appendChild(hiddenInput);
+                });
+
+                // Set the final count value to a hidden input field in the form
+                const countInput = document.createElement('input');
+                countInput.setAttribute('type', 'hidden');
+                countInput.setAttribute('name', 'count');
+                countInput.setAttribute('value', count);
+                form.appendChild(countInput);
+
+                // Submit the form
+                form.submit();
+            });
+
+            function createSelectElement(index) {
                 const newSelect = document.createElement('select');
                 newSelect.setAttribute('class',
                     'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 mt-1'
                 );
-                newSelect.setAttribute('name', 'id_user[]'); // Use array notation for multiple selections
+                newSelect.setAttribute('name', `id_user${index}`); // Use array notation for multiple selections
+                newSelect.setAttribute('id', `id_user${index}`); // Use array notation for multiple selections
                 newSelect.setAttribute('required', 'required');
 
                 const option = document.createElement('option');
@@ -240,9 +300,10 @@
 
                 // Add options from existing data (e.g., mahasiswas)
                 @foreach ($mahasiswas as $mahasiswa)
-                    const newOption = document.createElement('option');
+                    // Create a new option element for each mahasiswa
+                    newOption = document.createElement('option');
                     newOption.setAttribute('value', '{{ $mahasiswa->id_user }}');
-                    newOption.textContent = '{{ $mahasiswa->username }}';
+                    newOption.textContent = '{{ $mahasiswa->nama_mahasiswa }}';
                     newSelect.appendChild(newOption);
                 @endforeach
 

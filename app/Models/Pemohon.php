@@ -17,11 +17,11 @@ class Pemohon extends Model
 
     public function User()
     {
-        return $this->belongsTo('app\Models\User', 'id_user');
+        return $this->belongsTo(User::class, 'id_user');
     }
 
     public function Surat()
     {
-        return $this->belongsTo('app\Models\Surat', 'id_surat');
+        return $this->belongsTo(Surat::class, 'id_surat');
     }
 }

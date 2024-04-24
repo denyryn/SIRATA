@@ -72,13 +72,13 @@
                         <td class="border px-[0.1cm] py-[0.1cm] ps-[0.2cm] text-center">
                             {!! $no !!}
                         </td>
-                        <td class="border px-[0.1cm] py-[0.1cm] ps-[0.2cm] text-center">
+                        <td id="namaContentElement" class="border px-[0.1cm] py-[0.1cm] ps-[0.2cm] text-center">
                             {!! isset($surat->nama) ? $surat->nama : '...........' !!}
                         </td>
-                        <td class="border px-[0.1cm] py-[0.1cm] ps-[0.2cm] text-center">
+                        <td id="nimContentElement" class="border px-[0.1cm] py-[0.1cm] ps-[0.2cm] text-center">
                             {!! isset($surat->nim) ? $surat->nim : '...........' !!}
                         </td>
-                        <td class="border px-[0.1cm] py-[0.1cm] ps-[0.2cm] text-center">
+                        <td id="programStudiContentElement" class="border px-[0.1cm] py-[0.1cm] ps-[0.2cm] text-center">
                             {!! isset($surat->program_studi) ? $surat->program_studi : '...........' !!}
                         </td>
                     </tr>

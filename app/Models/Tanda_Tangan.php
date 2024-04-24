@@ -17,6 +17,6 @@ class Tanda_Tangan extends Model
 
     public function User()
     {
-        return $this->belongsTo('app\Models\User', 'id_user');
+        return $this->belongsTo(User::class, 'id_user');
     }
 }

@@ -22,11 +22,6 @@ class Perihal extends Model
 
     public function Kategori_Surat()
     {
-        return $this->belongsTo('App\Models\Kategori_Surat', 'id_kategori_surat');
-    }
-
-    public function Surat()
-    {
-        return $this->hasMany('app\Models\Surat', 'id_perihal');
+        return $this->belongsTo(Kategori_Surat::class, 'id_kategori_surat');
     }
 }

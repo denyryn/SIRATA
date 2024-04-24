@@ -14,6 +14,9 @@ use App\Http\Controllers\SuratController;
 use App\Http\Controllers\LayananSuratAdminController;
 use App\Http\Controllers\LayananSuratMahasiswaController;
 use App\Http\Controllers\CariLayananSuratController;
+use App\Http\Controllers\LayananLacakSuratController;
+use App\Http\Controllers\LoginController;
+
 
 
 /*
@@ -28,21 +31,28 @@ use App\Http\Controllers\CariLayananSuratController;
 */
 
 // =============================== AUTH ROUTE ================================
-Route::get('/', [WelcomeController::class, 'index'])->name("welcome.index");
-Route::get('/login', [WelcomeController::class, 'login'])->name("welcome.login");
-
+Route::get('/', [LoginController::class, 'index'])->name("welcome.index");
+Route::get('/login', [LoginController::class, 'login'])->name("login");
+Route::get('/postlogin', [LoginController::class, 'postlogin'])->name("postlogin");
+Route::get('/logout', [LoginController::class, 'logout'])->name("logout");
 // =============================== GROUP ROUTE MAHASISWA ================================
-Route::prefix('mahasiswa')->group(function () {
+Route::group(['prefix' => 'mahasiswa', 'middleware' => ['auth', 'cekakses:mahasiswa']], function () {
     Route::get('/dashboard', [UserMahasiswaController::class, 'index'])->name("mahasiswa.index");
-    Route::get('/dashboard/lacak_surat', [LayananSuratMahasiswaController::class, 'lacak'])->name("mahasiswa.lacak_surat");
-    Route::prefix('/layanan')->group(function () {
-        Route::get('/', [LayananSuratMahasiswaController::class, 'index'])->name("mahasiswa.layanan");
-        Route::get('/{nama_kategori}', [LayananSuratMahasiswaController::class, 'create'])->name("mahasiswa.layanan.surat");
+
+    Route::prefix('/dashboard')->group(function () {
+
+        Route::prefix('/layanan_surat')->group(function () {
+            Route::get('/', [LayananSuratMahasiswaController::class, 'index'])->name("mahasiswa.surat.layanan");
+            Route::get('/lacak_surat', [LayananLacakSuratController::class, 'index'])->name("mahasiswa.surat.lacak");
+            Route::get('/create/{id_perihal}', [LayananSuratMahasiswaController::class, 'create'])->name("mahasiswa.surat.form");
+            Route::get('/search', [CariLayananSuratController::class, 'index'])->name("mahasiswa.surat.search");
+            Route::post('/', [LayananSuratMahasiswaController::class, 'store'])->name("mahasiswa.surat.form.store");
+        });
     });
 });
 
 // =============================== GROUP ROUTE ADMIN ================================
-Route::prefix('admin')->group(function () {
+Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'cekakses:admin']], function () {
     Route::get('/dashboard', [UserAdminController::class, 'index'])->name("admin.index");
 
     Route::prefix('/dashboard')->group(function () {
@@ -109,8 +119,3 @@ Route::prefix('admin')->group(function () {
     });
 });
 
-// =============================== GROUP ROUTE TEMPLATE ================================
-Route::prefix('layanan_surat')->group(function () {
-    Route::get('/', [LayananSuratAdminController::class, 'index'])->name("surat.layanan");
-    Route::get('/search', [CariLayananSuratController::class, 'index'])->name("surat.search");
-});

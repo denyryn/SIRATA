@@ -18,6 +18,7 @@ class DatabaseSeeder extends Seeder
             KategoriSeeder::class,
             ProdiSeeder::class,
             StatusSeeder::class,
+            KelasSeeder::class,
             UserSeeder::class,
             PerihalSeeder::class,
         ]);

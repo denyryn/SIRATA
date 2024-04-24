@@ -17,11 +17,11 @@ class Kategori_Surat extends Model
 
     public function Surat()
     {
-        return $this->hasMany('app\Models\Surat', 'id_kategori_surat');
+        return $this->hasMany(Surat::class, 'id_kategori_surat');
     }
 
     public function Perihal()
     {
-        return $this->hasMany('app\Models\Perihal', 'id_kategori_surat');
+        return $this->hasMany(Perihal::class, 'id_kategori_surat');
     }
 }
