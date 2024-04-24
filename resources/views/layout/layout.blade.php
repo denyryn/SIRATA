@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
     {{-- <title>Trying Layouting</title> --}}
@@ -12,16 +13,21 @@
 </head>
 
 <body class="font-poppins">
-    @include('layout.sidebar')
+    @if (Session::has('akses'))
+        @if (Session::get('akses') === 'admin')
+            @include('layout.sidebars.admin_sidebar')
+        @elseif(Session::get('akses') === 'mahasiswa')
+            @include('layout.sidebars.mahasiswa_sidebar')
+        @endif
+    @endif
 
     {{-- header --}}
     <div class="p-4 content sm:ml-64">
         <div class="flex flex-row items-center my-4 justify-evenly md:justify-end">
-            <img class="h-10" src="{{ asset('images/polines-wquote.png') }}" alt="">
-            <img class="h-10 ms-2" src="{{ asset('images/hme.png') }}" alt="">
+            <img class="h-10" src="{{ asset('images/polines-wquote.png') }}" alt="Politeknik Negeri Semarang">
             <div class="flex flex-row items-center ms-2">
-                <img class="size-8" src="{{ asset('images/sirata-gradient-logo.png') }}" alt="">
-                <img class="h-10 ms-1" src="{{ asset('images/sirata-gradient-letters.png') }}" alt="">
+                <img class="size-8" src="{{ asset('images/sirata-gradient-logo.png') }}" alt="Logo Sirata">
+                <img class="h-10 ms-1" src="{{ asset('images/sirata-gradient-letters.png') }}" alt="Text Sirata">
             </div>
         </div>
         <div class="text-blue-light">
@@ -79,3 +85,4 @@
 </body>
 
 </html>
+

@@ -12,12 +12,12 @@ return new class extends Migration {
     {
         Schema::create('tanda_tangans', function (Blueprint $table) {
             $table->bigIncrements('id_tanda_tangan');
-            $table->unsignedBigInteger('id_dosen');
+            $table->unsignedBigInteger('id_user');
             $table->string('path_tanda_tangan');
 
             $table->timestamps();
 
-            $table->foreign('id_dosen')->references('id_dosen')->on('dosens');
+            $table->foreign('id_user')->references('id_user')->on('users');
 
         });
     }

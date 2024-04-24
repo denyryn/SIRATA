@@ -12,6 +12,10 @@
             </button>
         </div>
 
+        <div class="my-5">
+            {{ $data_perihal->links() }}
+        </div>
+
         {{-- Menampilkan Data Program Studi --}}
         <table class="table text-black table-zebra">
             <thead>
@@ -36,15 +40,14 @@
                                 @method('DELETE')
 
                                 <td class="grid grid-cols-2">
-                                    {{-- <a class="m-2 text-white bg-blue-600 btn no-animation hover:bg-blue-400"
-                                        href="{{ route('perihal.edit', $perihal->id_perihal) }}">
-                                        Edit
-                                    </a> --}}
 
-                                    <a data-modal-target="edit-perihal-modal{{ $perihal->id_perihal }}"
-                                        data-modal-toggle="edit-perihal-modal{{ $perihal->id_perihal }}"
-                                        class="m-2 text-white bg-blue-600 btn no-animation hover:bg-blue-700"
-                                        href="#">
+                                    <a class="m-2 text-white bg-green-600 btn no-animation hover:bg-green-700"
+                                        href="{{ route('perihal.read', $perihal->id_perihal) }}">
+                                        Read
+                                    </a>
+
+                                    <a class="m-2 text-white bg-blue-600 btn no-animation hover:bg-blue-700"
+                                        href="{{ route('perihal.edit', $perihal->id_perihal) }}">
                                         Edit
                                     </a>
 
@@ -58,14 +61,15 @@
                 @endif
             </tbody>
         </table>
+
+        <div class="my-5">
+            {{ $data_perihal->links() }}
+        </div>
+
     </div>
 
     {{-- Include modals supaya form popup keluar --}}
     @include('admin.perihal.modals.create')
 
-    {{-- Iterasi supaya modals edit dari semua data dapat keluar --}}
-    @foreach ($data_perihal as $perihal)
-        @include('admin.perihal.modals.edit')
-    @endforeach
-
 @endsection
+

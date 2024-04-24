@@ -11,12 +11,12 @@ class Tanda_Tangan extends Model
     protected $table = 'tanda_tangans';
     protected $primaryKey = 'id_tanda_tangan';
     protected $fillable = [
-        'id_dosen',
+        'id_user',
         'path_tanda_tangan'
     ];
 
-    public function Dosen()
+    public function User()
     {
-        return $this->belongsTo('app\Models\Dosen', 'id_dosen');
+        return $this->belongsTo(User::class, 'id_user');
     }
 }

@@ -16,8 +16,7 @@ return new class extends Migration {
             $table->string('nim', 25)->unique();
             $table->unsignedBigInteger('id_kelas');
             $table->string('nama_mahasiswa', 150);
-            $table->string('email_mahasiswa', 100);
-            $table->string('no_telp_mahasiswa', 15);
+            // $table->string('no_telp_mahasiswa', 15);
 
             $table->timestamps();
 

@@ -14,7 +14,10 @@ return new class extends Migration {
             $table->bigIncrements('id_perihal');
             $table->unsignedBigInteger('id_kategori_surat');
             $table->string('nama_perihal');
-            $table->text('template')->nullable();
+            $table->text('nama_tujuan')->nullable();
+            $table->text('alamat_tujuan')->nullable();
+            $table->text('upper_body')->nullable();
+            $table->text('lower_body')->nullable();
 
             $table->foreign('id_kategori_surat')->references('id_kategori_surat')->on('kategori_surats');
         });
