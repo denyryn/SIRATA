@@ -11,8 +11,8 @@ class LoginController extends Controller
 {
     public function index()
     {
-        // return view('auths.welcome');
-        return redirect('login');
+        return view('auths.welcome');
+        // return redirect('welcome.index');
 
     }
 

@@ -107,11 +107,6 @@ class PerihalController extends Controller
         return redirect(route('admin.perihal'))->with('success', 'perihal has been deleted successfully');
     }
 
-    public function create()
-    {
-        $opsi_kategori = Kategori_Surat::pluck('nama_kategori', 'id_kategori_surat');
-        return view('admin.perihal.create', compact('opsi_kategori'));
-    }
 
 }
 
