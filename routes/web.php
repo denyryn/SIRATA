@@ -59,6 +59,8 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'cekakses:admin']], 
         // Program Studi Routes
         Route::prefix('/surat')->group(function () {
             Route::get('/', [SuratController::class, 'index'])->name("admin.surat");
+            Route::get('/preview/{id_surat}', [SuratController::class, 'edit'])->name("admin.surat.preview");
+            Route::get('/{id_surat}', [SuratController::class, 'update'])->name("admin.surat.update");
             // Route::post('/', [ProgramStudiController::class, 'store'])->name("surat.store");
             // Route::put('/{id_prodi}', [ProgramStudiController::class, 'update'])->name("prodi.update");
             // Route::delete('/{id_prodi}', [ProgramStudiController::class, 'delete'])->name("prodi.delete");

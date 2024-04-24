@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use App\Models\User;
+use App\Models\Mahasiswa;
 
 class LoginController extends Controller
 {
@@ -29,6 +30,7 @@ class LoginController extends Controller
 
             // Fetch the user's role from the database using the stored user ID
             $user = User::find($id_user);
+            Session::put('data_user', $user);
 
             // Periksa peran pengguna dan arahkan ke halaman yang sesuai
             if ($user) {
@@ -41,6 +43,12 @@ class LoginController extends Controller
                 if ($akses === 'admin') {
                     return redirect(route('admin.index'));
                 } elseif ($akses === 'mahasiswa') {
+                    // Retrieve data from the 'mahasiswa' table based on the user's ID
+                    $data_mahasiswa = Mahasiswa::where('id_user', $user->id_user)->first();
+                    // Store the retrieved data in the session
+                    Session::put('data_mahasiswa', $data_mahasiswa);
+                    $data_mahasiswa = Session::get('data_mahasiswa');
+                    // dd($data_mahasiswa);
                     return redirect(route('mahasiswa.index'));
                 }
             }

@@ -26,7 +26,7 @@ Alamat lengkap & Jelas :<br>
 Tanggal Pelaksanaan : <br>"
             ],
             [
-                "id_kategori_surat" => "1",
+                "id_kategori_surat" => "2",
                 "nama_perihal" => "Permohonan Magang",
                 "nama_tujuan" => "Yth. Direktur PT. Educa Sisfomedia Indonesia",
                 "alamat_tujuan" => "Jalan Gilingrejo No.10, Gendongan, Tingkir, Salatiga",
