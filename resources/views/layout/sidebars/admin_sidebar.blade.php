@@ -18,8 +18,9 @@
             <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
                 class="m-3 rounded-full h-14 sm:h-14" alt="User" />
             <div class="text-sm text-center text-white">
-                <span class="block ">Administrator</span>
-                <span class="block ">00.00.00.00</span>
+                <span class="block ">Admin</span>
+                <span class="block ">{{ Session::has('data_user') ? Session::get('data_user')->username : 'Error' }}
+                </span>
             </div>
         </div>
 

@@ -13,7 +13,11 @@
             </td>
             <td>
                 <p id="perihalContent">
-                    {!! isset($data_perihal->nama_perihal) ? $data_perihal->nama_perihal : '...........' !!}
+                    {!! isset($data_surat->nama_perihal)
+                        ? $data_surat->nama_perihal
+                        : (isset($data_perihal->nama_perihal)
+                            ? $data_perihal->nama_perihal
+                            : '...........') !!}
                 </p>
             </td>
         </tr>
@@ -26,20 +30,32 @@
             <tr>
                 <td>
                     <p id="namaTujuanContent">
-                        {!! isset($data_perihal->nama_tujuan) ? $data_perihal->nama_tujuan : '...........' !!}
+                        {!! isset($data_surat->nama_tujuan)
+                            ? $data_surat->nama_tujuan
+                            : (isset($data_perihal->nama_tujuan)
+                                ? $data_perihal->nama_tujuan
+                                : '...........') !!}
                     </p>
                 </td>
             </tr>
         </table>
         <p id="alamatTujuanContent">
-            {!! isset($data_perihal->alamat_tujuan) ? $data_perihal->alamat_tujuan : '...........' !!}
+            {!! isset($data_surat->alamat_tujuan)
+                ? $data_surat->alamat_tujuan
+                : (isset($data_perihal->alamat_tujuan)
+                    ? $data_perihal->alamat_tujuan
+                    : '...........') !!}
         </p>
     </div>
 
     <div class="p-[0.5cm]"></div>
 
     <p id="upperBodyContent">
-        {!! isset($data_perihal->upper_body) ? $data_perihal->upper_body : '...........' !!}
+        {!! isset($data_surat->upper_body)
+            ? $data_surat->upper_body
+            : (isset($data_perihal->upper_body)
+                ? $data_perihal->upper_body
+                : '...........') !!}
     </p>
 
     <div class="p-[0.3cm]"></div>
@@ -54,22 +70,22 @@
                     <th class="border px-[0.1cm] py-[0.1cm]">Program Studi</th>
                 </thead>
                 <tbody>
-                    <!-- foreach($data as $row) -->
+                    {{-- ($pemohons as $pemohon) --}}
                     <tr class="border px-[0.1cm] py-[0.1cm] ps-[0.2cm]">
                         <td class="border px-[0.1cm] py-[0.1cm] ps-[0.2cm] text-center">
                             {!! $no !!}
                         </td>
                         <td class="border px-[0.1cm] py-[0.1cm] ps-[0.2cm] text-center">
-                            {!! isset($surat->nama) ? $surat->nama : '...........' !!}
+                            {!! isset($pemohon->nama) ? $surat->nama : '...........' !!}
                         </td>
                         <td class="border px-[0.1cm] py-[0.1cm] ps-[0.2cm] text-center">
-                            {!! isset($surat->nim) ? $surat->nim : '...........' !!}
+                            {!! isset($pemohon->nim) ? $pemohon->nim : '...........' !!}
                         </td>
                         <td class="border px-[0.1cm] py-[0.1cm] ps-[0.2cm] text-center">
-                            {!! isset($surat->program_studi) ? $surat->program_studi : '...........' !!}
+                            {!! isset($pemohon->program_studi) ? $surat->program_studi : '...........' !!}
                         </td>
                     </tr>
-                    <!-- endforeach -->
+                    {{-- endforeach --}}
                 </tbody>
             </table>
         </div>
@@ -80,7 +96,11 @@
 
     <div>
         <p id="lowerBodyContent">
-            {!! isset($data_perihal->lower_body) ? $data_perihal->lower_body : '...........' !!}
+            {!! isset($data_surat->lower_body)
+                ? $data_surat->lower_body
+                : (isset($data_perihal->lower_body)
+                    ? $data_perihal->lower_body
+                    : '...........') !!}
         </p>
     </div>
 
@@ -90,7 +110,7 @@
         <table>
             <tr>
                 <td>Semarang,
-                    {!! isset($surat->date) ? $surat->date : (isset($tanggal_sekarang) ? $tanggal_sekarang : '...........') !!}
+                    {!! isset($tanggal_surat) ? $tanggal_surat : (isset($tanggal_sekarang) ? $tanggal_sekarang : '...........') !!}
                 </td>
             </tr>
             <tr>
