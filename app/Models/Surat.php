@@ -11,34 +11,35 @@ class Surat extends Model
     protected $table = 'surats';
     protected $primaryKey = 'id_surat';
     protected $fillable = [
-        'id_perihal',
-        'id_jabatan',
-        'id_status',
-        'tujuan_surat', //Is it necessary?????
+        // 'id_riwayat',
+        'id_kategori_surat',
+        'nama_perihal',
+        'tujuan_surat',
         'nomor_surat',
-        'email_mahasiswa',
-        'tanggal_surat',
+        // 'tanggal_surat',
+        'body',
+        'lower',
         'lampiran'
 
     ];
 
-    public function Jabatan()
+    public function User()
     {
-        return $this->belongsTo('app\Models\Jabatan', 'id_jabatan');
+        return $this->belongsTo('app\Models\User', 'id_user');
     }
 
-    public function Status()
+    public function Kategori_Surat()
     {
-        return $this->belongsTo('app\Models\Jabatan', 'id_status');
-    }
-
-    public function Perihal()
-    {
-        return $this->belongsTo('app\Models\Jabatan', 'id_perihal');
+        return $this->belongsTo(Kategori_Surat::class, 'id_kategori_surat');
     }
 
     public function Pemohon()
     {
-        return $this->hasMany('app\Models\Pemohon', 'id_surat');
+        return $this->hasMany(Pemohon::class, 'id_surat');
+    }
+
+    public function Riwayat()
+    {
+        return $this->hasMany(Riwayat::class, 'id_surat');
     }
 }

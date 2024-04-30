@@ -12,15 +12,43 @@ class User extends Authenticatable
 
     protected $table = 'users';
     protected $primaryKey = 'id_user';
-    protected $fillable = ['username', 'password', 'email', 'akses'];
+    protected $fillable = ['username', 'password', 'email'];
 
     public function Mahasiswa()
     {
-        return $this->hasOne('App\Models\Mahasiswa', 'id_user');
+        return $this->hasOne(Mahasiswa::class, 'id_user');
     }
 
     public function Dosen()
     {
-        return $this->hasOne('App\Models\Dosen', 'id_user');
+        return $this->hasOne(Dosen::class, 'id_user');
+    }
+
+    public function Surat()
+    {
+        return $this->hasMany(Surat::class, 'id_user');
+    }
+
+    /**
+     * The attributes that should be hidden for serialization.
+     *
+     * @var array<int, string>
+     */
+    protected $hidden = [
+        'password',
+        'remember_token',
+    ];
+
+    /**
+     * Get the attributes that should be cast.
+     *
+     * @return array<string, string>
+     */
+    protected function casts(): array
+    {
+        return [
+            'email_verified_at' => 'datetime',
+            'password' => 'hashed',
+        ];
     }
 }

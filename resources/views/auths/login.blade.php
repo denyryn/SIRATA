@@ -1,4 +1,5 @@
-@extends('indexLayout.layout')
+{{-- Ada perubahan kecil pada penamaan file layout untuk halaman login --}}
+@extends('layout.layout_minimal')
 
 @section('title', 'Login')
 
@@ -7,18 +8,20 @@
         <div class="bg-white w-max h-max rounded-xl">
             <div class="flex flex-col items-center m-14">
 
-                <div class="mb-5">
-                    <img class="h-14 w-14"
-                        src="https://web.polines.ac.id/wp-content/uploads/2022/01/Logo-Polines-96dpi-200px.png"
-                        alt="">
+                <div class="flex flex-row items-center mb-5">
+                    <img class="size-12 w-fit" src="{{ asset('images/polines-wquote.png') }}" alt="Politeknik Negeri Semarang">
+                    <div class="flex flex-row items-center ms-4">
+                        <img class="size-10" src="{{ asset('images/sirata-gradient-logo.png') }}" alt="Sirata Blue Logo">
+                        <img class="h-14 ps-1" src="{{ asset('images/sirata-gradient-letters.png') }}"
+                            alt="Sirata Blue Logo">
+                    </div>
                 </div>
 
                 <div class="flex flex-col md:flex-row">
                     <div class="m-4 flex flex-col items-start md:min-w-[50vh]">
                         <span class="self-center font-bold tracking-tight md:self-start">Masukkan Username dan
                             Password</span>
-                        <form action="{{ route('login') }}" method="POST" class="w-full">
-                            @csrf <!-- Tambahkan CSRF token -->
+                        <form action="{{ route('postlogin') }}" class="w-full">
                             <div class="form-control">
                                 <label for="username" class="label">
                                     <span class="label-text">Username</span>
@@ -26,19 +29,25 @@
                                 <input id="username" name="username" type="text" placeholder="NIM/NIP"
                                     class="w-full input input-bordered rounded-2xl" required />
                             </div>
-                            <div class="form-control">
-                                <label for="password" class="label">
-                                    <span class="label-text">Password</span>
-                                </label>
-                                <input id="password" name="password" type="password" placeholder="Password"
-                                    class="input input-bordered rounded-2xl " required />
-                            </div>
+                            <table class="min-w-full border-separate border-spacing-y-4">
+                                <tr>
+
+                                </tr>
+                                <tr>
+                                    <div class="form-control">
+                                        <label for="password" class="label">
+                                            <span class="label-text">Password</span>
+                                        </label>
+                                        <input id="password" name="password" type="password" placeholder="Password"
+                                            class="input input-bordered rounded-2xl " required />
+                                    </div>
+                                </tr>
+                            </table>
                             <label class="label">
                                 <a href="#" class="label-text-alt link link-hover">Forgot password?</a>
                             </label>
                             <div class="mt-1 form-control">
-                                <button type="submit"
-                                    class="text-white border-none bg-blue-plain btn hover:bg-blue-light">Login</button>
+                                <button class="text-white border-none bg-blue-plain btn hover:bg-blue-light">Login</button>
                             </div>
 
                         </form>
@@ -63,3 +72,4 @@
         </div>
     </div>
 @endsection
+

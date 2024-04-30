@@ -12,12 +12,12 @@ return new class extends Migration {
     {
         Schema::create('pemohons', function (Blueprint $table) {
             $table->bigIncrements('id_pemohon');
-            $table->unsignedBigInteger('id_mahasiswa');
+            $table->unsignedBigInteger('id_user');
             $table->unsignedBigInteger('id_surat');
 
             $table->timestamps();
 
-            $table->foreign('id_mahasiswa')->references('id_mahasiswa')->on('mahasiswas');
+            $table->foreign('id_user')->references('id_user')->on('users');
             $table->foreign('id_surat')->references('id_surat')->on('surats');
 
         });

@@ -14,16 +14,14 @@ class Perihal extends Model
     protected $fillable = [
         'id_kategori_surat',
         'nama_perihal',
-        'template',
+        'nama_tujuan',
+        'alamat_tujuan',
+        'upper_body',
+        'lower_body',
     ];
 
     public function Kategori_Surat()
     {
-        return $this->belongsTo('app\Models\Kategori_Surat', 'id_kategori_surat');
-    }
-
-    public function Surat()
-    {
-        return $this->hasMany('app\Models\Surat', 'id_perihal');
+        return $this->belongsTo(Kategori_Surat::class, 'id_kategori_surat');
     }
 }

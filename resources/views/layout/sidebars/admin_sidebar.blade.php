@@ -18,16 +18,18 @@
             <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
                 class="m-3 rounded-full h-14 sm:h-14" alt="User" />
             <div class="text-sm text-center text-white">
-                <span class="block ">Administrator</span>
-                <span class="block ">00.00.00.00</span>
+                <span class="block ">Admin</span>
+                <span class="block ">{{ Session::has('data_user') ? Session::get('data_user')->username : 'Error' }}
+                </span>
             </div>
         </div>
 
         <ul class="space-y-2 font-medium text-white">
             {{-- DASHOBARD --}}
-            <li>
-                <a href="{{ route('admin.index') }}" class="group">
-                    <div class="flex items-center justify-start w-full p-2 py-3 hover:bg-blue-lighter px-7">
+            <li class="focus:bg-blue-lighter">
+                <a href="{{ route('admin.index') }}" class="border-none outline-none group ">
+                    <div
+                        class="flex items-center justify-start w-full p-2 py-3 border-none outline-none hover:bg-blue-lighter px-7">
                         <svg class="w-5 h-5 transition duration-75" viewBox="0 0 48.00 48.00"
                             xmlns="http://www.w3.org/2000/svg" fill="currentColor">
                             <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
@@ -66,7 +68,7 @@
 
             <li>
                 <button type="button"
-                    class="flex items-center justify-start w-full p-2 py-3 hover:bg-blue-lighter px-7"
+                    class="flex items-center justify-start w-full p-2 py-3 border-none outline-none hover:bg-blue-lighter px-7"
                     aria-controls="dropdown-master" data-collapse-toggle="dropdown-master">
                     <svg class="w-5 h-5 transition duration-75" aria-hidden="true" viewBox="0 0 24 24" fill="none"
                         xmlns="http://www.w3.org/2000/svg">
@@ -120,8 +122,9 @@
 
             <li>
                 {{-- LAYANAN SURAT --}}
-                <a href="{{ route('mahasiswa.layanan') }}" class="">
-                    <div class="flex items-center justify-start w-full p-2 py-3 hover:bg-blue-lighter px-7">
+                <a href="{{ route('admin.surat.layanan') }}" class="border-none outline-none group">
+                    <div
+                        class="flex items-center justify-start w-full p-2 py-3 border-none outline-none hover:bg-blue-lighter px-7">
                         <svg class="w-5 h-5 transition duration-75" viewBox="0 0 24 24" fill="none"
                             xmlns="http://www.w3.org/2000/svg">
                             <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
@@ -139,8 +142,9 @@
                 </a>
             </li>
             <li>
-                <a href="/surat" class="group">
-                    <div class="flex items-center justify-start w-full p-2 py-3 hover:bg-blue-lighter px-7">
+                <a href="/surat" class="border-none outline-none group">
+                    <div
+                        class="flex items-center justify-start w-full p-2 py-3 border-none outline-none hover:bg-blue-lighter px-7">
                         <svg class="w-5 h-5 transition duration-75" viewBox="0 0 20 20" version="1.1"
                             xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
                             fill="#000000">
@@ -169,17 +173,15 @@
                 </a>
             </li>
             <li>
-                <form action="{{ route('logout') }}" method="POST">
-                    @csrf
-                    <button type="submit"
-                    class="flex items-center justify-start w-full p-2 py-3 hover:bg-blue-lighter px-7">
+                <a href="{{ route('logout') }}" class="border-none outline-none group">
+                    <div
+                        class="flex items-center justify-start w-full p-2 py-3 border-none outline-none hover:bg-blue-lighter px-7">
                         <svg class="w-5 h-5 transition duration-75" viewBox="0 0 24 24" fill="none"
                             xmlns="http://www.w3.org/2000/svg">
                             <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
                             <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
                             <g id="SVGRepo_iconCarrier">
-                                <path
-                                    d="M21 12L13 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                <path d="M21 12L13 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                     stroke-linejoin="round"></path>
                                 <path
                                     d="M18 15L20.913 12.087V12.087C20.961 12.039 20.961 11.961 20.913 11.913V11.913L18 9"
@@ -193,10 +195,11 @@
                         </svg>
 
                         <span class="ms-3">Logout</span>
-                    </button>
-                </form>
+                    </div>
+                </a>
             </li>
         </ul>
     </div>
 </aside>
 </div>
+

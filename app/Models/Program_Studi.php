@@ -15,6 +15,6 @@ class Program_Studi extends Model
 
     public function Kelas()
     {
-        return $this->hasMany('app\Models\Kelas', 'id_prodi');
+        return $this->hasMany(Kelas::class, 'id_prodi');
     }
 }
