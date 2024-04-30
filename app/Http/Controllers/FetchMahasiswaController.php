@@ -12,6 +12,7 @@ class FetchMahasiswaController extends Controller
     {
         $api_token = env('API_TOKEN');
         $api_url = env("API_URL");
+
         // Membuat header dengan token API
         $headers = [
             'Authorization' => 'Bearer ' . $api_token,
@@ -21,25 +22,18 @@ class FetchMahasiswaController extends Controller
         // Melakukan permintaan ke API dengan menyertakan header
         $response = Http::withHeaders($headers)->get($api_url);
 
+        // Mengambil body respons dan mengubahnya menjadi objek PHP
         $data = json_decode($response->body());
 
-        echo "<pre>";
-        
-        print_r($data);
-
-        foreach ($data as $postData) {
-            // Periksa jika $postData merupakan array atau objek
-            if (is_array($postData) || is_object($postData)) {
-                // Looping lagi untuk setiap elemen dalam $postData
-                foreach ($postData as $key => $value) {
-                    // Periksa jika kunci adalah 'NIM'
-                    if ($key === 'NIM') {
-                        echo "NIM: $value <br>";
-                    }
-                }
+        // Memeriksa jika data tidak kosong
+        if (!empty($data->data)) {
+            // Looping melalui setiap mahasiswa dalam data
+            foreach ($data->data as $mahasiswa) {
+                // Menampilkan NIM saja dari setiap mahasiswa
+                echo "NIM: $mahasiswa->NIM <br>";
             }
-        }        
-
-        die;
+        } else {
+            echo "Tidak ada data mahasiswa.";
+        }
     }
 }
