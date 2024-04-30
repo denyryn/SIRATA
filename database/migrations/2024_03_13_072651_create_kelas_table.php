@@ -10,15 +10,15 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('kelas', function (Blueprint $table) {
-            $table->bigIncrements('id_kelas');
-            $table->unsignedBigInteger('id_prodi');
-            $table->string('nama_kelas', 30);
+        // Schema::create('kelas', function (Blueprint $table) {
+        //     $table->bigIncrements('id_kelas');
+        //     $table->unsignedBigInteger('id_prodi');
+        //     $table->string('nama_kelas', 30);
 
-            $table->timestamps();
+        //     $table->timestamps();
 
-            $table->foreign('id_prodi')->references('id_prodi')->on('program_studis');
-        });
+        //     $table->foreign('id_prodi')->references('id_prodi')->on('program_studis');
+        // });
     }
 
     /**
@@ -26,6 +26,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('kelas');
+        // Schema::dropIfExists('kelas');
     }
 };

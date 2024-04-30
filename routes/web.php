@@ -31,8 +31,9 @@ use App\Http\Controllers\FetchDosenController;
 | the "web" middleware group. Now create something great!
 |
 */
-//==========================API====================================
-Route::get('/store-data',[FetchMahasiswaController::class,'store']);
+// ==========================API====================================
+Route::get('/fetch_data_mahasiswa', [FetchMahasiswaController::class, 'index']);
+Route::get('/fetch_data_dosen', [FetchDosenController::class, 'index']);
 
 // =============================== AUTH ROUTE ================================
 Route::get('/', [LoginController::class, 'index'])->name("welcome.index");

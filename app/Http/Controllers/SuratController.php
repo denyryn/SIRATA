@@ -64,8 +64,6 @@ class SuratController extends Controller
         // Find the Surat record with the given $id_surat
         $surat = Surat::find($id_surat);
 
-        $surat->Riwayat->Status->nama_s;
-
         // Assuming each Surat can have multiple statuses, let's fetch all statuses related to this Surat
         $riwayat_status_terakhir = $surat->Riwayat()->latest()->first();
 

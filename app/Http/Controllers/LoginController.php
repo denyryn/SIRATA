@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use App\Models\User;
+use App\Models\Mahasiswa;
 use Illuminate\Support\Facades\Http;
 
 class LoginController extends Controller
