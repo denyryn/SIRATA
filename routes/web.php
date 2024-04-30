@@ -15,6 +15,8 @@ use App\Http\Controllers\LayananSuratAdminController;
 use App\Http\Controllers\LayananSuratMahasiswaController;
 use App\Http\Controllers\CariLayananSuratController;
 use App\Http\Controllers\LayananLacakSuratController;
+use App\Http\Controllers\UserDosenController;
+use App\Http\Controllers\LayananSuratDosenController;
 
 
 
@@ -47,6 +49,22 @@ Route::group(['prefix' => 'mahasiswa', 'middleware' => ['auth', 'cekakses:mahasi
             Route::get('/create/{id_perihal}', [LayananSuratMahasiswaController::class, 'create'])->name("mahasiswa.surat.form");
             Route::get('/search', [CariLayananSuratController::class, 'index'])->name("mahasiswa.surat.search");
             Route::post('/', [LayananSuratMahasiswaController::class, 'store'])->name("mahasiswa.surat.form.store");
+        });
+    });
+});
+
+// =============================== GROUP ROUTE Dosen ================================
+Route::group(['prefix' => 'dosen', 'middleware' => ['auth', 'cekakses:dosen']], function () {
+    Route::get('/dashboard', [UserDosenController::class, 'index'])->name("dosen.index");
+
+    Route::prefix('/dashboard')->group(function () {
+
+        Route::prefix('/layanan_surat')->group(function () {
+            Route::get('/', [LayananSuratDosenController::class, 'index'])->name("dosen.surat.layanan");
+            Route::get('/lacak_surat', [LayananLacakSuratController::class, 'index'])->name("dosen.surat.lacak");
+            Route::get('/create/{id_perihal}', [LayananSuratDosenController::class, 'create'])->name("dosen.surat.form");
+            Route::get('/search', [CariLayananSuratController::class, 'index'])->name("dosen.surat.search");
+            Route::post('/', [LayananSuratDosenController::class, 'store'])->name("dosen.surat.form.store");
         });
     });
 });

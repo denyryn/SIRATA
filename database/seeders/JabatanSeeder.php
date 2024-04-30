@@ -17,6 +17,7 @@ class JabatanSeeder extends Seeder
             ["nama_jabatan" => "Ketua Jurusan Elektro"],
             ["nama_jabatan" => "Kepala Program Studi Teknologi Rekayasa Komputer"],
             ["nama_jabatan" => "Kepala Program Studi Teknik Elektro"],
+            ["nama_jabatan" => "Wali kelas"],
 
 
         ];

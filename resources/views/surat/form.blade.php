@@ -35,6 +35,15 @@
                                     {{ $mahasiswa->nama_mahasiswa }}
                                     </p>
                                 @endforeach
+                            @elseif (Session::get('akses') == 'dosen')
+                                @foreach ($dosens as $dosen)
+                                    <option value="{{ $dosen->id_user }}"
+                                        {{ $dosen->id_user == $user_sekarang->id_user ? 'selected' : 'hidden' }}>
+                                        {{ $dosen->nama_dosen }}
+                                    </option>
+                                    {{ $dosen->nama_dosen }}
+                                    </p>
+                                @endforeach
                             @else
                                 @foreach ($mahasiswas as $mahasiswa)
                                     <option value="{{ $mahasiswa->id_user }}">
@@ -285,30 +294,41 @@
             });
 
             function createSelectElement(index) {
-                const newSelect = document.createElement('select');
-                newSelect.setAttribute('class',
-                    'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 mt-1'
-                );
-                newSelect.setAttribute('name', `id_user${index}`); // Use array notation for multiple selections
-                newSelect.setAttribute('id', `id_user${index}`); // Use array notation for multiple selections
-                newSelect.setAttribute('required', 'required');
+                    const newSelect = document.createElement('select');
+                    newSelect.setAttribute('class',
+                        'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 mt-1'
+                    );
+                    newSelect.setAttribute('name', `id_user${index}`); // Gunakan notasi array untuk pilihan ganda
+                    newSelect.setAttribute('id', `id_user${index}`); // Gunakan notasi array untuk pilihan ganda
+                    newSelect.setAttribute('required', 'required');
 
-                const option = document.createElement('option');
-                option.setAttribute('value', '');
-                option.textContent = 'Pilih Mahasiswa Pengaju';
-                newSelect.appendChild(option);
+                    const option = document.createElement('option');
+                    option.setAttribute('value', '');
+                    option.textContent = 'Pilih Pengguna';
+                    newSelect.appendChild(option);
 
-                // Add options from existing data (e.g., mahasiswas)
-                @foreach ($mahasiswas as $mahasiswa)
-                    // Create a new option element for each mahasiswa
-                    newOption = document.createElement('option');
-                    newOption.setAttribute('value', '{{ $mahasiswa->id_user }}');
-                    newOption.textContent = '{{ $mahasiswa->nama_mahasiswa }}';
-                    newSelect.appendChild(newOption);
-                @endforeach
+                    // Tambahkan opsi berdasarkan hak akses pengguna
+                    @if (Session::get('akses') === 'mahasiswa')
+                        // Buat elemen opsi baru untuk setiap mahasiswa
+                        @foreach ($mahasiswas as $mahasiswa)
+                            newOption = document.createElement('option');
+                            newOption.setAttribute('value', '{{ $mahasiswa->id_user }}');
+                            newOption.textContent = '{{ $mahasiswa->nama_mahasiswa }}';
+                            newSelect.appendChild(newOption);
+                        @endforeach
+                    @elseif (Session::get('akses') === 'dosen')
+                        // Buat elemen opsi baru untuk setiap dosen
+                        @foreach ($dosens as $dosen)
+                            newOption = document.createElement('option');
+                            newOption.setAttribute('value', '{{ $dosen->id_user }}');
+                            newOption.textContent = '{{ $dosen->nama_dosen }}';
+                            newSelect.appendChild(newOption);
+                        @endforeach
+                    @endif
 
-                return newSelect;
-            }
+                    return newSelect;
+                }
+
         });
     </script>
 @endsection

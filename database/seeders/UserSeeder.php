@@ -44,6 +44,13 @@ class UserSeeder extends Seeder
                 "password" => bcrypt("123456"),
                 "akses" => "mahasiswa",
                 "remember_token" => Str::random(60)
+            ],
+            [
+                "username" => "5983217181",
+                "email" => "wahyu@outlook.com",
+                "password" => bcrypt("123456"),
+                "akses" => "dosen",
+                "remember_token" => Str::random(60)
             ]
         ];
 
@@ -66,7 +73,8 @@ class UserSeeder extends Seeder
             [
                 "id_user" => "2",
                 "nip" => "59832171812",
-                "nama_dosen" => "Wahyu Sulistyo"
+                "nama_dosen" => "Wahyu Sulistyo",
+                'id_jabatan' => 1
             ]
         ];
 

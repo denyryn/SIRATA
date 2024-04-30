@@ -7,13 +7,14 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use App\Models\User;
 use App\Models\Mahasiswa;
+use App\Models\Dosen;
 
 class LoginController extends Controller
 {
     public function index()
     {
-        return view('auths.welcome');
-        // return redirect('welcome.index');
+        // return view('auths.welcome');
+        return redirect('login');
 
     }
 
@@ -45,16 +46,32 @@ class LoginController extends Controller
                 } elseif ($akses === 'mahasiswa') {
                     // Retrieve data from the 'mahasiswa' table based on the user's ID
                     $data_mahasiswa = Mahasiswa::where('id_user', $user->id_user)->first();
-                    // Store the retrieved data in the session
-                    Session::put('data_mahasiswa', $data_mahasiswa);
-                    $data_mahasiswa = Session::get('data_mahasiswa');
-                    // dd($data_mahasiswa);
-                    return redirect(route('mahasiswa.index'));
+                    if ($data_mahasiswa) {
+                        // Store the retrieved data in the session
+                        Session::put('data_mahasiswa', $data_mahasiswa);
+                        return redirect(route('mahasiswa.index'));
+                    } else {
+                        // Handle the case where no matching data is found for the user
+                        return redirect()->back()->with('error', 'Data mahasiswa tidak ditemukan.');
                 }
-            }
+                
+                } elseif ($akses === 'dosen') {
+                    // Retrieve data from the 'dosen' table based on the user's ID
+                    $data_dosen = Dosen::where('id_user', $user->id_user)->first();
+                    if ($data_dosen) {
+                        // Store the retrieved data in the session
+                        Session::put('data_dosen', $data_dosen);
+                        return redirect(route('dosen.index'));
+                    } else {
+                        // Handle the case where no matching data is found for the user
+                        return redirect()->back()->with('error', 'Data dosen tidak ditemukan.');
+                    }
+                }
+                
         }
         return redirect(route('login'));
     }
+}
 
     public function logout()
     {
