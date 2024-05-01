@@ -61,13 +61,20 @@ class SuratController extends Controller
 
     public function edit(Request $request, $id_surat)
     {
+        $status_proses = Status::where('nama_status', 'Diproses')->first('id_status');
+
         // Find the Surat record with the given $id_surat
         $surat = Surat::find($id_surat);
 
-        // Assuming each Surat can have multiple statuses, let's fetch all statuses related to this Surat
         $riwayat_status_terakhir = $surat->Riwayat()->latest()->first();
+        $nama_status_terakhir = $riwayat_status_terakhir->Status->nama_status;
 
-        $nama_status_terakhir = $riwayat_status_terakhir->Status->nama_status; // Access the nama_status through the "status" relationship
+        if ($nama_status_terakhir != "Diproses" && $nama_status_terakhir != "Disetujui") {
+            $data_riwayat = new Riwayat;
+            $data_riwayat->id_status = $status_proses->id_status;
+            $data_riwayat->id_surat = $surat->id_surat;
+            $data_riwayat->save();
+        }
 
         $tanggal_surat = Carbon::parse($surat->created_at)->format('F Y');
 
@@ -75,8 +82,8 @@ class SuratController extends Controller
 
         foreach ($pemohons as $pemohon) {
             if ($pemohon->user->akses == 'mahasiswa') {
-                $identitas = $pemohon->user->load('mahasiswa.kelas.program_studi')->mahasiswa;
-                $data_prodi = $identitas->kelas->program_studi;
+                $identitas = $pemohon->user->load('mahasiswa.program_studi')->mahasiswa;
+                $data_prodi = $identitas->program_studi;
                 $data_pemohons[] = [
                     'identitas' => $identitas,
                     'data_prodi' => $data_prodi
@@ -102,14 +109,28 @@ class SuratController extends Controller
             abort(404, __('Template not found.'));
         }
 
+        // dd($data_surat);
+
         $rendered_template = view($template, compact('data_surat', 'no'))->render();
-        return view('admin.surat.preview', compact('data_surat', 'rendered_template'));
+        return view('admin.surat.preview', compact('data_surat', 'nama_status_terakhir', 'rendered_template'));
 
     }
 
-    public function update()
+    public function update(Request $request, $id_surat)
     {
+        $status_disetujui = Status::where('nama_status', 'Disetujui')->first('id_status');
 
+        // Find the Surat record with the given $id_surat
+        $data_surat = Surat::find($id_surat);
+        $data_surat->nomor_surat = $request->nomor_surat;
+        $data_surat->update();
+
+        $data_riwayat = new Riwayat;
+        $data_riwayat->id_status = $status_disetujui->id_status;
+        $data_riwayat->id_surat = $data_surat->id_surat;
+        $data_riwayat->save();
+
+        return redirect(route('admin.surat'));
     }
 
     public function reject($id)

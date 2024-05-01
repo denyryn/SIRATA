@@ -26,7 +26,11 @@
             </td>
             <td>
                 <p id="perihalContent">
-                    {!! isset($data_surat['surat']->nama_perihal) ? $data_surat['surat']->nama_perihal : '...........' !!}
+                    {!! isset($data_surat['surat']->nama_perihal)
+                        ? $data_surat['surat']->nama_perihal
+                        : (isset($data_perihal->nama_perihal)
+                            ? $data_perihal->nama_perihal
+                            : '...........') !!}
                 </p>
             </td>
         </tr>
@@ -39,20 +43,32 @@
             <tr>
                 <td>
                     <p id="namaTujuanContent">
-                        {!! isset($data_surat['surat']->nama_tujuan) ? $data_surat['surat']->nama_tujuan : '...........' !!}
+                        {!! isset($data_surat['surat']->nama_tujuan)
+                            ? $data_surat['surat']->nama_tujuan
+                            : (isset($data_perihal->nama_tujuan)
+                                ? $data_perihal->nama_tujuan
+                                : '...........') !!}
                     </p>
                 </td>
             </tr>
         </table>
         <p id="alamatTujuanContent">
-            {!! isset($data_surat['surat']->alamat_tujuan) ? $data_surat['surat']->alamat_tujuan : '...........' !!}
+            {!! isset($data_surat['surat']->alamat_tujuan)
+                ? $data_surat['surat']->alamat_tujuan
+                : (isset($data_perihal->alamat_tujuan)
+                    ? $data_perihal->alamat_tujuan
+                    : '...........') !!}
         </p>
     </div>
 
     <div class="p-[0.5cm]"></div>
 
     <p id="upperBodyContent">
-        {!! isset($data_surat['surat']->upper_body) ? $data_surat['surat']->upper_body : '...........' !!}
+        {!! isset($data_surat['surat']->upper_body)
+            ? $data_surat['surat']->upper_body
+            : (isset($data_perihal->upper_body)
+                ? $data_perihal->upper_body
+                : '...........') !!}
     </p>
 
     <div class="p-[0.3cm]"></div>
@@ -67,22 +83,40 @@
                     <th class="border px-[0.1cm] py-[0.1cm]">Program Studi</th>
                 </thead>
                 <tbody>
-                    @foreach ($data_surat['data_pemohons'] as $pemohon)
+                    @if (isset($data_surat))
+                        @foreach ($data_surat['data_pemohons'] as $pemohon)
+                            <tr class="border px-[0.1cm] py-[0.1cm] ps-[0.2cm]">
+                                <td class="border px-[0.1cm] py-[0.1cm] ps-[0.2cm] text-center">
+                                    {!! $no++ !!}
+                                </td>
+                                <td id="namaContentElement" class="border px-[0.1cm] py-[0.1cm] ps-[0.2cm] text-justify">
+                                    {!! isset($pemohon['identitas']->nama_mahasiswa) ? $pemohon['identitas']->nama_mahasiswa : '...........' !!}
+                                </td>
+                                <td id="nimContentElement" class="border px-[0.1cm] py-[0.1cm] ps-[0.2cm] text-center">
+                                    {!! isset($pemohon['identitas']->nim) ? $pemohon['identitas']->nim : '...........' !!}
+                                </td>
+                                <td id="programStudiContentElement"
+                                    class="border px-[0.1cm] py-[0.1cm] ps-[0.2cm] text-center">
+                                    {!! isset($pemohon['data_prodi']->nama_prodi) ? $pemohon['data_prodi']->nama_prodi : '...........' !!}
+                                </td>
+                            </tr>
+                        @endforeach
+                    @else
                         <tr class="border px-[0.1cm] py-[0.1cm] ps-[0.2cm]">
                             <td class="border px-[0.1cm] py-[0.1cm] ps-[0.2cm] text-center">
                                 {!! $no++ !!}
                             </td>
                             <td id="namaContentElement" class="border px-[0.1cm] py-[0.1cm] ps-[0.2cm] text-justify">
-                                {!! isset($pemohon['identitas']->nama_mahasiswa) ? $pemohon['identitas']->nama_mahasiswa : '...........' !!}
+                                ...........
                             </td>
-                            <td id="nimContentElement" class="border px-[0.1cm] py-[0.1cm] ps-[0.2cm] text-justify">
-                                {!! isset($pemohon['identitas']->nim) ? $pemohon['identitas']->nim : '...........' !!}
+                            <td id="nimContentElement" class="border px-[0.1cm] py-[0.1cm] ps-[0.2cm] text-center">
+                                ...........
                             </td>
                             <td id="programStudiContentElement" class="border px-[0.1cm] py-[0.1cm] ps-[0.2cm] text-center">
-                                {!! isset($pemohon['data_prodi']->nama_prodi) ? $pemohon['data_prodi']->nama_prodi : '...........' !!}
+                                ...........
                             </td>
                         </tr>
-                    @endforeach
+                    @endif
                 </tbody>
             </table>
         </div>
@@ -93,7 +127,11 @@
 
     <div>
         <p id="lowerBodyContent">
-            {!! isset($data_surat['surat']->lower_body) ? $data_surat['surat']->lower_body : '...........' !!}
+            {!! isset($data_surat['surat']->lower_body)
+                ? $data_surat['surat']->lower_body
+                : (isset($data_perihal->lower_body)
+                    ? $data_perihal->lower_body
+                    : '...........') !!}
         </p>
     </div>
 

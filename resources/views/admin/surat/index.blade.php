@@ -6,7 +6,7 @@
     <div>
         {{-- Kolom cari surat --}}
         <nav class="flex items-center justify-end w-full p-2 font-normal bg-blue-500 h-fit rounded-xl">
-            <div class="justify-end">
+            <div class="">
                 <form action="{{ route('admin.surat') }}" method="GET" class="flex items-center max-w-sm mx-auto">
                     @csrf
                     @method('GET')
@@ -58,24 +58,30 @@
                             <td class="flex flex-row">
                                 <a href="{{ route('admin.surat.preview', $surat->id_surat) }}">
                                     <button
-                                        class="p-2
-                                px-4 text-center btn text-white duration-150 bg-blue-400 rounded-lg hover:bg-blue-500
-                                active:ring-orange-400">
+                                        class="p-2 px-4 text-center text-white duration-150 bg-blue-600 rounded-lg btn hover:bg-blue-700">
                                         Preview
-                                    </button>
-                                </a>
-                                <a href="">
-                                    <button
-                                        class="p-2
-                                px-4 text-center btn text-white duration-150 bg-yellow-200 rounded-lg hover:bg-yellow-300
-                                active:ring-orange-400">
-                                        Lacak Surat
                                     </button>
                                 </a>
                             </td>
                             <td>
+                                @php
+                                    switch ($surat->status_terbaru) {
+                                        case 'Pending':
+                                            $color = 'yellow';
+                                            break;
+                                        case 'Diproses':
+                                            $color = 'orange';
+                                            break;
+                                        case 'Disetujui':
+                                            $color = 'green';
+                                            break;
+                                        case 'Ditolak':
+                                            $color = 'red';
+                                            break;
+                                    }
+                                @endphp
                                 <div
-                                    class="p-2 btn animate-none pointer-events-none hover:bg-green-400 text-center text-white bg-green-400 rounded-lg">
+                                    class="p-2 text-center text-white bg-{{ $color }}-600 rounded-lg pointer-events-none btn animate-none">
                                     {{ $surat->status_terbaru }}
                                 </div>
                             </td>
