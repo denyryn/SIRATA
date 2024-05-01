@@ -35,6 +35,11 @@
             </div>
         </nav>
 
+        {{-- Pagination --}}
+        <div class="my-5">
+            {{ $data_surat->links() }}
+        </div>
+
         {{-- Tabel --}}
         <div class="overflow-auto">
             <table border="1" class="table">
@@ -56,10 +61,16 @@
                             <td>{{ $surat->nama_kategori }}</td>
                             <td>{{ $surat->jam_buat }}</td>
                             <td class="flex flex-row">
-                                <a href="{{ route('admin.surat.preview', $surat->id_surat) }}">
+                                <a href="{{ route('admin.surat.preview', $surat->id_surat) }}" class="w-full">
                                     <button
                                         class="p-2 px-4 text-center text-white duration-150 bg-blue-600 rounded-lg btn hover:bg-blue-700">
                                         Preview
+                                    </button>
+                                </a>
+                                <a href="{{ route('admin.surat.download', $surat->id_surat) }}" class="w-full">
+                                    <button
+                                        class="p-2 px-4 text-center text-white duration-150 bg-blue-600 rounded-lg btn hover:bg-blue-700">
+                                        Download
                                     </button>
                                 </a>
                             </td>
@@ -81,7 +92,7 @@
                                     }
                                 @endphp
                                 <div
-                                    class="p-2 text-center text-white bg-{{ $color }}-600 rounded-lg pointer-events-none btn animate-none">
+                                    class="p-2 w-full text-center text-white bg-{{ $color }}-600 rounded-lg pointer-events-none btn animate-none">
                                     {{ $surat->status_terbaru }}
                                 </div>
                             </td>
@@ -89,6 +100,11 @@
                     @endforeach
                 </tbody>
             </table>
+        </div>
+
+        {{-- Pagination --}}
+        <div class="my-5">
+            {{ $data_surat->links() }}
         </div>
 
     </div>

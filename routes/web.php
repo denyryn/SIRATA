@@ -18,8 +18,8 @@ use App\Http\Controllers\LayananLacakSuratController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\FetchMahasiswaController;
 use App\Http\Controllers\FetchDosenController;
-
-
+use App\Http\Controllers\DownloadSuratController;
+use App\Http\Controllers\SuratMahasiswaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,12 +40,12 @@ Route::get('/', [LoginController::class, 'index'])->name("welcome.index");
 Route::get('/login', [LoginController::class, 'login'])->name("login");
 Route::get('/postlogin', [LoginController::class, 'postlogin'])->name("postlogin");
 Route::get('/logout', [LoginController::class, 'logout'])->name("logout");
+
 // =============================== GROUP ROUTE MAHASISWA ================================
 Route::group(['prefix' => 'mahasiswa', 'middleware' => ['auth', 'cekakses:mahasiswa']], function () {
     Route::get('/dashboard', [UserMahasiswaController::class, 'index'])->name("mahasiswa.index");
 
     Route::prefix('/dashboard')->group(function () {
-
         Route::prefix('/layanan_surat')->group(function () {
             Route::get('/', [LayananSuratMahasiswaController::class, 'index'])->name("mahasiswa.surat.layanan");
             Route::get('/lacak_surat', [LayananLacakSuratController::class, 'index'])->name("mahasiswa.surat.lacak");
@@ -53,6 +53,7 @@ Route::group(['prefix' => 'mahasiswa', 'middleware' => ['auth', 'cekakses:mahasi
             Route::get('/search', [CariLayananSuratController::class, 'index'])->name("mahasiswa.surat.search");
             Route::post('/', [LayananSuratMahasiswaController::class, 'store'])->name("mahasiswa.surat.form.store");
         });
+        Route::get('/surat/preview/{id_surat}', [SuratMahasiswaController::class, 'read'])->name("mahasiswa.surat.preview");
     });
 });
 
@@ -118,6 +119,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'cekakses:admin']], 
         // Surat Routes
         Route::prefix('/surat')->group(function () {
             Route::get('/', [SuratController::class, 'index'])->name("admin.surat");
+            Route::get('/download/{id_surat}', [DownloadSuratController::class, 'index'])->name("admin.surat.download");
             Route::get('/preview/{id_surat}', [SuratController::class, 'edit'])->name("admin.surat.preview");
             Route::put('/preview/accept/{id_surat}', [SuratController::class, 'update'])->name("admin.surat.update");
             Route::put('/preview/reject/{id_surat}', [SuratController::class, 'reject'])->name("admin.surat.update.reject");

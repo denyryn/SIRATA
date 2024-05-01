@@ -7,10 +7,13 @@ use App\Models\Surat;
 use App\Models\Riwayat;
 use App\Models\Status;
 use App\Models\Kategori_Surat;
+use App\Models\Jabatan;
 use App\Models\Pemohon;
 use App\Models\Program_Studi;
 
 use Carbon\Carbon;
+
+Carbon::setLocale('id');
 
 class SuratController extends Controller
 {
@@ -94,12 +97,20 @@ class SuratController extends Controller
             }
         }
 
+        //mencari jabatan dari surat
+        $dosen_petinggi = Jabatan::where('id_jabatan', $surat->id_jabatan)->first()?->dosen;
+        $nama_jabatan = Jabatan::where('id_jabatan', $surat->id_jabatan)->first()?->nama_jabatan;
+
         $data_surat = [
             'surat' => $surat,
             'tanggal_surat' => $tanggal_surat,
             'nama_status_terakhir' => $nama_status_terakhir,
             'data_pemohons' => $data_pemohons,
+            'nama_jabatan' => $nama_jabatan,
+            'pemilik_jabatan' => $dosen_petinggi,
         ];
+
+        // dd($data_surat['pemilik_jabatan']);
 
         $no = 1;
         $nama_kategori = strtolower(str_replace(' ', '_', $data_surat['surat']->kategori_Surat->nama_kategori));
@@ -133,10 +144,19 @@ class SuratController extends Controller
         return redirect(route('admin.surat'));
     }
 
-    public function reject($id)
+    public function reject(Request $request, $id_surat)
     {
+        $status_ditolak = Status::where('nama_status', 'Ditolak')->first('id_status');
 
+        // Find the Surat record with the given $id_surat
+        $data_surat = Surat::find($id_surat);
+
+        $data_riwayat = new Riwayat;
+        $data_riwayat->id_status = $status_ditolak->id_status;
+        $data_riwayat->id_surat = $data_surat->id_surat;
+        $data_riwayat->save();
+
+        return redirect(route('admin.surat'));
     }
-
 
 }

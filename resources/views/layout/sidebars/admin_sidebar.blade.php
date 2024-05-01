@@ -168,7 +168,7 @@
                             </g>
                         </svg>
 
-                        <span class="ms-3">Profile</span>
+                        <span class="ms-3">Users</span>
                     </div>
                 </a>
             </li>

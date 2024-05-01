@@ -44,43 +44,49 @@
         <div class="overflow-auto">
             <table border="1" class="table">
                 <thead>
-                    <th>No.</th>
+                    <th>ID.</th>
                     <th>Tanggal Surat</th>
                     <th>Perihal</th>
                     <th>Jenis Surat</th>
                     <th>Waktu</th>
-                    <th>Lacak Surat</th>
+                    <th>Aksi</th>
                     <th>Keterangan</th>
                 </thead>
                 <tbody class="text-gray-900">
                     @foreach ($data_surat as $surat)
                         <tr>
-                            <td>{{ $no++ }}</td>
+                            <td>{{ $surat->id_surat }}</td>
                             <td>{{ $surat->tanggal_buat }}</td>
                             <td>{{ $surat->nama_perihal }}</td>
                             <td>{{ $surat->nama_kategori }}</td>
                             <td>{{ $surat->jam_buat }}</td>
                             <td class="flex flex-row">
-                                <a href="route('admin.surat.preview', $surat->id_surat)">
+                                <a href="{{ route('mahasiswa.surat.preview', $surat->id_surat) }}" class="w-full">
                                     <button
-                                        class="p-2
-                                px-4 text-center btn text-white duration-150 bg-blue-400 rounded-lg hover:bg-blue-500
-                                active:ring-orange-400">
+                                        class="p-2 px-4 text-center text-white duration-150 bg-blue-600 rounded-lg btn hover:bg-blue-700">
                                         Preview
-                                    </button>
-                                </a>
-                                <a href="">
-                                    <button
-                                        class="p-2
-                                px-4 text-center btn text-white duration-150 bg-yellow-200 rounded-lg hover:bg-yellow-300
-                                active:ring-orange-400">
-                                        Lacak Surat
                                     </button>
                                 </a>
                             </td>
                             <td>
+                                @php
+                                    switch ($surat->status_terbaru) {
+                                        case 'Pending':
+                                            $color = 'yellow';
+                                            break;
+                                        case 'Diproses':
+                                            $color = 'orange';
+                                            break;
+                                        case 'Disetujui':
+                                            $color = 'green';
+                                            break;
+                                        case 'Ditolak':
+                                            $color = 'red';
+                                            break;
+                                    }
+                                @endphp
                                 <div
-                                    class="p-2 btn animate-none pointer-events-none hover:bg-green-400 text-center text-white bg-green-400 rounded-lg">
+                                    class="p-2 w-full text-center text-white bg-{{ $color }}-600 rounded-lg pointer-events-none btn animate-none">
                                     {{ $surat->status_terbaru }}
                                 </div>
                             </td>

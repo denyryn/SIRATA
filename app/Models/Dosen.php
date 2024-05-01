@@ -14,10 +14,9 @@ class Dosen extends Model
         'nip',
         'nidn',
         'id_user',
-        'id_jabatan',
+        // 'id_jabatan',
         'id_prodi',
         // 'id_tanda_tangan',
-        'id_jabatan',
         'nama_dosen',
         'gelar_depan',
         'gelar_belakang'
@@ -30,7 +29,7 @@ class Dosen extends Model
 
     public function Jabatan()
     {
-        return $this->belongsTo(Jabatan::class, 'id_jabatan');
+        return $this->hasOne(Jabatan::class, 'id_dosen');
     }
 
     public function Mahasiswa()

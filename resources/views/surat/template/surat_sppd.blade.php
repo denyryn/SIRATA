@@ -6,10 +6,23 @@
     <table>
         <tr>
             <td>
-                Perihal
+                Nomor
             </td>
             <td>
-                &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp : &nbsp
+                &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp : &nbsp
+            </td>
+            <td>
+                <p>
+                    {!! isset($data_surat['surat']->nomor_surat) ? $data_surat['surat']->nomor_surat : '...........' !!}
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Hal
+            </td>
+            <td>
+                &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp : &nbsp
             </td>
             <td>
                 <p id="perihalContent">
@@ -76,7 +89,7 @@
                                 <td class="border px-[0.1cm] py-[0.1cm] ps-[0.2cm] text-center">
                                     {!! $no++ !!}
                                 </td>
-                                <td id="namaContentElement" class="border px-[0.1cm] py-[0.1cm] ps-[0.2cm] text-left">
+                                <td id="namaContentElement" class="border px-[0.1cm] py-[0.1cm] ps-[0.2cm] text-justify">
                                     {!! isset($pemohon['identitas']->nama_mahasiswa) ? $pemohon['identitas']->nama_mahasiswa : '...........' !!}
                                 </td>
                                 <td id="nimContentElement" class="border px-[0.1cm] py-[0.1cm] ps-[0.2cm] text-center">
@@ -136,7 +149,7 @@
                 </td>
             </tr>
             <tr>
-                <td>Pemohon,</td>
+                <td>Ketua Jurusan Teknik Elektro,</td>
             </tr>
             <tr>
                 <td>
@@ -144,16 +157,16 @@
                 </td>
             </tr>
             <tr>
-                <td id="namaPengajuContent">
-                    {!! isset($data_surat['data_pemohons'][0]['identitas']->nama_mahasiswa)
-                        ? $data_surat['data_pemohons'][0]['identitas']->nama_mahasiswa
+                <td>
+                    {!! isset($data_surat['data_kajur'][0]['identitas']->nama_dosen)
+                        ? $data_surat['data_kajur'][0]['identitas']->nama_dosen
                         : '...........' !!}
                 </td>
             </tr>
             <tr>
-                <td id="nimPengajuContent">
-                    NIM. {!! isset($data_surat['data_pemohons'][0]['identitas']->nim)
-                        ? $data_surat['data_pemohons'][0]['identitas']->nim
+                <td>
+                    NIP. {!! isset($data_surat['data_kajur'][0]['identitas']->nip)
+                        ? $data_surat['data_kajur'][0]['identitas']->nip
                         : '...........' !!}
                 </td>
             </tr>

@@ -89,7 +89,7 @@
                                 <td class="border px-[0.1cm] py-[0.1cm] ps-[0.2cm] text-center">
                                     {!! $no++ !!}
                                 </td>
-                                <td id="namaContentElement" class="border px-[0.1cm] py-[0.1cm] ps-[0.2cm] text-justify">
+                                <td id="namaContentElement" class="border px-[0.1cm] py-[0.1cm] ps-[0.2cm] text-left">
                                     {!! isset($pemohon['identitas']->nama_mahasiswa) ? $pemohon['identitas']->nama_mahasiswa : '...........' !!}
                                 </td>
                                 <td id="nimContentElement" class="border px-[0.1cm] py-[0.1cm] ps-[0.2cm] text-center">
@@ -138,39 +138,43 @@
     <div class="p-[0.3cm]"></div>
 
     <div class="flex justify-end">
-        <table>
-            <tr>
-                <td>Semarang,
-                    {!! isset($data_surat['tanggal_surat'])
-                        ? $data_surat['tanggal_surat']
-                        : (isset($tanggal_sekarang)
-                            ? $tanggal_sekarang
-                            : '...........') !!}
-                </td>
-            </tr>
-            <tr>
-                <td>Pemohon,</td>
-            </tr>
-            <tr>
-                <td>
-                    <div class="p-[1cm]"></div>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    {!! isset($data_surat['data_pemohons'][0]['identitas']->nama_mahasiswa)
-                        ? $data_surat['data_pemohons'][0]['identitas']->nama_mahasiswa
-                        : '...........' !!}
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    NIM. {!! isset($data_surat['data_pemohons'][0]['identitas']->nim)
-                        ? $data_surat['data_pemohons'][0]['identitas']->nim
-                        : '...........' !!}
-                </td>
-            </tr>
-        </table>
+        <div class="w-1/2 ml-max">
+            <table>
+                <tr>
+                    <td>Semarang,
+                        {!! isset($data_surat['tanggal_surat'])
+                            ? $data_surat['tanggal_surat']
+                            : (isset($tanggal_sekarang)
+                                ? $tanggal_sekarang
+                                : '...........') !!}
+                    </td>
+                </tr>
+                <tr>
+                    <td>{!! isset($data_surat['nama_jabatan']) ? $data_surat['nama_jabatan'] : 'Ketua Jurusan ..........' !!},</td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="p-[1cm]"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        {!! isset($data_surat['pemilik_jabatan']->nama_dosen)
+                            ? $data_surat['pemilik_jabatan']->gelar_depan .
+                                ' ' .
+                                $data_surat['pemilik_jabatan']->nama_dosen .
+                                ' ' .
+                                $data_surat['pemilik_jabatan']->gelar_belakang
+                            : '...........' !!}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        NIP. {!! isset($data_surat['pemilik_jabatan']->nip) ? $data_surat['pemilik_jabatan']->nip : '...........' !!}
+                    </td>
+                </tr>
+            </table>
+        </div>
     </div>
 @endsection
 
