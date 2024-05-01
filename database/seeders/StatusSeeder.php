@@ -18,17 +18,11 @@ class StatusSeeder extends Seeder
                 "nama_status" => "Pending"
             ],
             [
-                "nama_status" => "Ditinjau oleh Admin"
+                "nama_status" => "Diproses"
             ],
             [
-                "nama_status" => "Ditolak oleh Admin"
-            ],
-            [
-                "nama_status" => "Disetujui Kaprodi"
-            ],
-            [
-                "nama_status" => "Ditolak Kaprodi"
-            ],
+                "nama_status" => "Disetujui"
+            ]
         ];
 
         foreach ($statuses as $status) {

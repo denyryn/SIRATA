@@ -17,7 +17,8 @@ use App\Http\Controllers\CariLayananSuratController;
 use App\Http\Controllers\LayananLacakSuratController;
 use App\Http\Controllers\UserDosenController;
 use App\Http\Controllers\LayananSuratDosenController;
-
+use App\Http\Controllers\FetchMahasiswaController;
+use App\Http\Controllers\FetchDosenController;
 
 
 
@@ -32,6 +33,8 @@ use App\Http\Controllers\LayananSuratDosenController;
 |
 */
 
+Route::get('/fetch_data_mahasiswa', [FetchMahasiswaController::class, 'index']);
+Route::get('/fetch_data_dosen', [FetchDosenController::class, 'index']);
 // =============================== AUTH ROUTE ================================
 Route::get('/', [LoginController::class, 'index'])->name("welcome.index");
 Route::get('/login', [LoginController::class, 'login'])->name("login");
@@ -74,15 +77,6 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'cekakses:admin']], 
     Route::get('/dashboard', [UserAdminController::class, 'index'])->name("admin.index");
 
     Route::prefix('/dashboard')->group(function () {
-        // Program Studi Routes
-        Route::prefix('/surat')->group(function () {
-            Route::get('/', [SuratController::class, 'index'])->name("admin.surat");
-            Route::get('/preview/{id_surat}', [SuratController::class, 'edit'])->name("admin.surat.preview");
-            Route::get('/{id_surat}', [SuratController::class, 'update'])->name("admin.surat.update");
-            // Route::post('/', [ProgramStudiController::class, 'store'])->name("surat.store");
-            // Route::put('/{id_prodi}', [ProgramStudiController::class, 'update'])->name("prodi.update");
-            // Route::delete('/{id_prodi}', [ProgramStudiController::class, 'delete'])->name("prodi.delete");
-        });
 
         // Program Studi Routes
         Route::prefix('/program_studi')->group(function () {
@@ -135,6 +129,17 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'cekakses:admin']], 
             Route::get('/create/{id_perihal}', [LayananSuratAdminController::class, 'create'])->name("admin.surat.form");
             Route::get('/search', [CariLayananSuratController::class, 'index'])->name("admin.surat.search");
             Route::post('/', [LayananSuratAdminController::class, 'store'])->name("admin.surat.form.store");
+        });
+
+        // Surat Routes
+        Route::prefix('/surat')->group(function () {
+            Route::get('/', [SuratController::class, 'index'])->name("admin.surat");
+            Route::get('/preview/{id_surat}', [SuratController::class, 'edit'])->name("admin.surat.preview");
+            Route::get('/{id_surat}/accept', [SuratController::class, 'update'])->name("admin.surat.update");
+            Route::get('/{id_surat}/reject', [SuratController::class, 'reject'])->name("admin.surat.update.reject");
+            // Route::post('/', [ProgramStudiController::class, 'store'])->name("surat.store");
+            // Route::put('/{id_prodi}', [ProgramStudiController::class, 'update'])->name("prodi.update");
+            // Route::delete('/{id_prodi}', [ProgramStudiController::class, 'delete'])->name("prodi.delete");
         });
     });
 });

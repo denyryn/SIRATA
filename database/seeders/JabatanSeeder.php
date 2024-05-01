@@ -16,8 +16,8 @@ class JabatanSeeder extends Seeder
         $jabatans = [
             ["nama_jabatan" => "Ketua Jurusan Elektro"],
             ["nama_jabatan" => "Kepala Program Studi Teknologi Rekayasa Komputer"],
-            ["nama_jabatan" => "Kepala Program Studi Teknik Elektro"],
-            ["nama_jabatan" => "Wali kelas"],
+            ["nama_jabatan" => "Kepala Program Studi Teknik Informatika"],
+            ["nama_jabatan" => "Dosen"],
 
 
         ];
