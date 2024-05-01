@@ -13,8 +13,13 @@ class Program_Studi extends Model
     protected $primaryKey = 'id_prodi';
     protected $fillable = ['nama_prodi'];
 
-    public function Kelas()
+    // public function Kelas()
+    // {
+    //     return $this->hasMany(Kelas::class, 'id_prodi');
+    // }
+
+    public function Mahasiswa()
     {
-        return $this->hasMany(Kelas::class, 'id_prodi');
+        return $this->hasMany(Mahasiswa::class, 'id_prodi');
     }
 }

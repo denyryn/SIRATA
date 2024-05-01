@@ -7,20 +7,22 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use App\Models\User;
 use App\Models\Mahasiswa;
+use Illuminate\Support\Facades\Http;
 
 class LoginController extends Controller
 {
     public function index()
     {
-        // return view('auths.welcome');
         return redirect('login');
-
     }
 
     public function login()
     {
+        // Kode selanjutnya untuk menampilkan halaman login
         return view('auths.login');
     }
+
+
 
     public function postlogin(Request $request)
     {
@@ -55,6 +57,7 @@ class LoginController extends Controller
         }
         return redirect(route('login'));
     }
+
 
     public function logout()
     {

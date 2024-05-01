@@ -10,7 +10,18 @@ class Dosen extends Model
     use HasFactory;
     protected $table = 'dosens';
     protected $primaryKey = 'id_dosen';
-    protected $fillable = ['nip', 'id_user', 'nama_dosen', 'id_jabatan'];
+    protected $fillable = [
+        'nip',
+        'nidn',
+        'id_user',
+        'id_jabatan',
+        'id_prodi',
+        // 'id_tanda_tangan',
+        'id_jabatan',
+        'nama_dosen',
+        'gelar_depan',
+        'gelar_belakang'
+    ];
 
     public function User()
     {
@@ -20,6 +31,11 @@ class Dosen extends Model
     public function Jabatan()
     {
         return $this->belongsTo(Jabatan::class, 'id_jabatan');
+    }
+
+    public function Mahasiswa()
+    {
+        return $this->hasMany(Mahasiswa::class, 'id_dosen_pembimbing');
     }
 
     public function Tanda_Tangan()

@@ -62,14 +62,11 @@ return [
     'providers' => [
         'users' => [
             'driver' => 'eloquent',
-            'model' => App\Models\User::class,
+            'model' => App\Models\User::class, // Sesuaikan dengan namespace dan nama model User Anda
         ],
-
-        // 'users' => [
-        //     'driver' => 'database',
-        //     'table' => 'users',
-        // ],
+        // ...
     ],
+    
 
     /*
     |--------------------------------------------------------------------------

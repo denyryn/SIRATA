@@ -14,7 +14,7 @@ return new class extends Migration {
             $table->bigIncrements('id_user');
             $table->string('username')->unique();
             $table->string('akses');
-            $table->string('email');
+            $table->string('email')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
