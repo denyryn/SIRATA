@@ -10,10 +10,10 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('statuses', function (Blueprint $table) {
-            $table->bigIncrements('id_status');
-            $table->string('nama_status', 50);
-        });
+        // Schema::create('statuses', function (Blueprint $table) {
+        //     $table->bigIncrements('id_status');
+        //     $table->string('nama_status', 50);
+        // });
     }
 
     /**
@@ -21,6 +21,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('statuses');
+        // Schema::dropIfExists('statuses');
     }
 };

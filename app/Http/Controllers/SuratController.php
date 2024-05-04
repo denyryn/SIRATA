@@ -35,28 +35,28 @@ class SuratController extends Controller
         $data_surat = $query->latest()->paginate(10);
 
         // Assuming $data_surat is a collection of Surat model instances
-        foreach ($data_surat as $item) {
+        foreach ($data_surat as $surat) {
             // Parse the created_at date using Carbon and format it
-            $item->tanggal_buat = Carbon::parse($item->created_at)->format('Y-m-d');
-            $item->jam_buat = Carbon::parse($item->created_at)->format('H:i:s');
+            $surat->tanggal_buat = Carbon::parse($surat->created_at)->format('Y-m-d');
+            $surat->jam_buat = Carbon::parse($surat->created_at)->format('H:i:s');
 
             // Fetch the latest related Riwayat entry for this Surat
-            $riwayat_terbaru = Riwayat::where('id_surat', $item->id_surat)
+            $riwayat_terbaru = Riwayat::where('id_surat', $surat->id_surat)
                 ->latest('created_at')
                 ->first();
 
             // Set the latest status or 'No Status' if no Riwayat found
-            $item->status_terbaru = $riwayat_terbaru ? $riwayat_terbaru->status->nama_status : 'No Status';
+            $surat->status_terbaru = $riwayat_terbaru ? $riwayat_terbaru->status->nama_status : 'No Status';
 
             // Fetch all related Riwayat entries for this Surat
-            $riwayat = Riwayat::where('id_surat', $item->id_surat)->get();
+            $riwayat = Riwayat::where('id_surat', $surat->id_surat)->get();
 
             // Extract the nama_status from each Riwayat and assign it to $item->riwayat
-            $item->riwayat = $riwayat->pluck('nama_status')->toArray(); // Assuming you want an array of status names
+            $surat->riwayat = $riwayat->pluck('nama_status')->toArray(); // Assuming you want an array of status names
 
             // Fetch the Kategori Surat for this Surat
-            $kategori_surat = Kategori_Surat::find($item->id_kategori_surat);
-            $item->nama_kategori = $kategori_surat ? $kategori_surat->nama_kategori : 'Not Found';
+            $kategori_surat = Kategori_Surat::find($surat->id_kategori_surat);
+            $surat->nama_kategori = $kategori_surat ? $kategori_surat->nama_kategori : 'Not Found';
         }
 
         return view("admin.surat.index", compact('data_surat'));
@@ -124,6 +124,7 @@ class SuratController extends Controller
 
         $rendered_template = view($template, compact('data_surat', 'no'))->render();
         return view('admin.surat.preview', compact('data_surat', 'nama_status_terakhir', 'rendered_template'));
+        // return view($template, compact('data_surat', 'no'));
 
     }
 

@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
@@ -14,12 +13,13 @@ return new class extends Migration
         Schema::create('riwayats', function (Blueprint $table) {
             $table->bigIncrements('id_riwayat');
             $table->unsignedBigInteger('id_surat');
-            $table->unsignedBigInteger('id_status');
+            // $table->unsignedBigInteger('id_status');
+            $table->string('nama_status');
 
             $table->timestamps();
 
             $table->foreign('id_surat')->references('id_surat')->on('surats');
-            $table->foreign('id_status')->references('id_status')->on('statuses');
+            // $table->foreign('id_status')->references('id_status')->on('statuses');
         });
     }
 
