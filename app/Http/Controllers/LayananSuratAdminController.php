@@ -11,6 +11,7 @@ use App\Models\Riwayat;
 use App\Models\Pemohon;
 use App\Models\Status;
 use App\Models\Mahasiswa;
+use App\Models\Jabatan;
 
 use Carbon\Carbon;
 
@@ -52,25 +53,28 @@ class LayananSuratAdminController extends Controller
 
         $nama_kategori = strtolower(str_replace(' ', '_', $data_perihal->kategori_Surat->nama_kategori ?? ''));
         $template = 'surat.template.' . $nama_kategori;
+        $form = 'surat.forms.' . $nama_kategori;
 
         if (!view()->exists($template)) {
             abort(404, __('Template not found.'));
         }
 
         $mahasiswas = Mahasiswa::all();
+        $jabatans = Jabatan::with('Dosen')->get();
 
         $rendered_template = view($template, compact('no', 'data_perihal', 'tanggal_sekarang'))->render();
-        return view('surat.form', compact('data_perihal', 'rendered_template', 'mahasiswas'));
+        return view($form, compact('data_perihal', 'jabatans', 'rendered_template', 'mahasiswas'));
     }
 
     public function store(Request $request)
     {
-        $status_awal = Status::where('nama_status', 'Pending')->first('id_status');
+        $status_awal = 'Pending';
         $count = $request->input('count');
 
         $data_surat = new surat;
         // $data_surat->id_user = $request->id_user;
         $data_surat->id_kategori_surat = $request->id_kategori_surat;
+        $data_surat->id_jabatan = $request->id_jabatan;
         $data_surat->nama_perihal = $request->nama_perihal;
         $data_surat->nama_tujuan = $request->nama_tujuan;
         $data_surat->alamat_tujuan = $request->alamat_tujuan;
@@ -90,7 +94,7 @@ class LayananSuratAdminController extends Controller
         }
 
         $data_riwayat = new riwayat;
-        $data_riwayat->id_status = $status_awal->id_status;
+        $data_riwayat->nama_status = $status_awal;
         $data_riwayat->id_surat = $data_surat->id_surat;
         $data_riwayat->save();
 

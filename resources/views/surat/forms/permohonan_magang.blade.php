@@ -30,6 +30,7 @@
                                         {{ $mahasiswa->id_user == $user_sekarang->id_user ? 'selected' : 'hidden' }}>
                                         {{ $mahasiswa->nama_mahasiswa }}
                                     </option>
+                                    {{ $mahasiswa->nama_mahasiswa }}
                                 @endforeach
                             @else
                                 @foreach ($mahasiswas as $mahasiswa)

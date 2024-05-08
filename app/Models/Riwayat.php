@@ -12,7 +12,9 @@ class Riwayat extends Model
     protected $primaryKey = 'id_riwayat';
     protected $fillable = [
         'id_surat',
-        'id_status'
+        'id_status',
+        'nama_status',
+        'keterangan_status'
     ];
 
     public function Surat()
@@ -20,8 +22,8 @@ class Riwayat extends Model
         return $this->belongsTo(Surat::class, 'id_surat');
     }
 
-    public function Status()
-    {
-        return $this->belongsTo(Status::class, 'id_status');
-    }
+    // public function Status()
+    // {
+    //     return $this->belongsTo(Status::class, 'id_status');
+    // }
 }

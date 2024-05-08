@@ -94,21 +94,15 @@
                             class="flex items-center justify-start w-full p-2 pl-11 hover:bg-blue-lighter">
                             Program Studi</a>
                     </li>
-                    <li>
+                    {{-- <li>
                         <a href="{{ route('admin.kategori') }}"
                             class="flex items-center justify-start w-full p-2 pl-11 hover:bg-blue-lighter">
                             Kategori Surat</a>
-                    </li>
+                    </li> --}}
                     <li>
                         <a href="{{ route('admin.jabatan') }}"
                             class="flex items-center justify-start w-full p-2 pl-11 hover:bg-blue-lighter">
                             Jabatan
-                        </a>
-                    </li>
-                    <li>
-                        <a href="{{ route('admin.status') }}"
-                            class="flex items-center justify-start w-full p-2 pl-11 hover:bg-blue-lighter">
-                            Status
                         </a>
                     </li>
                     <li>
@@ -168,7 +162,7 @@
                             </g>
                         </svg>
 
-                        <span class="ms-3">Profile</span>
+                        <span class="ms-3">Users</span>
                     </div>
                 </a>
             </li>

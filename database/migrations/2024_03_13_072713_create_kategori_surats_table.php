@@ -13,6 +13,7 @@ return new class extends Migration {
         Schema::create('kategori_surats', function (Blueprint $table) {
             $table->bigIncrements('id_kategori_surat');
             $table->string('nama_kategori');
+            $table->enum('peruntukkan', ['dosen', 'mahasiswa']);
         });
     }
 

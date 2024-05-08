@@ -4,14 +4,16 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Jabatan;
+use App\Models\Dosen;
 
 class JabatanController extends Controller
 {
     public function index(Request $request)
     {
         $data_jabatan = Jabatan::all();
+        $dosens = Dosen::all();
 
-        return view("admin.jabatan.index", compact('data_jabatan'));
+        return view("admin.jabatan.index", compact('data_jabatan', 'dosens'));
     }
     public function create()
     {
@@ -22,6 +24,7 @@ class JabatanController extends Controller
     {
         $data_jabatan = new Jabatan;
         $data_jabatan->nama_jabatan = $request->nama_jabatan;
+        $data_jabatan->id_dosen = $request->id_dosen;
         $data_jabatan->save();
         return redirect()->route("admin.jabatan");
     }
@@ -36,6 +39,7 @@ class JabatanController extends Controller
     {
         $data_jabatan = Jabatan::find($id_jabatan);
         $data_jabatan->nama_jabatan = $request->nama_jabatan;
+        $data_jabatan->id_dosen = $request->id_dosen;
         $data_jabatan->update();
         return redirect(route('admin.jabatan'));
     }

@@ -18,6 +18,7 @@
                 <tr>
                     <th>ID</th>
                     <th>Jabatan</th>
+                    <th>Dosen</th>
                     <th>Aksi</th>
                 </tr>
             </thead>
@@ -31,6 +32,7 @@
                         <tr>
                             <td>{{ $jabatan->id_jabatan }}</td>
                             <td>{{ $jabatan->nama_jabatan }}</td>
+                            <td>{{ isset($jabatan->dosen->nama_dosen) ? $jabatan->dosen->nama_dosen : '-' }}</td>
                             <form class="w-full" method="POST" action="{{ route('jabatan.delete', $jabatan->id_jabatan) }}">
                                 @csrf
                                 @method('DELETE')
@@ -69,3 +71,4 @@
     @endforeach
 
 @endsection
+

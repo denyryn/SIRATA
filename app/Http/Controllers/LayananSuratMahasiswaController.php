@@ -11,8 +11,11 @@ use App\Models\User;
 use App\Models\Pemohon;
 use App\Models\Riwayat;
 use App\Models\Mahasiswa;
+use App\Models\Jabatan;
 
 use Carbon\Carbon;
+
+Carbon::setLocale('id');
 
 class LayananSuratMahasiswaController extends Controller
 {
@@ -50,6 +53,7 @@ class LayananSuratMahasiswaController extends Controller
 
         $nama_kategori = strtolower(str_replace(' ', '_', $data_perihal->kategori_Surat->nama_kategori ?? ''));
         $template = 'surat.template.' . $nama_kategori;
+        $form = 'surat.forms.' . $nama_kategori;
 
         if (!view()->exists($template)) {
             abort(404, __('Template not found.'));
@@ -63,23 +67,21 @@ class LayananSuratMahasiswaController extends Controller
         $mahasiswa_sekarang = Mahasiswa::where('id_user', $id_user)->first();
 
         $mahasiswas = Mahasiswa::all();
-
-        // dd($user_sekarang);
-        // dd($mahasiswas);
-        // dd($mahasiswa_sekarang);
+        $jabatans = Jabatan::with('Dosen')->get();
 
         $rendered_template = view($template, compact('no', 'data_perihal', 'tanggal_sekarang', 'mahasiswa_sekarang'))->render();
-        return view('surat.form', compact('data_perihal', 'rendered_template', 'mahasiswas', 'mahasiswa_sekarang', 'user_sekarang'));
+        return view($form, compact('data_perihal', 'jabatans', 'form', 'rendered_template', 'mahasiswas', 'mahasiswa_sekarang', 'user_sekarang'));
     }
 
     public function store(Request $request)
     {
-        $status_awal = Status::where('nama_status', 'Pending')->first('id_status');
+        $status_awal = 'Pending';
         $count = $request->input('count');
 
         $data_surat = new surat;
         // $data_surat->id_user = $request->id_user;
         $data_surat->id_kategori_surat = $request->id_kategori_surat;
+        $data_surat->id_jabatan = $request->id_jabatan;
         $data_surat->nama_perihal = $request->nama_perihal;
         $data_surat->nama_tujuan = $request->nama_tujuan;
         $data_surat->alamat_tujuan = $request->alamat_tujuan;
@@ -100,7 +102,7 @@ class LayananSuratMahasiswaController extends Controller
         }
 
         $data_riwayat = new riwayat;
-        $data_riwayat->id_status = $status_awal->id_status;
+        $data_riwayat->nama_status = $status_awal;
         $data_riwayat->id_surat = $data_surat->id_surat;
         $data_riwayat->save();
 
