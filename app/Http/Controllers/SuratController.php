@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+
 use App\Models\Surat;
 use App\Models\Riwayat;
 use App\Models\Status;
@@ -46,13 +47,16 @@ class SuratController extends Controller
                 ->first();
 
             // Set the latest status or 'No Status' if no Riwayat found
-            $surat->status_terbaru = $riwayat_terbaru ? $riwayat_terbaru->status->nama_status : 'No Status';
+            $surat->status_terbaru = $riwayat_terbaru ? $riwayat_terbaru->nama_status : 'No Status';
 
             // Fetch all related Riwayat entries for this Surat
             $riwayat = Riwayat::where('id_surat', $surat->id_surat)->get();
 
             // Extract the nama_status from each Riwayat and assign it to $item->riwayat
-            $surat->riwayat = $riwayat->pluck('nama_status')->toArray(); // Assuming you want an array of status names
+            // dd($surat->riwayat);
+
+            $pemohon = Pemohon::where('id_surat', $surat->id_surat)->first()->user->username;
+            $surat->pemohon = $pemohon;
 
             // Fetch the Kategori Surat for this Surat
             $kategori_surat = Kategori_Surat::find($surat->id_kategori_surat);
@@ -64,20 +68,25 @@ class SuratController extends Controller
 
     public function edit(Request $request, $id_surat)
     {
-        $status_proses = Status::where('nama_status', 'Diproses')->first('id_status');
+        $status_proses = 'Diproses - Admin';
 
         // Find the Surat record with the given $id_surat
         $surat = Surat::find($id_surat);
 
-        $riwayat_status_terakhir = $surat->Riwayat()->latest()->first();
-        $nama_status_terakhir = $riwayat_status_terakhir->Status->nama_status;
+        $riwayat_status_terakhir = $surat->riwayat->last();
+        $nama_status_terakhir = $riwayat_status_terakhir->nama_status;
 
-        if ($nama_status_terakhir != "Diproses" && $nama_status_terakhir != "Disetujui") {
+        $statusDiproses = str_contains(strtolower($nama_status_terakhir), 'diproses');
+        $statusDisetujui = str_contains(strtolower($nama_status_terakhir), 'disetujui');
+        $statusDitolak = str_contains(strtolower($nama_status_terakhir), 'ditolak');
+
+        if (!$statusDiproses && !($statusDisetujui || $statusDitolak)) {
             $data_riwayat = new Riwayat;
-            $data_riwayat->id_status = $status_proses->id_status;
+            $data_riwayat->nama_status = $status_proses;
             $data_riwayat->id_surat = $surat->id_surat;
             $data_riwayat->save();
         }
+
 
         $tanggal_surat = Carbon::parse($surat->created_at)->format('F Y');
 
@@ -130,7 +139,7 @@ class SuratController extends Controller
 
     public function update(Request $request, $id_surat)
     {
-        $status_disetujui = Status::where('nama_status', 'Disetujui')->first('id_status');
+        $status_lanjutan = 'Diproses - YBS';
 
         // Find the Surat record with the given $id_surat
         $data_surat = Surat::find($id_surat);
@@ -138,7 +147,7 @@ class SuratController extends Controller
         $data_surat->update();
 
         $data_riwayat = new Riwayat;
-        $data_riwayat->id_status = $status_disetujui->id_status;
+        $data_riwayat->nama_status = $status_lanjutan;
         $data_riwayat->id_surat = $data_surat->id_surat;
         $data_riwayat->save();
 
@@ -147,13 +156,14 @@ class SuratController extends Controller
 
     public function reject(Request $request, $id_surat)
     {
-        $status_ditolak = Status::where('nama_status', 'Ditolak')->first('id_status');
+        $status_ditolak = 'Ditolak - Admin';
 
         // Find the Surat record with the given $id_surat
         $data_surat = Surat::find($id_surat);
 
         $data_riwayat = new Riwayat;
-        $data_riwayat->id_status = $status_ditolak->id_status;
+        $data_riwayat->nama_status = $status_ditolak;
+        $data_riwayat->keterangan_status = $request->keterangan_status;
         $data_riwayat->id_surat = $data_surat->id_surat;
         $data_riwayat->save();
 

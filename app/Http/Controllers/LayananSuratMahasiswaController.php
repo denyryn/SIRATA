@@ -75,7 +75,7 @@ class LayananSuratMahasiswaController extends Controller
 
     public function store(Request $request)
     {
-        $status_awal = Status::where('nama_status', 'Pending')->first('id_status');
+        $status_awal = 'Pending';
         $count = $request->input('count');
 
         $data_surat = new surat;
@@ -102,7 +102,7 @@ class LayananSuratMahasiswaController extends Controller
         }
 
         $data_riwayat = new riwayat;
-        $data_riwayat->id_status = $status_awal->id_status;
+        $data_riwayat->nama_status = $status_awal;
         $data_riwayat->id_surat = $data_surat->id_surat;
         $data_riwayat->save();
 

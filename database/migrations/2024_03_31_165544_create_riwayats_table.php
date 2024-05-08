@@ -15,6 +15,7 @@ return new class extends Migration {
             $table->unsignedBigInteger('id_surat');
             // $table->unsignedBigInteger('id_status');
             $table->string('nama_status');
+            $table->string('keterangan_status')->nullable();
 
             $table->timestamps();
 

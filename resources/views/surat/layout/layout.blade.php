@@ -24,6 +24,16 @@
         .nomor-perihal tr td:nth-child(2) {
             width: 10px;
         }
+
+        #upperBodyContent,
+        #lowerBodyContent {
+            line-height: 1.5;
+        }
+
+        #upperBodyContent br,
+        #lowerBodyContent br {
+            line-height: 0.25;
+        }
     </style>
 
     <title>@yield('title')</title>

@@ -3,10 +3,11 @@
 @section('title', 'Dashboard')
 
 @section('content')
-
-    <iframe id="templateFrame"
-        class="w-full min-h-[70vh] max-h-screen border-black rounded-[0.5rem] overflow-scroll border-0 transform scale-100 align-middle mt-1"
-        srcdoc="{{ $rendered_template }}" frameborder="0"></iframe>
+    <div class="flex flex-col-reverse items-start md:justify-evenly md:flex-row">
+        <iframe id="templateFrame"
+            class="md:w-[21cm] w-full min-h-[70vh] overflow-auto max-h-screen border-black rounded-[0.5rem] border-0 transform scale-100 align-middle mt-1"
+            srcdoc="{{ $rendered_template }}" frameborder="0"></iframe>
+    </div>
 
     <script>
         // Get a reference to the iframe element

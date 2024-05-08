@@ -25,6 +25,7 @@ return new class extends Migration {
             $table->text('upper_body');
             $table->text('lower_body');
             $table->string('lampiran')->nullable();
+            $table->string('surat_selesai')->nullable();
 
             $table->timestamps();
 

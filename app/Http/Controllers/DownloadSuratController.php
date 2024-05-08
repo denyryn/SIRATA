@@ -18,7 +18,7 @@ class DownloadSuratController extends Controller
         $surat = Surat::find($id_surat);
 
         $riwayat_status_terakhir = $surat->Riwayat()->latest()->first();
-        $nama_status_terakhir = $riwayat_status_terakhir->Status->nama_status;
+        $nama_status_terakhir = $riwayat_status_terakhir->nama_status;
 
         $tanggal_surat = Carbon::parse($surat->created_at)->format('F Y');
 
