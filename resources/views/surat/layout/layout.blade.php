@@ -5,19 +5,34 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
 
     <style>
         body {
-            width: 21cm;
-            /* F4 paper width */
-            height: 33cm;
-            /* F4 paper height */
-            margin: 0 auto;
+            font-family: 'Times New Roman', Times, serif;
+            padding: 5cm 2cm 5cm 2cm;
+            background-color: white;
         }
 
-        .table-border-black {
-            border-color: black;
+        .nomor-perihal {
+            width: 100%;
+        }
+
+        .nomor-perihal tr td:first-child {
+            width: 120px;
+        }
+
+        .nomor-perihal tr td:nth-child(2) {
+            width: 10px;
+        }
+
+        #upperBodyContent,
+        #lowerBodyContent {
+            line-height: 1.5;
+        }
+
+        #upperBodyContent br,
+        #lowerBodyContent br {
+            line-height: 0.25;
         }
     </style>
 
@@ -25,7 +40,7 @@
 
 </head>
 
-<body class="font-surat px-[3cm] py-[5cm]">
+<body>
     @yield('content')
 </body>
 

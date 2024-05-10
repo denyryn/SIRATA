@@ -13,6 +13,11 @@ return new class extends Migration {
         Schema::create('jabatans', function (Blueprint $table) {
             $table->bigIncrements('id_jabatan');
             $table->string('nama_jabatan', 100);
+            $table->unsignedBigInteger('id_dosen')->nullable();
+
+            $table->timestamps();
+
+            $table->foreign('id_dosen')->references('id_dosen')->on('dosens');
         });
     }
 

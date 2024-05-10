@@ -13,7 +13,7 @@ return new class extends Migration {
         Schema::create('surats', function (Blueprint $table) {
             $table->bigIncrements('id_surat');
             // $table->unsignedBigInteger('id_user');
-            // $table->unsignedBigInteger('id_jabatan');
+            $table->unsignedBigInteger('id_jabatan')->nullable();
             // $table->unsignedBigInteger('id_riwayat');
             $table->unsignedBigInteger('id_kategori_surat');
             $table->string('nama_perihal');
@@ -25,10 +25,11 @@ return new class extends Migration {
             $table->text('upper_body');
             $table->text('lower_body');
             $table->string('lampiran')->nullable();
+            $table->string('surat_selesai')->nullable();
 
             $table->timestamps();
 
-            // $table->foreign('id_jabatan')->references('id_jabatan')->on('jabatans');
+            $table->foreign('id_jabatan')->references('id_jabatan')->on('jabatans');
             $table->foreign('id_kategori_surat')->references('id_kategori_surat')->on('kategori_surats');
             // $table->foreign('id_riwayat')->references('id_riwayat')->on('riwayats');
             // $table->foreign('id_status')->references('id_status')->on('statuses');

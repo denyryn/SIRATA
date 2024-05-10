@@ -42,4 +42,9 @@ class Surat extends Model
     {
         return $this->hasMany(Riwayat::class, 'id_surat');
     }
+
+    public function Jabatan()
+    {
+        return $this->belongsTo(Jabatan::class, 'id_jabatan');
+    }
 }

@@ -46,7 +46,7 @@ class UserMahasiswaController extends Controller
 
             // Check if $riwayat_terbaru is not null before accessing its properties
             if ($riwayat_terbaru) {
-                $item->status_terbaru = $riwayat_terbaru->status->nama_status;
+                $item->status_terbaru = $riwayat_terbaru->nama_status;
             } else {
                 $item->status_terbaru = 'No Status';
             }
@@ -54,11 +54,8 @@ class UserMahasiswaController extends Controller
             // Fetch all related Riwayat entries for this Surat
             $riwayat = Riwayat::where('id_surat', $item->id_surat)->get();
 
-            // Extract the nama_status from each Riwayat and assign it to $item->riwayat as an array
-            $item->riwayat = $riwayat->pluck('nama_status')->toArray();
-
             $kategori_surat = Kategori_Surat::find($item->id_kategori_surat);
-            $item->nama_kategori = $kategori_surat ? $kategori_surat->nama_kategori : 'Not Found';
+            $item->nama_kategori = $kategori_surat->nama_kategori;
         }
 
 

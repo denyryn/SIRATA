@@ -4,7 +4,7 @@
 
 @section('content')
 
-    @if ($nama_status_terakhir != 'Disetujui')
+    @if (!str_contains(strtolower($nama_status_terakhir), 'disetujui') && !$data_surat['surat']->nomor_surat)
         <div class="grid grid-cols-12">
             <div class="grid w-1/2 min-w-full col-start-1 col-end-6 h-fit">
                 <form action="{{ route('admin.surat.update', $data_surat['surat']->id_surat) }}" method="POST"
@@ -25,14 +25,9 @@
                     <button type="submit"
                         class="text-white h-fit bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">Setujui</button>
                 </form>
-                <form action="{{ route('admin.surat.update.reject', $data_surat['surat']->id_surat) }}" method="POST"
-                    class="grid min-w-full col-start-1 col-end-6 ">
-                    @csrf
-                    @method('PUT')
+                <button data-modal-target="tolak-surat-modal" data-modal-toggle="tolak-surat-modal"
+                    class="text-white col-start-1 col-end-6 h-fit bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">Tolak</button>
 
-                    <button type="submit"
-                        class="text-white h-fit bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">Tolak</button>
-                </form>
             </div>
             <div class="row-start-0 col-start-7 col-end-13 p-2 rounded-[1rem] shadow-xl bg-blue-lighter">
                 <button class="p-1 bg-white rounded-[0.5rem] " onclick="zoomIn()">
@@ -69,10 +64,42 @@
             </div>
         </div>
     @else
-        <iframe id="templateFrame"
-            class="w-full min-h-[70vh] max-h-screen border-black rounded-[0.5rem] overflow-scroll border-0 transform scale-100 align-middle mt-1"
-            srcdoc="{{ $rendered_template }}" frameborder="0"></iframe>
+        <div class="flex flex-col-reverse items-start md:justify-evenly md:flex-row">
+            <iframe id="templateFrame"
+                class="md:w-[21cm] w-full min-h-[70vh] overflow-auto max-h-screen border-black rounded-[0.5rem] border-0 transform scale-100 align-middle mt-1"
+                srcdoc="{{ $rendered_template }}" frameborder="0"></iframe>
+            @if (!$data_surat['surat']->surat_selesai)
+                <form action="{{ route('admin.surat.upload', $data_surat['surat']->id_surat) }}" method="POST"
+                    enctype="multipart/form-data" class="">
+                    @csrf
+                    @method('PUT')
+
+                    <div class="mb-5">
+                        <label for="surat_selesai" class="block mb-2 text-sm font-medium text-gray-900">
+                            Upload Surat yang telah disetujui
+                        </label>
+                        <div class="flex flex-row items-center w-full">
+                            <input type="file"
+                                class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500"
+                                id="surat_selesai" name="surat_selesai" accept=".pdf" />
+                            <button type="submit"
+                                class="text-white m-1 bg-blue-700 h-full hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg w-[30%] text-sm sm:w-auto px-5 py-2.5 text-center">
+                                Submit
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            @else
+                <a href="{{ route('admin.surat.stream', $data_surat['surat']->id_surat) }}"
+                    class="text-white m-1 bg-blue-700 h-full hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg w-[30%] text-sm sm:w-auto px-5 py-2.5 text-center self-end md:self-auto">
+                    Preview Hasil
+                </a>
+            @endif
+        </div>
     @endif
+
+    {{-- Include modals supaya form popup keluar --}}
+    @include('admin.surat.modals.tolak')
 
     <script>
         // Get a reference to the iframe element

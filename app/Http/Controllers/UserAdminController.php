@@ -22,10 +22,8 @@ class UserAdminController extends Controller
 
         $total_kategori = Kategori_Surat::count();
 
-        $total_status = Status::count();
-
         $total_perihal = Perihal::count();
 
-        return view("admin.dashboard", compact('total_surat', 'total_prodi', 'total_jabatan', 'total_kategori', 'total_status', 'total_perihal'));
+        return view("admin.dashboard", compact('total_surat', 'total_prodi', 'total_jabatan', 'total_kategori', 'total_perihal'));
     }
 }

@@ -13,20 +13,20 @@ class StatusSeeder extends Seeder
      */
     public function run(): void
     {
-        $statuses = [
-            [
-                "nama_status" => "Pending"
-            ],
-            [
-                "nama_status" => "Diproses"
-            ],
-            [
-                "nama_status" => "Disetujui"
-            ]
-        ];
+        // $statuses = [
+        //     [
+        //         "nama_status" => "Pending"
+        //     ],
+        //     [
+        //         "nama_status" => "Diproses"
+        //     ],
+        //     [
+        //         "nama_status" => "Disetujui"
+        //     ]
+        // ];
 
-        foreach ($statuses as $status) {
-            Status::create($status);
-        }
+        // foreach ($statuses as $status) {
+        //     Status::create($status);
+        // }
     }
 }

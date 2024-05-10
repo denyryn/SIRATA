@@ -38,7 +38,7 @@ class FetchDosenController extends Controller
                 $NIP = $dosen->NIP;
                 $NIDN = $dosen->NIDN;
                 $prodi = Program_Studi::whereRaw('LOWER(nama_prodi) = ?', [strtolower($dosen->Homebase_Prodi)])->first();
-                $jabatan_default = Jabatan::whereRaw('LOWER(nama_jabatan) = ?', [strtolower("Dosen")])->first();
+                // $jabatan_default = Jabatan::whereRaw('LOWER(nama_jabatan) = ?', [strtolower("Dosen")])->first();
 
                 if ($dosen) {
                     $duplikat = User::where('username', $NIP)->first();
@@ -58,7 +58,7 @@ class FetchDosenController extends Controller
                         $data_dosen->nidn = $NIDN;
                         $data_dosen->id_user = $data_user->id_user;
                         $data_dosen->id_prodi = $prodi->id_prodi;
-                        $data_dosen->id_jabatan = $jabatan_default->id_jabatan;
+                        // $data_dosen->id_jabatan = $jabatan_default->id_jabatan;
                         $data_dosen->nama_dosen = $dosen->Nama_dosen;
                         $data_dosen->gelar_depan = $dosen->Gelar_depan;
                         $data_dosen->gelar_belakang = $dosen->Gelar_belakang;
@@ -67,7 +67,7 @@ class FetchDosenController extends Controller
                 }
             }
         } else {
-            echo "Tidak ada data mahasiswa yang perlu diupdate.";
+            echo "Tidak ada respon API.";
         }
     }
 }
