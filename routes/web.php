@@ -63,8 +63,8 @@ Route::group(['prefix' => 'mahasiswa', 'middleware' => ['auth', 'cekakses:mahasi
         Route::prefix('/surat')->group(function () {
         Route::get('/surat_selesai/{id_surat}', [StreamSuratController::class, 'index'])->name("mahasiswa.surat.stream");
         Route::get('/preview/{id_surat}', [SuratMahasiswaController::class, 'read'])
-             ->name("mahasiswa.surat.preview")
-             ->middleware('checkSuratAccess'); // Tambahkan middleware di sini
+            ->name("mahasiswa.surat.preview")
+            ->middleware('checkSuratAccess'); // Tambahkan middleware di sini
         Route::get('/lacak_surat/{id_surat}', [LayananLacakSuratController::class, 'index'])->name("mahasiswa.surat.lacak");
     });
     });
@@ -135,7 +135,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'cekakses:admin']], 
             Route::get('/download/{id_surat}', [DownloadSuratController::class, 'index'])->name("admin.surat.download");
             Route::put('/upload/surat_selesai/{id_surat}', [UploadSuratController::class, 'index'])->name("admin.surat.upload");
             Route::get('/stream/surat_selesai/{id_surat}', [StreamSuratController::class, 'index'])->name("admin.surat.stream");
-            Route::get('/preview/{id_surat}', [SuratController::class, 'edit']);
+            Route::get('/preview/{id_surat}', [SuratController::class, 'edit'])->name("admin.surat.preview");
             Route::put('/preview/accept/{id_surat}', [SuratController::class, 'update'])->name("admin.surat.update");
             Route::put('/preview/reject/{id_surat}', [SuratController::class, 'reject'])->name("admin.surat.update.reject");
             // Route::post('/', [ProgramStudiController::class, 'store'])->name("surat.store");
