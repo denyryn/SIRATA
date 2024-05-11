@@ -55,6 +55,18 @@
                 </thead>
                 <tbody class="text-gray-900">
                     @foreach ($data_surat as $surat)
+                        @php
+                            $color = '';
+                            if (str_contains(strtolower($surat->status_terbaru), 'pending')) {
+                                $color = 'yellow';
+                            } elseif (str_contains(strtolower($surat->status_terbaru), 'diproses')) {
+                                $color = 'orange';
+                            } elseif (str_contains(strtolower($surat->status_terbaru), 'disetujui')) {
+                                $color = 'green';
+                            } elseif (str_contains(strtolower($surat->status_terbaru), 'ditolak')) {
+                                $color = 'red';
+                            }
+                        @endphp
                         <tr>
                             <td>{{ $surat->id_surat }}</td>
                             <td>{{ $surat->tanggal_buat }}</td>
@@ -105,17 +117,6 @@
 
                             </td>
                             <td>
-                                @php
-                                    if (str_contains(strtolower($surat->status_terbaru), 'pending')) {
-                                        $color = 'yellow';
-                                    } elseif (str_contains(strtolower($surat->status_terbaru), 'diproses')) {
-                                        $color = 'orange';
-                                    } elseif (str_contains(strtolower($surat->status_terbaru), 'disetujui')) {
-                                        $color = 'green';
-                                    } elseif (str_contains(strtolower($surat->status_terbaru), 'ditolak')) {
-                                        $color = 'red';
-                                    }
-                                @endphp
                                 <div
                                     class="p-2 w-full text-center text-white bg-{{ $color }}-600 rounded-lg pointer-events-none btn animate-none">
                                     {{ $surat->status_terbaru }}
@@ -138,4 +139,3 @@
 
     </div>
 @endsection
-
