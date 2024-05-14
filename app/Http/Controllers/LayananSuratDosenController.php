@@ -10,14 +10,14 @@ use App\Models\Status;
 use App\Models\User;
 use App\Models\Pemohon;
 use App\Models\Riwayat;
-use App\Models\Mahasiswa;
+use App\Models\Dosen;
 use App\Models\Jabatan;
 
 use Carbon\Carbon;
 
 Carbon::setLocale('id');
 
-class LayananSuratMahasiswaController extends Controller
+class LayananSuratDosenController extends Controller
 {
     public function index()
 {
@@ -33,7 +33,7 @@ class LayananSuratMahasiswaController extends Controller
         $nama_kategori = strtolower(str_replace(' ', '_', $perihal->kategori_Surat->nama_kategori ?? ''));
 
         // Periksa apakah kategori surat adalah "dosen"
-        if ($perihal->kategori_Surat->peruntukkan === "mahasiswa" && view()->exists('surat.template.' . $nama_kategori)) {
+        if ($perihal->kategori_Surat->peruntukkan === "dosen" && view()->exists('surat.template.' . $nama_kategori)) {
             // Sertakan data perihal jika kategori adalah "dosen" dan view tersedia
             $data_perihal[] = [
                 'perihal' => $perihal,
@@ -72,13 +72,13 @@ class LayananSuratMahasiswaController extends Controller
 
         $user_sekarang = User::find($id_user);
 
-        $mahasiswa_sekarang = Mahasiswa::where('id_user', $id_user)->first();
+        $dosen_sekarang = Dosen::where('id_user', $id_user)->first();
 
-        $mahasiswas = Mahasiswa::all();
+        $dosens = Dosen::all();
         $jabatans = Jabatan::with('Dosen')->get();
 
-        $rendered_template = view($template, compact('no', 'data_perihal', 'tanggal_sekarang', 'mahasiswa_sekarang'))->render();
-        return view($form, compact('data_perihal', 'jabatans', 'form', 'rendered_template', 'mahasiswas', 'mahasiswa_sekarang', 'user_sekarang'));
+        $rendered_template = view($template, compact('no', 'data_perihal', 'tanggal_sekarang', 'dosen_sekarang'))->render();
+        return view($form, compact('data_perihal', 'jabatans', 'form', 'rendered_template', 'dosens', 'dosen_sekarang', 'user_sekarang'));
     }
 
     public function store(Request $request)
@@ -114,6 +114,6 @@ class LayananSuratMahasiswaController extends Controller
         $data_riwayat->id_surat = $data_surat->id_surat;
         $data_riwayat->save();
 
-        return redirect()->route("mahasiswa.index");
+        return redirect()->route("dosen.index");
     }
 }

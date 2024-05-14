@@ -41,4 +41,8 @@ class Dosen extends Model
     {
         return $this->hasOne(Tanda_Tangan::class, 'id_dosen');
     }
+    public function Program_Studi()
+    {
+        return $this->belongsTo(Program_Studi::class, 'id_prodi');
+    }
 }

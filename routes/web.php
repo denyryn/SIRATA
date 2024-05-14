@@ -6,6 +6,7 @@ use App\Http\Controllers\LoginController;
 
 use App\Http\Controllers\UserMahasiswaController;
 use App\Http\Controllers\UserAdminController;
+use App\Http\Controllers\UserDosenController;
 
 use App\Http\Controllers\JabatanController;
 use App\Http\Controllers\ProgramStudiController;
@@ -15,9 +16,11 @@ use App\Http\Controllers\StatusController;
 
 use App\Http\Controllers\SuratController;
 use App\Http\Controllers\SuratMahasiswaController;
+use App\Http\Controllers\SuratDosenController;
 
 use App\Http\Controllers\LayananSuratAdminController;
 use App\Http\Controllers\LayananSuratMahasiswaController;
+use App\Http\Controllers\LayananSuratDosenController;
 use App\Http\Controllers\CariLayananSuratController;
 use App\Http\Controllers\LayananLacakSuratController;
 
@@ -63,6 +66,26 @@ Route::group(['prefix' => 'mahasiswa', 'middleware' => ['auth', 'cekakses:mahasi
             Route::get('/surat_selesai/{id_surat}', [StreamSuratController::class, 'index'])->name("mahasiswa.surat.stream");
             Route::get('/preview/{id_surat}', [SuratMahasiswaController::class, 'read'])->name("mahasiswa.surat.preview");
             Route::get('/lacak_surat/{id_surat}', [LayananLacakSuratController::class, 'index'])->name("mahasiswa.surat.lacak");
+        });
+    });
+});
+
+
+// =============================== GROUP ROUTE Dosen ================================
+Route::group(['prefix' => 'dosen', 'middleware' => ['auth', 'cekakses:dosen']], function () {
+    Route::get('/dashboard', [UserDosenController::class, 'index'])->name("dosen.index");
+
+    Route::prefix('/dashboard')->group(function () {
+        Route::prefix('/layanan_surat')->group(function () {
+            Route::get('/', [LayananSuratDosenController::class, 'index'])->name("dosen.surat.layanan");
+            Route::get('/create/{id_perihal}', [LayananSuratDosenController::class, 'create'])->name("dosen.surat.form");
+            Route::get('/search', [CariLayananSuratController::class, 'index'])->name("dosen.surat.search");
+            Route::post('/', [LayananSuratDosenController::class, 'store'])->name("dosen.surat.form.store");
+        });
+        Route::prefix('/surat')->group(function () {
+            Route::get('/surat_selesai/{id_surat}', [StreamSuratController::class, 'index'])->name("dosem.surat.stream");
+            Route::get('/preview/{id_surat}', [SuratDosenController::class, 'read'])->name("dosen.surat.preview");
+            Route::get('/lacak_surat/{id_surat}', [LayananLacakSuratController::class, 'index'])->name("dosen.surat.lacak");
         });
     });
 });

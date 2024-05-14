@@ -24,6 +24,21 @@ class UserSeeder extends Seeder
                 "akses" => "admin",
                 "remember_token" => Str::random(60)
             ],
+            [
+                "username" => "43322103",
+                "email" => "rakha@gmail.com",
+                "password" => bcrypt("123456"),
+                "akses" => "mahasiswa",
+                "remember_token" => Str::random(60)
+            ],
+            [
+                "username" => "43322106",
+                "email" => "yuda@gmail.com",
+                "password" => bcrypt("123456"),
+                "akses" => "dosen",
+                "remember_token" => Str::random(60)
+            ],
+            
         ];
 
         foreach ($users as $user) {

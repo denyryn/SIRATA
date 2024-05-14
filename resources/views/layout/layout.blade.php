@@ -14,12 +14,27 @@
 
 <body class="font-poppins">
     @if (Session::has('akses'))
-        @if (Session::get('akses') === 'admin')
+    @php
+        $akses = Session::get('akses');
+    @endphp
+
+    @switch($akses)
+        @case('admin')
             @include('layout.sidebars.admin_sidebar')
-        @elseif(Session::get('akses') === 'mahasiswa')
+            @break
+
+        @case('mahasiswa')
             @include('layout.sidebars.mahasiswa_sidebar')
-        @endif
-    @endif
+            @break
+
+        @case('dosen')
+            @include('layout.sidebars.dosen_sidebar')
+            @break
+
+        @default
+            {{-- Default action jika 'akses' tidak cocok dengan admin, mahasiswa, atau dosen --}}
+    @endswitch
+@endif
 
     {{-- header --}}
     <div class="p-4 content sm:ml-64">
