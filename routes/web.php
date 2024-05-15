@@ -28,7 +28,8 @@ use App\Http\Controllers\DownloadSuratController;
 use App\Http\Controllers\UploadSuratController;
 use App\Http\Controllers\StreamSuratController;
 
-use App\Http\Middleware\CekAksesSurat;
+use App\Http\Controllers\ProfileMahasiswaController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -60,13 +61,14 @@ Route::group(['prefix' => 'mahasiswa', 'middleware' => ['auth', 'cekakses:mahasi
             Route::get('/search', [CariLayananSuratController::class, 'index'])->name("mahasiswa.surat.search");
             Route::post('/', [LayananSuratMahasiswaController::class, 'store'])->name("mahasiswa.surat.form.store");
         });
-        Route::prefix('/surat')->group(function () {
-        Route::get('/surat_selesai/{id_surat}', [StreamSuratController::class, 'index'])->name("mahasiswa.surat.stream");
-        Route::get('/preview/{id_surat}', [SuratMahasiswaController::class, 'read'])
-            ->name("mahasiswa.surat.preview")
-            ->middleware('checkSuratAccess'); // Tambahkan middleware di sini
-        Route::get('/lacak_surat/{id_surat}', [LayananLacakSuratController::class, 'index'])->name("mahasiswa.surat.lacak");
-    });
+        Route::prefix('/surat')->middleware('CekAksesSurat')->group(function () {
+            Route::get('/surat_selesai/{id_surat}', [StreamSuratController::class, 'index'])->name("mahasiswa.surat.stream");
+            Route::get('/preview/{id_surat}', [SuratMahasiswaController::class, 'read'])->name("mahasiswa.surat.preview");
+            Route::get('/lacak/{id_surat}', [LayananLacakSuratController::class, 'index'])->name("mahasiswa.surat.lacak");
+        });
+        Route::prefix("/profile")->group(function () {
+            Route::get('/', [ProfileMahasiswaController::class, 'index'])->name("mahasiswa.profile");
+        });
     });
 });
 

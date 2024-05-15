@@ -18,9 +18,9 @@ class UserSeeder extends Seeder
     {
         $users = [
             [
-                "username" => "43322100",
+                "username" => "adminel",
                 "email" => "admin@admin.com",
-                "password" => bcrypt("123456"),
+                "password" => bcrypt("adminel"),
                 "akses" => "admin",
                 "remember_token" => Str::random(60)
             ],

@@ -22,4 +22,9 @@ class Program_Studi extends Model
     {
         return $this->hasMany(Mahasiswa::class, 'id_prodi');
     }
+
+    public function Dosen()
+    {
+        return $this->hasMany(Dosen::class, 'id_prodi');
+    }
 }

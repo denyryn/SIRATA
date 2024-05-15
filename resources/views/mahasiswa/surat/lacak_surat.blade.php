@@ -128,6 +128,11 @@
                                     <h3 class="mb-1 text-lg font-semibold text-gray-50">
                                         {{ $riwayat->nama_status }}
                                     </h3>
+                                    @if (isset($riwayat->keterangan_status))
+                                        <p class="font-extralight text-md">
+                                            {{ $riwayat->keterangan_status }}
+                                        </p>
+                                    @endif
                                     <span class="leading-tight text-justify">
                                         {{ $data_surat['surat']->created_at }}
                                     </span>

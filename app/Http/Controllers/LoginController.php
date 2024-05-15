@@ -46,7 +46,7 @@ class LoginController extends Controller
                     return redirect(route('admin.index'));
                 } elseif ($akses === 'mahasiswa') {
                     // Retrieve data from the 'mahasiswa' table based on the user's ID
-                    $data_mahasiswa = Mahasiswa::where('id_user', $user->id_user)->first();
+                    $data_mahasiswa = Mahasiswa::where('id_user', $user->id_user)->with('user')->first();
                     // Store the retrieved data in the session
                     Session::put('data_mahasiswa', $data_mahasiswa);
                     $data_mahasiswa = Session::get('data_mahasiswa');

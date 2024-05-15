@@ -86,6 +86,10 @@ class LayananSuratAdminController extends Controller
             if ($request->has("id_user$i")) {
                 $id_user = $request->input("id_user$i");
 
+                if ($i == 1) {
+                    $data_surat->id_user_pembuat = $id_user;
+                }
+
                 $data_pemohon = new pemohon;
                 $data_pemohon->id_user = $id_user;
                 $data_pemohon->id_surat = $data_surat->id_surat;

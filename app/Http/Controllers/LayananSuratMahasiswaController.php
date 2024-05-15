@@ -77,10 +77,10 @@ class LayananSuratMahasiswaController extends Controller
     {
         $status_awal = 'Pending';
         $count = $request->input('count');
-    
+
         // Dapatkan ID pengguna yang saat ini masuk
         $id_user = Session::get('id_user');
-    
+
         $data_surat = new Surat;
         $data_surat->id_kategori_surat = $request->id_kategori_surat;
         $data_surat->id_jabatan = $request->id_jabatan;
@@ -89,29 +89,29 @@ class LayananSuratMahasiswaController extends Controller
         $data_surat->alamat_tujuan = $request->alamat_tujuan;
         $data_surat->upper_body = $request->upper_body;
         $data_surat->lower_body = $request->lower_body;
-        
+
         // Simpan ID pengguna sebagai pembuat surat
-        $data_surat->created_by = $id_user;
-    
+        $data_surat->id_user_pembuat = $id_user;
+
         $data_surat->save();
-    
+
         // Handle multiple id_user values
         for ($i = 1; $i <= $count; $i++) {
             if ($request->has("id_user$i")) {
                 $id_user = $request->input("id_user$i");
-            
+
                 $data_pemohon = new Pemohon;
                 $data_pemohon->id_user = $id_user;
                 $data_pemohon->id_surat = $data_surat->id_surat;
                 $data_pemohon->save();
             }
         }
-    
+
         $data_riwayat = new Riwayat;
         $data_riwayat->nama_status = $status_awal;
         $data_riwayat->id_surat = $data_surat->id_surat;
         $data_riwayat->save();
-    
+
         return redirect()->route("mahasiswa.index");
     }
 }
