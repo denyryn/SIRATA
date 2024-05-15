@@ -37,6 +37,11 @@ class Dosen extends Model
         return $this->hasMany(Mahasiswa::class, 'id_dosen_pembimbing');
     }
 
+    public function Program_Studi()
+    {
+        return $this->belongsTo(Program_Studi::class, 'id_prodi');
+    }
+
     public function Tanda_Tangan()
     {
         return $this->hasOne(Tanda_Tangan::class, 'id_dosen');

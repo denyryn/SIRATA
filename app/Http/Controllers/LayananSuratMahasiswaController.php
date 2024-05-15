@@ -105,14 +105,14 @@ class LayananSuratMahasiswaController extends Controller
             if ($request->has("id_user$i")) {
                 $id_user = $request->input("id_user$i");
 
-                $data_pemohon = new pemohon;
+                $data_pemohon = new Pemohon;
                 $data_pemohon->id_user = $id_user;
                 $data_pemohon->id_surat = $data_surat->id_surat;
                 $data_pemohon->save();
             }
         }
 
-        $data_riwayat = new riwayat;
+        $data_riwayat = new Riwayat;
         $data_riwayat->nama_status = $status_awal;
         $data_riwayat->id_surat = $data_surat->id_surat;
         $data_riwayat->save();
