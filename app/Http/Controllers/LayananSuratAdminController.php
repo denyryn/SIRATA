@@ -74,13 +74,13 @@ class LayananSuratAdminController extends Controller
         $data_surat = new surat;
         // $data_surat->id_user = $request->id_user;
         $data_surat->id_kategori_surat = $request->id_kategori_surat;
-        $data_surat->id_user_pembuat = $request->input("id_user1");
         $data_surat->id_jabatan = $request->id_jabatan;
         $data_surat->nama_perihal = $request->nama_perihal;
         $data_surat->nama_tujuan = $request->nama_tujuan;
         $data_surat->alamat_tujuan = $request->alamat_tujuan;
         $data_surat->upper_body = $request->upper_body;
         $data_surat->lower_body = $request->lower_body;
+        $data_surat->id_user_pembuat = $request->input("id_user1");
         $data_surat->save();
 
         for ($i = 1; $i <= $count; $i++) {

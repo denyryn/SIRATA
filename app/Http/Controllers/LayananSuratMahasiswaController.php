@@ -90,7 +90,6 @@ class LayananSuratMahasiswaController extends Controller
         $id_user_pembuat = Session::get('id_user');
 
         $data_surat = new surat;
-        // $data_surat->id_user = $request->id_user;
         $data_surat->id_kategori_surat = $request->id_kategori_surat;
         $data_surat->id_jabatan = $request->id_jabatan;
         $data_surat->nama_perihal = $request->nama_perihal;
@@ -98,10 +97,8 @@ class LayananSuratMahasiswaController extends Controller
         $data_surat->alamat_tujuan = $request->alamat_tujuan;
         $data_surat->upper_body = $request->upper_body;
         $data_surat->lower_body = $request->lower_body;
-        $data_surat->save();
-
-        // Simpan ID pengguna sebagai pembuat surat
         $data_surat->id_user_pembuat = $id_user_pembuat;
+        $data_surat->save();
 
         // Handle multiple id_user values
         for ($i = 1; $i <= $count; $i++) {

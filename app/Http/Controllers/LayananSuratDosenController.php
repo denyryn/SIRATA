@@ -98,10 +98,8 @@ class LayananSuratDosenController extends Controller
         $data_surat->alamat_tujuan = $request->alamat_tujuan;
         $data_surat->upper_body = $request->upper_body;
         $data_surat->lower_body = $request->lower_body;
-        $data_surat->save();
-
-        // Simpan ID pengguna sebagai pembuat surat
         $data_surat->id_user_pembuat = $id_user_pembuat;
+        $data_surat->save();
 
         // Handle multiple id_user values
         for ($i = 1; $i <= $count; $i++) {
