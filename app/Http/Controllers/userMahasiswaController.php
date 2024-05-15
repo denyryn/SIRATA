@@ -18,9 +18,7 @@ class UserMahasiswaController extends Controller
 
         $searchQuery = $request->input('surat_search');
 
-        $data_surat = Surat::whereHas('Pemohon', function ($query) use ($id_user) {
-            $query->where('id_user', $id_user);
-        })->latest();
+        $data_surat = Surat::where('id_user_pembuat', $id_user);
 
         if (!empty($searchQuery)) {
             $data_surat->where(function ($query) use ($searchQuery) {
@@ -57,8 +55,6 @@ class UserMahasiswaController extends Controller
             $kategori_surat = Kategori_Surat::find($item->id_kategori_surat);
             $item->nama_kategori = $kategori_surat->nama_kategori;
         }
-
-
 
         // dd($data_surat->nama_kategori);
         // dd($data_surat);

@@ -23,8 +23,6 @@ class LoginController extends Controller
         return view('auths.login');
     }
 
-
-
     public function postlogin(Request $request)
     {
         if (Auth::attempt($request->only(['username', 'password']))) {
@@ -48,33 +46,30 @@ class LoginController extends Controller
                 } elseif ($akses === 'mahasiswa') {
                     // Retrieve data from the 'mahasiswa' table based on the user's ID
                     $data_mahasiswa = Mahasiswa::where('id_user', $user->id_user)->first();
-                    if ($data_mahasiswa) {
+                    if (!$data_mahasiswa) {
+                        // Handle the case where no matching data is found for the user
+                        return redirect()->back()->with('error', 'Data mahasiswa tidak ditemukan.');
+                    } else {
                         // Store the retrieved data in the session
                         Session::put('data_mahasiswa', $data_mahasiswa);
                         return redirect(route('mahasiswa.index'));
-                    } else {
-                        // Handle the case where no matching data is found for the user
-                        return redirect()->back()->with('error', 'Data mahasiswa tidak ditemukan.');
-                }
-                
+                    }
                 } elseif ($akses === 'dosen') {
                     // Retrieve data from the 'dosen' table based on the user's ID
                     $data_dosen = Dosen::where('id_user', $user->id_user)->first();
-                    if ($data_dosen) {
+                    if (!$data_dosen) {
+                        // Handle the case where no matching data is found for the user
+                        return redirect()->back()->with('error', 'Data dosen tidak ditemukan.');
+                    } else {
                         // Store the retrieved data in the session
                         Session::put('data_dosen', $data_dosen);
                         return redirect(route('dosen.index'));
-                    } else {
-                        // Handle the case where no matching data is found for the user
-                        return redirect()->back()->with('error', 'Data dosen tidak ditemukan.');
                     }
                 }
-                
+            }
+            return redirect(route('login'));
         }
-        return redirect(route('login'));
     }
-}
-
 
     public function logout()
     {

@@ -20,31 +20,31 @@ Carbon::setLocale('id');
 class LayananSuratMahasiswaController extends Controller
 {
     public function index()
-{
-    // Ambil data perihal dengan menyertakan relasi Kategori_Surat
-    $data_perihals = Perihal::with('Kategori_Surat')->paginate(10);
+    {
+        // Ambil data perihal dengan menyertakan relasi Kategori_Surat
+        $data_perihals = Perihal::with('Kategori_Surat')->paginate(10);
 
-    // Inisialisasi array untuk menyimpan data perihal yang akan ditampilkan
-    $data_perihal = [];
+        // Inisialisasi array untuk menyimpan data perihal yang akan ditampilkan
+        $data_perihal = [];
 
-    // Loop melalui setiap perihal
-    foreach ($data_perihals as $perihal) {
-        // Ambil nama kategori dalam huruf kecil dan ganti spasi dengan garis bawah
-        $nama_kategori = strtolower(str_replace(' ', '_', $perihal->kategori_Surat->nama_kategori ?? ''));
+        // Loop melalui setiap perihal
+        foreach ($data_perihals as $perihal) {
+            // Ambil nama kategori dalam huruf kecil dan ganti spasi dengan garis bawah
+            $nama_kategori = strtolower(str_replace(' ', '_', $perihal->kategori_Surat->nama_kategori ?? ''));
 
-        // Periksa apakah kategori surat adalah "dosen"
-        if ($perihal->kategori_Surat->peruntukkan === "mahasiswa" && view()->exists('surat.template.' . $nama_kategori)) {
-            // Sertakan data perihal jika kategori adalah "dosen" dan view tersedia
-            $data_perihal[] = [
-                'perihal' => $perihal,
-                'nama_kategori' => $nama_kategori,
-            ];
+            // Periksa apakah kategori surat adalah "dosen"
+            if ($perihal->kategori_Surat->peruntukkan === "mahasiswa" && view()->exists('surat.template.' . $nama_kategori)) {
+                // Sertakan data perihal jika kategori adalah "dosen" dan view tersedia
+                $data_perihal[] = [
+                    'perihal' => $perihal,
+                    'nama_kategori' => $nama_kategori,
+                ];
+            }
         }
-    }
 
-    // Kirimkan data perihal yang telah difilter ke view
-    return view('surat.index', compact('data_perihal'));
-}
+        // Kirimkan data perihal yang telah difilter ke view
+        return view('surat.index', compact('data_perihal'));
+    }
 
 
     public function create($id_perihal)
@@ -86,6 +86,9 @@ class LayananSuratMahasiswaController extends Controller
         $status_awal = 'Pending';
         $count = $request->input('count');
 
+        // Dapatkan ID pengguna yang saat ini masuk
+        $id_user_pembuat = Session::get('id_user');
+
         $data_surat = new surat;
         // $data_surat->id_user = $request->id_user;
         $data_surat->id_kategori_surat = $request->id_kategori_surat;
@@ -96,6 +99,9 @@ class LayananSuratMahasiswaController extends Controller
         $data_surat->upper_body = $request->upper_body;
         $data_surat->lower_body = $request->lower_body;
         $data_surat->save();
+
+        // Simpan ID pengguna sebagai pembuat surat
+        $data_surat->id_user_pembuat = $id_user_pembuat;
 
         // Handle multiple id_user values
         for ($i = 1; $i <= $count; $i++) {

@@ -18,27 +18,13 @@ class UserSeeder extends Seeder
     {
         $users = [
             [
-                "username" => "43322100",
+                "username" => "adminel",
                 "email" => "admin@admin.com",
-                "password" => bcrypt("123456"),
+                "password" => bcrypt("adminel"),
                 "akses" => "admin",
                 "remember_token" => Str::random(60)
             ],
-            [
-                "username" => "43322103",
-                "email" => "rakha@gmail.com",
-                "password" => bcrypt("123456"),
-                "akses" => "mahasiswa",
-                "remember_token" => Str::random(60)
-            ],
-            [
-                "username" => "43322106",
-                "email" => "yuda@gmail.com",
-                "password" => bcrypt("123456"),
-                "akses" => "dosen",
-                "remember_token" => Str::random(60)
-            ],
-            
+
         ];
 
         foreach ($users as $user) {
