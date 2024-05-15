@@ -24,6 +24,7 @@ class UserSeeder extends Seeder
                 "akses" => "admin",
                 "remember_token" => Str::random(60)
             ],
+
         ];
 
         foreach ($users as $user) {

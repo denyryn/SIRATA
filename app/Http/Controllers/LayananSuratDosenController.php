@@ -3,41 +3,49 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 use App\Models\Perihal;
 use App\Models\Surat;
-use App\Models\Kategori_Surat;
-use App\Models\User;
-use App\Models\Riwayat;
-use App\Models\Pemohon;
 use App\Models\Status;
-use App\Models\Mahasiswa;
+use App\Models\User;
+use App\Models\Pemohon;
+use App\Models\Riwayat;
+use App\Models\Dosen;
 use App\Models\Jabatan;
 
 use Carbon\Carbon;
 
 Carbon::setLocale('id');
 
-class LayananSuratAdminController extends Controller
+class LayananSuratDosenController extends Controller
 {
     public function index()
     {
-        $data_perihals = perihal::with('Kategori_Surat')->paginate(10);
+        // Ambil data perihal dengan menyertakan relasi Kategori_Surat
+        $data_perihals = Perihal::with('Kategori_Surat')->paginate(10);
 
+        // Inisialisasi array untuk menyimpan data perihal yang akan ditampilkan
         $data_perihal = [];
 
+        // Loop melalui setiap perihal
         foreach ($data_perihals as $perihal) {
+            // Ambil nama kategori dalam huruf kecil dan ganti spasi dengan garis bawah
             $nama_kategori = strtolower(str_replace(' ', '_', $perihal->kategori_Surat->nama_kategori ?? ''));
 
-            if (view()->exists('surat.template.' . $nama_kategori)) {
-                // Include data for this $perihal since the view exists
+            // Periksa apakah kategori surat adalah "dosen"
+            if ($perihal->kategori_Surat->peruntukkan === "dosen" && view()->exists('surat.template.' . $nama_kategori)) {
+                // Sertakan data perihal jika kategori adalah "dosen" dan view tersedia
                 $data_perihal[] = [
                     'perihal' => $perihal,
                     'nama_kategori' => $nama_kategori,
                 ];
             }
         }
+
+        // Kirimkan data perihal yang telah difilter ke view
         return view('surat.index', compact('data_perihal'));
     }
+
 
     public function create($id_perihal)
     {
@@ -59,17 +67,27 @@ class LayananSuratAdminController extends Controller
             abort(404, __('Template not found.'));
         }
 
-        $mahasiswas = Mahasiswa::all();
+        // Retrieve the user ID from the session
+        $id_user = Session::get('id_user');
+
+        $user_sekarang = User::find($id_user);
+
+        $dosen_sekarang = Dosen::where('id_user', $id_user)->first();
+
+        $dosens = Dosen::all();
         $jabatans = Jabatan::with('Dosen')->get();
 
-        $rendered_template = view($template, compact('no', 'data_perihal', 'tanggal_sekarang'))->render();
-        return view($form, compact('data_perihal', 'jabatans', 'rendered_template', 'mahasiswas'));
+        $rendered_template = view($template, compact('no', 'data_perihal', 'tanggal_sekarang', 'dosen_sekarang'))->render();
+        return view($form, compact('data_perihal', 'jabatans', 'form', 'rendered_template', 'dosens', 'dosen_sekarang', 'user_sekarang'));
     }
 
     public function store(Request $request)
     {
         $status_awal = 'Pending';
         $count = $request->input('count');
+
+        // Dapatkan ID pengguna yang saat ini masuk
+        $id_user_pembuat = Session::get('id_user');
 
         $data_surat = new surat;
         // $data_surat->id_user = $request->id_user;
@@ -80,16 +98,13 @@ class LayananSuratAdminController extends Controller
         $data_surat->alamat_tujuan = $request->alamat_tujuan;
         $data_surat->upper_body = $request->upper_body;
         $data_surat->lower_body = $request->lower_body;
-        $data_surat->id_user_pembuat = $request->input("id_user1");
+        $data_surat->id_user_pembuat = $id_user_pembuat;
         $data_surat->save();
 
+        // Handle multiple id_user values
         for ($i = 1; $i <= $count; $i++) {
             if ($request->has("id_user$i")) {
                 $id_user = $request->input("id_user$i");
-
-                if ($i == 1) {
-                    $data_surat->id_user_pembuat = $id_user;
-                }
 
                 $data_pemohon = new pemohon;
                 $data_pemohon->id_user = $id_user;
@@ -103,6 +118,6 @@ class LayananSuratAdminController extends Controller
         $data_riwayat->id_surat = $data_surat->id_surat;
         $data_riwayat->save();
 
-        return redirect()->route("admin.index");
+        return redirect()->route("dosen.index");
     }
 }

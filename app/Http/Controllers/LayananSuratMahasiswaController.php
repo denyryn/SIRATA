@@ -21,23 +21,31 @@ class LayananSuratMahasiswaController extends Controller
 {
     public function index()
     {
-        $data_perihals = perihal::with('Kategori_Surat')->paginate(10);
+        // Ambil data perihal dengan menyertakan relasi Kategori_Surat
+        $data_perihals = Perihal::with('Kategori_Surat')->paginate(10);
 
+        // Inisialisasi array untuk menyimpan data perihal yang akan ditampilkan
         $data_perihal = [];
 
+        // Loop melalui setiap perihal
         foreach ($data_perihals as $perihal) {
+            // Ambil nama kategori dalam huruf kecil dan ganti spasi dengan garis bawah
             $nama_kategori = strtolower(str_replace(' ', '_', $perihal->kategori_Surat->nama_kategori ?? ''));
 
-            if (view()->exists('surat.template.' . $nama_kategori)) {
-                // Include data for this $perihal since the view exists
+            // Periksa apakah kategori surat adalah "dosen"
+            if ($perihal->kategori_Surat->peruntukkan === "mahasiswa" && view()->exists('surat.template.' . $nama_kategori)) {
+                // Sertakan data perihal jika kategori adalah "dosen" dan view tersedia
                 $data_perihal[] = [
                     'perihal' => $perihal,
                     'nama_kategori' => $nama_kategori,
                 ];
             }
         }
+
+        // Kirimkan data perihal yang telah difilter ke view
         return view('surat.index', compact('data_perihal'));
     }
+
 
     public function create($id_perihal)
     {
@@ -79,9 +87,9 @@ class LayananSuratMahasiswaController extends Controller
         $count = $request->input('count');
 
         // Dapatkan ID pengguna yang saat ini masuk
-        $id_user = Session::get('id_user');
+        $id_user_pembuat = Session::get('id_user');
 
-        $data_surat = new Surat;
+        $data_surat = new surat;
         $data_surat->id_kategori_surat = $request->id_kategori_surat;
         $data_surat->id_jabatan = $request->id_jabatan;
         $data_surat->nama_perihal = $request->nama_perihal;
@@ -89,10 +97,7 @@ class LayananSuratMahasiswaController extends Controller
         $data_surat->alamat_tujuan = $request->alamat_tujuan;
         $data_surat->upper_body = $request->upper_body;
         $data_surat->lower_body = $request->lower_body;
-
-        // Simpan ID pengguna sebagai pembuat surat
-        $data_surat->id_user_pembuat = $id_user;
-
+        $data_surat->id_user_pembuat = $id_user_pembuat;
         $data_surat->save();
 
         // Handle multiple id_user values

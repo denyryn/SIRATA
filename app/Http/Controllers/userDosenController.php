@@ -10,7 +10,7 @@ use App\Models\Kategori_Surat;
 
 use Carbon\Carbon;
 
-class UserMahasiswaController extends Controller
+class UserDosenController extends Controller
 {
     public function index(Request $request)
     {
@@ -52,13 +52,16 @@ class UserMahasiswaController extends Controller
             // Fetch all related Riwayat entries for this Surat
             $riwayat = Riwayat::where('id_surat', $item->id_surat)->get();
 
+            // Extract the nama_status from each Riwayat and assign it to $item->riwayat as an array
+            $item->riwayat = $riwayat->pluck('nama_status')->toArray();
+
             $kategori_surat = Kategori_Surat::find($item->id_kategori_surat);
-            $item->nama_kategori = $kategori_surat->nama_kategori;
+            $item->nama_kategori = $kategori_surat ? $kategori_surat->nama_kategori : 'Not Found';
         }
 
         // dd($data_surat->nama_kategori);
         // dd($data_surat);
-        return view('mahasiswa.dashboard', compact('data_surat', 'no'));
+        return view('dosen.dashboard', compact('data_surat', 'no'));
     }
 
 }

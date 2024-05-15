@@ -12,7 +12,7 @@ use Carbon\Carbon;
 
 Carbon::setLocale('id');
 
-class SuratMahasiswaController extends Controller
+class SuratDosenController extends Controller
 {
     public function read($id_surat)
     {
@@ -29,7 +29,7 @@ class SuratMahasiswaController extends Controller
         $pemohons = $surat->Pemohon()->get();
 
         foreach ($pemohons as $pemohon) {
-            $identitas = $pemohon->user->load('mahasiswa.program_studi')->mahasiswa;
+            $identitas = $pemohon->user->load('dosen.program_studi')->dosen;
             $data_prodi = $identitas->program_studi;
             $data_pemohons[] = [
                 'identitas' => $identitas,
@@ -63,7 +63,7 @@ class SuratMahasiswaController extends Controller
         // dd($data_surat);
 
         $rendered_template = view($template, compact('data_surat', 'no'))->render();
-        return view('mahasiswa.surat.preview', compact('data_surat', 'rendered_template'));
+        return view('dosen.surat.preview', compact('data_surat', 'rendered_template'));
 
     }
 }
