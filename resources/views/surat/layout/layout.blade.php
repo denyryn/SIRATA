@@ -13,15 +13,15 @@
             background-color: white;
         }
 
-        .nomor-perihal {
+        .tabel-rata {
             width: 100%;
         }
 
-        .nomor-perihal tr td:first-child {
+        .tabel-rata tr td:first-child {
             width: 120px;
         }
 
-        .nomor-perihal tr td:nth-child(2) {
+        .tabel-rata tr td:nth-child(2) {
             width: 10px;
         }
 

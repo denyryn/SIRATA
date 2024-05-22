@@ -21,6 +21,7 @@ return new class extends Migration {
             $table->string('nama_dosen', 150);
             $table->string('gelar_depan', 40)->nullable();
             $table->string('gelar_belakang', 40)->nullable();
+            $table->string('golongan', 10)->nullable();
 
             $table->timestamps();
 

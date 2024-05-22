@@ -6,14 +6,13 @@ use Illuminate\Http\Request;
 
 use App\Models\Surat;
 
-class StreamSuratController extends Controller
+class StreamLampiranController extends Controller
 {
     public function index($id_surat)
     {
         $data_surat = Surat::find($id_surat);
+        $file_lampiran = $data_surat->lampiran;
 
-        $file_surat = $data_surat->surat_selesai;
-
-        return response()->file(public_path('assets/surat/' . $file_surat));
+        return response()->file(public_path('assets/lampiran/' . $file_lampiran));
     }
 }

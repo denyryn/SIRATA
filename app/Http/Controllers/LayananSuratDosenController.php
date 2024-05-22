@@ -57,7 +57,7 @@ class LayananSuratDosenController extends Controller
         }
 
         $no = 1;
-        $tanggal_sekarang = Carbon::now()->translatedFormat('F Y');
+        $tanggal_sekarang = Carbon::now()->translatedFormat('d F Y');
 
         $nama_kategori = strtolower(str_replace(' ', '_', $data_perihal->kategori_Surat->nama_kategori ?? ''));
         $template = 'surat.template.' . $nama_kategori;
@@ -86,6 +86,10 @@ class LayananSuratDosenController extends Controller
         $status_awal = 'Pending';
         $count = $request->input('count');
 
+        $request->validate([
+            'lampiran' => 'nullable|mimes:pdf',
+        ]);
+
         // Dapatkan ID pengguna yang saat ini masuk
         $id_user_pembuat = Session::get('id_user');
 
@@ -98,6 +102,14 @@ class LayananSuratDosenController extends Controller
         $data_surat->alamat_tujuan = $request->alamat_tujuan;
         $data_surat->upper_body = $request->upper_body;
         $data_surat->lower_body = $request->lower_body;
+
+        if ($request->hasFile('lampiran')) {
+            $file_lampiran = $request->file('lampiran');
+            $filename = 'lampiran_' . $data_surat->id_surat . '_' . $data_surat->nama_perihal . '_' . $data_surat->nama_kategori . '_' . time() . '.' . $file_lampiran->getClientOriginalExtension();
+            $file_lampiran->move('assets/lampiran', $filename);
+            $data_surat->lampiran = $filename;
+        }
+
         $data_surat->id_user_pembuat = $id_user_pembuat;
         $data_surat->save();
 
@@ -106,14 +118,14 @@ class LayananSuratDosenController extends Controller
             if ($request->has("id_user$i")) {
                 $id_user = $request->input("id_user$i");
 
-                $data_pemohon = new pemohon;
+                $data_pemohon = new Pemohon;
                 $data_pemohon->id_user = $id_user;
                 $data_pemohon->id_surat = $data_surat->id_surat;
                 $data_pemohon->save();
             }
         }
 
-        $data_riwayat = new riwayat;
+        $data_riwayat = new Riwayat;
         $data_riwayat->nama_status = $status_awal;
         $data_riwayat->id_surat = $data_surat->id_surat;
         $data_riwayat->save();

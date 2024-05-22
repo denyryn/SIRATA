@@ -19,41 +19,42 @@
                 </label>
                 <div class="flex flex-row items-end w-full">
                     <div id="pengajuContainer" class="flex flex-col w-full">
-
                         <select
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 mt-1"
                             name="id_user1" id="id_user1" required>
-                            <option value="">Pilih Mahasiswa Pengaju</option>
-                            @if (Session::get('akses') == 'mahasiswa')
-                                @foreach ($mahasiswas as $mahasiswa)
-                                    <option value="{{ $mahasiswa->id_user }}"
-                                        {{ $mahasiswa->id_user == $user_sekarang->id_user ? 'selected' : 'hidden' }}>
-                                        {{ $mahasiswa->nama_mahasiswa }}
+                            <option value="">Pilih dosen Pengaju</option>
+                            @if (Session::get('akses') == 'dosen')
+                                @foreach ($dosens as $dosen)
+                                    <option value="{{ $dosen->id_user }}"
+                                        {{ $dosen->id_user == $user_sekarang->id_user ? 'selected' : 'hidden' }}>
+                                        {{ $dosen->nama_dosen }}
                                     </option>
+                                    {{ $dosen->nama_dosen }}
                                 @endforeach
                             @else
-                                @foreach ($mahasiswas as $mahasiswa)
-                                    <option value="{{ $mahasiswa->id_user }}">
-                                        {{ $mahasiswa->nama_mahasiswa }}
+                                @foreach ($dosens as $dosen)
+                                    <option value="{{ $dosen->id_user }}">
+                                        {{ $dosen->nama_dosen }}
                                     </option>
                                 @endforeach
                             @endif
                         </select>
-
                     </div>
-                    <button class="ml-1 text-xl text-white btn bg-blue-light hover:bg-blue-plain" type="button"
+                    <button class="ml-1 text-xl text-white  btn bg-blue-light hover:bg-blue-plain" type="button"
                         id="removePengajuBtn"> - </button>
-                    <button class="ml-1 text-xl text-white btn bg-blue-light hover:bg-blue-plain" type="button"
-                        id="addPengajuBtn"> + </button>
+                    <button class="ml-1 text-xl text-white  btn bg-blue-light hover:bg-blue-plain" type="button"
+                        id="addPengajuBtn">
+                        + </button>
                 </div>
             </div>
+
             <div class="mb-5">
                 <label for="id_jabatan" class="block mb-2 text-sm font-medium text-gray-900 ">
                     Ditujukan Kepada
                 </label>
                 <select
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 mt-1"
-                    name="id_jabatan" id="id_jabatan">
+                    name="id_jabatan" id="id_jabatan" required>
                     <option value="">Pilih Jabatan yang dituju</option>
                     @foreach ($jabatans as $jabatan)
                         <option value="{{ $jabatan->id_jabatan }}">
@@ -78,7 +79,7 @@
                 <textarea
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                     id="nama_tujuan" name="nama_tujuan" cols="30" rows="2" placeholder="Masukkan Nama Tujuan"
-                    oninput="updateContent()">{{ $data_perihal->nama_tujuan }}</textarea>
+                    oninput="updateContent()" required>{{ $data_perihal->nama_tujuan }}</textarea>
             </div>
             <div class="mb-5">
                 <label for="alamat_tujuan" class="block mb-2 text-sm font-medium text-gray-900">
@@ -87,16 +88,63 @@
                 <textarea
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                     id="alamat_tujuan" name="alamat_tujuan" cols="30" rows="2" placeholder="Masukkan Alamat Tujuan"
-                    oninput="updateContent()">{{ $data_perihal->alamat_tujuan }}</textarea>
+                    oninput="updateContent()" required>{{ $data_perihal->alamat_tujuan }}</textarea>
             </div>
             <div class="mb-5">
-                <label for="upper_body" class="block mb-2 text-sm font-medium text-gray-900">
-                    Upper Body
+                <label for="hormat" class="block mb-2 text-sm font-medium text-gray-900">
+                    Hormat
                 </label>
                 <textarea
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                    id="upper_body" name="upper_body" cols="30" rows="4" placeholder="Masukkan Upper Body"
-                    oninput="updateContent()">{{ $data_perihal->upper_body }}</textarea>
+                    id="hormat" name="hormat" cols="30" rows="3" placeholder="Masukkan Upper Body 1"
+                    oninput="updateContent()" required>Dengan Hormat,<br>
+Sehubungan dengan kunjungan industri dalam rangka perintisan kerjasama dengan dunia industri yang akan diselenggarakan pada:</textarea>
+            </div>
+            <div class="mb-5">
+                <label for="tanggal" class="block mb-2 text-sm font-medium text-gray-900">
+                    Tanggal
+                </label>
+                <input type="date"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                    id="tanggal" name="tanggal" oninput="updateContent()" required>
+            </div>
+
+            <div class="flex flex-row items-center justify-start w-full">
+                <div class="w-1/3 mb-5">
+                    <label for="jam_mulai" class="block mb-2 text-sm font-medium text-gray-900">
+                        Waktu Mulai
+                    </label>
+                    <input type="time"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                        id="jam_mulai" name="jam_mulai" oninput="updateContent()" required>
+                </div>
+                <span class="text-black"> &nbsp; s.d &nbsp; </span>
+                <div class="w-1/3 mb-5">
+                    <label for="jam_selesai" class="block mb-2 text-sm font-medium text-gray-900">
+                        Waktu Selesai
+                    </label>
+                    <input type="time"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                        id="jam_selesai" name="jam_selesai" oninput="updateContent()" required>
+                </div>
+            </div>
+
+            <div class="mb-5">
+                <label for="tempat" class="block mb-2 text-sm font-medium text-gray-900">
+                    Tempat
+                </label>
+                <input type="text"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                    id="tempat" name="tempat" oninput="updateContent()" required>
+            </div>
+            <div class="mb-5">
+                <label for="maksud" class="block mb-2 text-sm font-medium text-gray-900">
+                    Maksud
+                </label>
+                <textarea
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                    id="maksud" name="maksud" cols="30" rows="3" placeholder="Masukkan Upper Body 2"
+                    oninput="updateContent()" required>Kami bermaksud untuk mengajukan permohonan surat tugas kepada pimpinan Politeknik Negeri Semarang dengan rincian dosen sebagai berikut:</textarea>
             </div>
             <div class="mb-5">
                 <label for="lower_body" class="block mb-2 text-sm font-medium text-gray-900">
@@ -104,8 +152,8 @@
                 </label>
                 <textarea
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                    id="lower_body" name="lower_body" cols="30" rows="4" placeholder="Masukkan Lower Body"
-                    oninput="updateContent()">{{ $data_perihal->lower_body }}</textarea>
+                    id="lower_body" name="lower_body" cols="30" rows="2" placeholder="Masukkan Lower Body"
+                    oninput="updateContent()">{{ old('lower_body', $data_perihal->lower_body) }}</textarea>
             </div>
             <div class="mb-5">
                 <label for="lampiran" class="block mb-2 text-sm font-medium text-gray-900">
@@ -114,6 +162,9 @@
                 <input
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                     type="file" accept="application/pdf" name="lampiran" id="lampiran">
+            </div>
+            <div>
+                <textarea hidden id="upper_body" name="upper_body"></textarea>
             </div>
 
             <button type=" submit"
@@ -167,21 +218,86 @@
             const namaTujuanElement = templateDocument.getElementById("namaTujuanContent");
             const alamatTujuanElement = templateDocument.getElementById("alamatTujuanContent");
             const upperBodyElement = templateDocument.getElementById("upperBodyContent");
+            // ---
+            const hormatElement = templateDocument.getElementById("hormatContent");
+            const maksudElement = templateDocument.getElementById("maksudContent");
+            // ---
+            const hariTanggalElement = templateDocument.getElementById("hariTanggalContent");
+            const jamMulaiElement = templateDocument.getElementById("jamMulaiContent");
+            const jamSelesaiElement = templateDocument.getElementById("jamSelesaiContent");
+            const tempatElement = templateDocument.getElementById("tempatContent");
+            // ---
             const lowerBodyElement = templateDocument.getElementById("lowerBodyContent");
+            // --
+            const upper_body = upperBodyElement.innerHTML;
+            document.getElementById('upper_body').value = upper_body;
 
             // Get the body data from the input in the parent document
             const perihalData = document.getElementById("perihal").value;
             const namaTujuanData = document.getElementById("nama_tujuan").value;
             const alamatTujuanData = document.getElementById("alamat_tujuan").value;
-            const upperBodyData = document.getElementById("upper_body").value;
+            const hormatData = document.getElementById("hormat").value;
+            const maksudData = document.getElementById("maksud").value;
             const lowerBodyData = document.getElementById("lower_body").value;
+
+            const tanggal = document.getElementById("tanggal").value;
+            const dateObject = new Date(tanggal);
+            // Specify the options for formatting the date string
+            const options = {
+                weekday: "long",
+                day: "numeric",
+                month: "long",
+                year: "numeric",
+                timeZone: "UTC"
+            };
+            // Create the formatted date string using toLocaleDateString
+            const tanggalData = dateObject.toLocaleDateString("id-ID", options);
+
+            const jamMulai = document.getElementById("jam_mulai").value;
+            const jamSelesai = document.getElementById("jam_selesai").value;
+
+            const tempatData = document.getElementById("tempat").value;
 
             perihalElement.innerHTML = perihalData;
             namaTujuanElement.innerHTML = namaTujuanData;
             alamatTujuanElement.innerHTML = alamatTujuanData;
-            upperBodyElement.innerHTML = upperBodyData;
+            hormatElement.innerHTML = hormatData;
+            maksudElement.innerHTML = maksudData;
             lowerBodyElement.innerHTML = lowerBodyData;
+            jamMulaiElement.innerHTML = jamMulai;
+            jamSelesaiElement.innerHTML = jamSelesai;
+            hariTanggalElement.innerHTML = tanggalData;
+            tempatElement.innerHTML = tempatData;
+
         }
+    </script>
+
+    <script>
+        // Define arrays for days and months in Bahasa Indonesia
+        const days = [
+            "Minggu",
+            "Senin",
+            "Selasa",
+            "Rabu",
+            "Kamis",
+            "Jumat",
+            "Sabtu"
+        ];
+
+        const months = [
+            "Januari",
+            "Februari",
+            "Maret",
+            "April",
+            "Mei",
+            "Juni",
+            "Juli",
+            "Agustus",
+            "September",
+            "Oktober",
+            "November",
+            "Desember"
+        ];
     </script>
 
     <script>
@@ -308,15 +424,15 @@
 
                 const option = document.createElement('option');
                 option.setAttribute('value', '');
-                option.textContent = 'Pilih Mahasiswa Pengaju';
+                option.textContent = 'Pilih dosen Pengaju';
                 newSelect.appendChild(option);
 
-                // Add options from existing data (e.g., mahasiswas)
-                @foreach ($mahasiswas as $mahasiswa)
-                    // Create a new option element for each mahasiswa
+                // Add options from existing data (e.g., dosens)
+                @foreach ($dosens as $dosen)
+                    // Create a new option element for each dosen
                     newOption = document.createElement('option');
-                    newOption.setAttribute('value', '{{ $mahasiswa->id_user }}');
-                    newOption.textContent = '{{ $mahasiswa->nama_mahasiswa }}';
+                    newOption.setAttribute('value', '{{ $dosen->id_user }}');
+                    newOption.textContent = '{{ $dosen->nama_dosen }}';
                     newSelect.appendChild(newOption);
                 @endforeach
 

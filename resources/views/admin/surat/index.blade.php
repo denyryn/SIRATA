@@ -78,7 +78,7 @@
                                 @if (!str_contains(strtolower($surat->status_terbaru), 'disetujui'))
                                     <a href="{{ route('admin.surat.preview', $surat->id_surat) }}" class="w-fit">
                                         <button
-                                            class="p-2 px-4 text-center text-white duration-150 bg-blue-600 rounded-lg btn hover:bg-blue-700">
+                                            class="p-2 px-4 text-center text-white duration-150 bg-blue-600 rounded-lg animate-none btn hover:bg-blue-700">
                                             Preview
                                         </button>
                                     </a>
@@ -139,3 +139,4 @@
 
     </div>
 @endsection
+

@@ -11,6 +11,7 @@ use App\Models\Riwayat;
 use App\Models\Pemohon;
 use App\Models\Status;
 use App\Models\Mahasiswa;
+use App\Models\Dosen;
 use App\Models\Jabatan;
 
 use Carbon\Carbon;
@@ -49,7 +50,7 @@ class LayananSuratAdminController extends Controller
         }
 
         $no = 1;
-        $tanggal_sekarang = Carbon::now()->translatedFormat('F Y');
+        $tanggal_sekarang = Carbon::now()->translatedFormat('d F Y');
 
         $nama_kategori = strtolower(str_replace(' ', '_', $data_perihal->kategori_Surat->nama_kategori ?? ''));
         $template = 'surat.template.' . $nama_kategori;
@@ -60,16 +61,21 @@ class LayananSuratAdminController extends Controller
         }
 
         $mahasiswas = Mahasiswa::all();
+        $dosens = Dosen::all();
         $jabatans = Jabatan::with('Dosen')->get();
 
         $rendered_template = view($template, compact('no', 'data_perihal', 'tanggal_sekarang'))->render();
-        return view($form, compact('data_perihal', 'jabatans', 'rendered_template', 'mahasiswas'));
+        return view($form, compact('data_perihal', 'jabatans', 'rendered_template', 'mahasiswas', 'dosens'));
     }
 
     public function store(Request $request)
     {
         $status_awal = 'Pending';
         $count = $request->input('count');
+
+        $request->validate([
+            'lampiran' => 'nullable|mimes:pdf',
+        ]);
 
         $data_surat = new surat;
         // $data_surat->id_user = $request->id_user;
@@ -80,6 +86,14 @@ class LayananSuratAdminController extends Controller
         $data_surat->alamat_tujuan = $request->alamat_tujuan;
         $data_surat->upper_body = $request->upper_body;
         $data_surat->lower_body = $request->lower_body;
+
+        if ($request->hasFile('lampiran')) {
+            $file_lampiran = $request->file('lampiran');
+            $filename = 'lampiran_' . $data_surat->id_surat . '_' . $data_surat->nama_perihal . '_' . $data_surat->nama_kategori . '_' . time() . '.' . $file_lampiran->getClientOriginalExtension();
+            $file_lampiran->move('assets/lampiran', $filename);
+            $data_surat->lampiran = $filename;
+        }
+
         $data_surat->id_user_pembuat = $request->input("id_user1");
         $data_surat->save();
 

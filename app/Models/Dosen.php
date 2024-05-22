@@ -19,7 +19,8 @@ class Dosen extends Model
         // 'id_tanda_tangan',
         'nama_dosen',
         'gelar_depan',
-        'gelar_belakang'
+        'gelar_belakang',
+        'golongan'
     ];
 
     public function User()
@@ -45,9 +46,5 @@ class Dosen extends Model
     public function Tanda_Tangan()
     {
         return $this->hasOne(Tanda_Tangan::class, 'id_dosen');
-    }
-    public function Program_Studi()
-    {
-        return $this->belongsTo(Program_Studi::class, 'id_prodi');
     }
 }

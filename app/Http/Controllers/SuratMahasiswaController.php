@@ -22,7 +22,7 @@ class SuratMahasiswaController extends Controller
         $riwayat_status_terakhir = $surat->Riwayat()->latest()->first();
         $nama_status_terakhir = $riwayat_status_terakhir->nama_status;
 
-        $tanggal_surat = Carbon::parse($surat->created_at)->translatedFormat('F Y');
+        $tanggal_surat = Carbon::parse($surat->created_at)->translatedFormat('d F Y');
 
         // dd($tanggal_surat);
 
@@ -45,9 +45,9 @@ class SuratMahasiswaController extends Controller
             'surat' => $surat,
             'tanggal_surat' => $tanggal_surat,
             'nama_status_terakhir' => $nama_status_terakhir,
-            'data_pemohons' => $data_pemohons,
-            'nama_jabatan' => $nama_jabatan,
-            'pemilik_jabatan' => $dosen_petinggi,
+            'data_pemohons' => $data_pemohons ?? [],
+            'nama_jabatan' => $nama_jabatan ?? '',
+            'pemilik_jabatan' => $dosen_petinggi ?? null,
         ];
 
         // dd($data_surat['pemilik_jabatan']);

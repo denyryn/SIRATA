@@ -6,7 +6,7 @@
 @section('content')
     <div class="grid grid-cols-12">
         <form id="surat_form" action="{{ route(Session::get('akses') . '.surat.form.store') }}" method="POST"
-            class="grid w-1/2 min-w-full col-start-1 col-end-6 grid-">
+            enctype="multipart/form-data" class="grid w-1/2 min-w-full col-start-1 col-end-6 grid-">
             @csrf
             @method('POST')
 
@@ -108,6 +108,14 @@
                     id="lower_body" name="lower_body" cols="30" rows="4" placeholder="Masukkan Lower Body"
                     oninput="updateContent()">{{ $data_perihal->lower_body }}</textarea>
             </div>
+            <div class="mb-5">
+                <label for="lampiran" class="block mb-2 text-sm font-medium text-gray-900">
+                    lampiran
+                </label>
+                <input
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                    type="file" accept="application/pdf" name="lampiran" id="lampiran">
+            </div>
 
             <button type=" submit"
                 class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">Submit</button>
@@ -170,8 +178,6 @@
             const alamatTujuanData = document.getElementById("alamat_tujuan").value;
             const upperBodyData = document.getElementById("upper_body").value;
             const lowerBodyData = document.getElementById("lower_body").value;
-            const namaPengajuData = document.getElementById("nama_pengaju").value;
-            const nimPengajuData = document.getElementById("nim_pengaju").value;
 
             perihalElement.innerHTML = perihalData;
             namaTujuanElement.innerHTML = namaTujuanData;

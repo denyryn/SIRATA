@@ -25,6 +25,7 @@ class LoginController extends Controller
 
     public function postlogin(Request $request)
     {
+
         if (Auth::attempt($request->only(['username', 'password']))) {
             $id_user = auth()->id();
             Session::put('id_user', $id_user);
@@ -67,7 +68,8 @@ class LoginController extends Controller
                     }
                 }
             }
-            return redirect(route('login'));
+
+            return redirect('login');
         }
     }
 

@@ -32,6 +32,10 @@ use App\Http\Controllers\UploadSuratController;
 use App\Http\Controllers\StreamSuratController;
 
 use App\Http\Controllers\ProfileMahasiswaController;
+use App\Http\Controllers\ProfileDosenController;
+
+use App\Http\Controllers\ManageUserController;
+use App\Http\Controllers\ManageUserDosenController;
 
 /*
 |--------------------------------------------------------------------------
@@ -88,9 +92,12 @@ Route::group(['prefix' => 'dosen', 'middleware' => ['auth', 'cekakses:dosen']], 
             Route::post('/', [LayananSuratDosenController::class, 'store'])->name("dosen.surat.form.store");
         });
         Route::prefix('/surat')->group(function () {
-            Route::get('/surat_selesai/{id_surat}', [StreamSuratController::class, 'index'])->name("dosem.surat.stream");
+            Route::get('/surat_selesai/{id_surat}', [StreamSuratController::class, 'index'])->name("dosen.surat.stream");
             Route::get('/preview/{id_surat}', [SuratDosenController::class, 'read'])->name("dosen.surat.preview");
             Route::get('/lacak_surat/{id_surat}', [LayananLacakSuratController::class, 'index'])->name("dosen.surat.lacak");
+        });
+        Route::prefix("/profile")->group(function () {
+            Route::get('/', [ProfileDosenController::class, 'index'])->name("dosen.profile");
         });
     });
 });
@@ -167,6 +174,12 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'cekakses:admin']], 
             // Route::put('/{id_prodi}', [ProgramStudiController::class, 'update'])->name("prodi.update");
             // Route::delete('/{id_prodi}', [ProgramStudiController::class, 'delete'])->name("prodi.delete");
         });
+
+        Route::prefix('/manage_users')->group(function () {
+            Route::get('/', [ManageUserController::class, 'index'])->name("admin.manage_users");
+
+            Route::get('/dosen', [ManageUserDosenController::class, 'index'])->name("admin.manage_users.dosen");
+            Route::put('/dosen/{id_dosen}', [ManageUserDosenController::class, 'update'])->name("admin.manage_users.dosen.update");
+        });
     });
 });
-

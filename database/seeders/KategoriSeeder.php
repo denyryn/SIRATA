@@ -14,8 +14,22 @@ class KategoriSeeder extends Seeder
     public function run(): void
     {
         $kategori_surats = [
-            ["nama_kategori" => "Pengantar"],
-            ["nama_kategori" => "Permohonan Magang"],
+            [
+                "nama_kategori" => "Pengantar",
+                "peruntukkan" => "mahasiswa"
+            ],
+            [
+                "nama_kategori" => "Permohonan Magang",
+                "peruntukkan" => "mahasiswa"
+            ],
+            [
+                "nama_kategori" => "Pinjam Ruang",
+                "peruntukkan" => "dosen"
+            ],
+            [
+                "nama_kategori" => "Permohonan Tugas",
+                "peruntukkan" => "dosen"
+            ],
         ];
 
         foreach ($kategori_surats as $kategori_surat) {

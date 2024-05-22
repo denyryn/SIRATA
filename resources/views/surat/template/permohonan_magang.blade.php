@@ -3,7 +3,7 @@
 @section('title', 'Permohonan Magang')
 
 @section('content')
-    <table class="nomor-perihal">
+    <table class="tabel-rata">
         <tr>
             <td>
                 Nomor

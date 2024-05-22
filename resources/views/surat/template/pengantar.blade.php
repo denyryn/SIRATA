@@ -3,7 +3,7 @@
 @section('title', 'Pengantar')
 
 @section('content')
-    <table class="nomor-perihal">
+    <table class="tabel-rata">
         <tr>
             <td>Perihal</td>
             <td> : </td>

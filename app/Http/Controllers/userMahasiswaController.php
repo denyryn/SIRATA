@@ -29,7 +29,7 @@ class UserMahasiswaController extends Controller
             });
         }
 
-        $data_surat = $data_surat->paginate(10);
+        $data_surat = $data_surat->latest()->paginate(10);
 
         $no = 1;
 

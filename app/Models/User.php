@@ -26,7 +26,7 @@ class User extends Authenticatable
 
     public function Surat()
     {
-        return $this->hasMany(Surat::class, 'id_user_pembuat');
+        return $this->hasMany(Surat::class, 'id_user');
     }
 
     /**
