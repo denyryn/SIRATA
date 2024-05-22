@@ -64,7 +64,7 @@
                                 @if (str_contains(strtolower($surat->status_terbaru), 'disetujui'))
                                     <a href="{{ route('dosen.surat.stream', $surat->id_surat) }}" class="w-full">
                                         <button
-                                            class="p-2 px-4 text-center text-white duration-150 bg-green-600 rounded-lg btn hover:bg-green-700">
+                                            class="p-2 px-4 text-center text-white duration-150 bg-green-600 rounded-lg btn animate-none hover:bg-green-700">
                                             <svg class="text-white size-5" viewBox="0 0 24 24" fill="none"
                                                 xmlns="http://www.w3.org/2000/svg">
                                                 <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
@@ -82,14 +82,14 @@
                                 @else
                                     <a href="{{ route('dosen.surat.preview', $surat->id_surat) }}" class="w-full">
                                         <button
-                                            class="p-2 px-4 text-center text-white duration-150 bg-blue-600 rounded-lg btn hover:bg-blue-700">
+                                            class="p-2 px-4 text-center text-white duration-150 bg-blue-600 rounded-lg btn animate-none hover:bg-blue-700">
                                             Preview
                                         </button>
                                     </a>
                                 @endif
                                 <a href="{{ route('dosen.surat.lacak', $surat->id_surat) }}" class="w-full">
                                     <button
-                                        class="p-2 px-4 text-center text-white duration-150 bg-blue-600 rounded-lg btn hover:bg-blue-700">
+                                        class="p-2 px-4 text-center text-white duration-150 bg-blue-600 rounded-lg btn animate-none hover:bg-blue-700">
                                         Lacak
                                     </button>
                                 </a>

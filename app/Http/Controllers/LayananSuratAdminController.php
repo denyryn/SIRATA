@@ -117,6 +117,6 @@ class LayananSuratAdminController extends Controller
         $data_riwayat->id_surat = $data_surat->id_surat;
         $data_riwayat->save();
 
-        return redirect()->route("admin.index");
+        return redirect()->route("admin.surat");
     }
 }
