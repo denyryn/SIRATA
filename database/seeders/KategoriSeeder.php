@@ -27,7 +27,11 @@ class KategoriSeeder extends Seeder
                 "peruntukkan" => "dosen"
             ],
             [
-                "nama_kategori" => "Permohonan Tugas",
+                "nama_kategori" => "Permohonan Surat Tugas",
+                "peruntukkan" => "dosen"
+            ],
+            [
+                "nama_kategori" => "Permohonan Izin Kunjungan KKL",
                 "peruntukkan" => "dosen"
             ],
         ];

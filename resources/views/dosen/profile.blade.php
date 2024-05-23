@@ -13,22 +13,23 @@
                     <tr>
                         <td class="py-2">Nama</td>
                         <td class="py-2">:</td>
-                        <td class="py-2">{{ $data_dosen->nama_dosen }}</td>
+                        <td class="py-2">{{ $data_dosen->nama_dosen ? $data_dosen->nama_dosen : '-' }}</td>
                     </tr>
                     <tr>
                         <td class="py-2">NIP</td>
                         <td class="py-2">:</td>
-                        <td class="py-2">{{ $data_dosen->nip }}</td>
+                        <td class="py-2">{{ $data_dosen->nip ? $data_dosen->nip : '-' }}</td>
                     </tr>
                     <tr>
                         <td class="py-2">Golongan</td>
                         <td class="py-2">:</td>
-                        <td class="py-2">-</td>
+                        <td class="py-2">{{ $data_dosen->golongan ? $data_dosen->golongan : '-' }}</td>
                     </tr>
                     <tr>
                         <td class="py-2">Program Studi &nbsp&nbsp&nbsp&nbsp</td>
                         <td class="py-2">: &nbsp&nbsp&nbsp&nbsp</td>
-                        <td class="py-2">{{ $data_dosen->program_studi->nama_prodi }}</td>
+                        <td class="py-2">
+                            {{ $data_dosen->program_studi->nama_prodi ? $data_dosen->program_studi->nama_prodi : '-' }}</td>
                     </tr>
                     <tr>
                         <td class="py-2">Jurusan</td>
@@ -38,7 +39,7 @@
                     <tr>
                         <td class="py-2">Email</td>
                         <td class="py-2">:</td>
-                        <td class="py-2">{{ $data_dosen->user->email }}</td>
+                        <td class="py-2">{{ $data_dosen->user->email ? $data_dosen->user->email : '-' }}</td>
                     </tr>
                 </table>
             </div>
