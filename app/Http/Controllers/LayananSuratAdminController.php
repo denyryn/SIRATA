@@ -90,7 +90,7 @@ class LayananSuratAdminController extends Controller
         if ($request->hasFile('lampiran')) {
             $file_lampiran = $request->file('lampiran');
             $filename = 'lampiran_' . $data_surat->id_surat . '_' . $data_surat->nama_perihal . '_' . $data_surat->nama_kategori . '_' . time() . '.' . $file_lampiran->getClientOriginalExtension();
-            $file_lampiran->move('assets/lampiran', $filename);
+            $file_lampiran->move('uploads/lampiran', $filename);
             $data_surat->lampiran = $filename;
         }
 

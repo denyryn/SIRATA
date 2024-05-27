@@ -25,53 +25,42 @@ class LoginController extends Controller
 
     public function postlogin(Request $request)
     {
+        $credentials = $request->only(['username', 'password']);
 
-        if (Auth::attempt($request->only(['username', 'password']))) {
-            $id_user = auth()->id();
-            Session::put('id_user', $id_user);
-
-            // Fetch the user's role from the database using the stored user ID
-            $user = User::find($id_user);
+        if (Auth::attempt($credentials)) {
+            // Authentication successful
+            $user = auth()->user();
+            Session::put('id_user', $user->id);
             Session::put('data_user', $user);
 
-            // Periksa peran pengguna dan arahkan ke halaman yang sesuai
-            if ($user) {
-                $akses = $user->akses;
+            $akses = $user->akses;
+            Session::put('akses', $akses);
 
-                // Store the user's role in the session
-                Session::put('akses', $akses);
-
-                // Redirect based on the user's role
-                if ($akses === 'admin') {
-                    return redirect(route('admin.index'));
-                } elseif ($akses === 'mahasiswa') {
-                    // Retrieve data from the 'mahasiswa' table based on the user's ID
-                    $data_mahasiswa = Mahasiswa::where('id_user', $user->id_user)->first();
-                    if (!$data_mahasiswa) {
-                        // Handle the case where no matching data is found for the user
-                        return redirect()->back()->with('error', 'Data mahasiswa tidak ditemukan.');
-                    } else {
-                        // Store the retrieved data in the session
-                        Session::put('data_mahasiswa', $data_mahasiswa);
-                        return redirect(route('mahasiswa.index'));
-                    }
-                } elseif ($akses === 'dosen') {
-                    // Retrieve data from the 'dosen' table based on the user's ID
-                    $data_dosen = Dosen::where('id_user', $user->id_user)->first();
-                    if (!$data_dosen) {
-                        // Handle the case where no matching data is found for the user
-                        return redirect()->back()->with('error', 'Data dosen tidak ditemukan.');
-                    } else {
-                        // Store the retrieved data in the session
-                        Session::put('data_dosen', $data_dosen);
-                        return redirect(route('dosen.index'));
-                    }
+            if ($akses === 'admin') {
+                return redirect(route('admin.index'));
+            } elseif ($akses === 'mahasiswa') {
+                $data_mahasiswa = Mahasiswa::where('id_user', $user->id)->first();
+                if (!$data_mahasiswa) {
+                    return redirect()->back()->with('error', 'Data mahasiswa tidak ditemukan.');
+                } else {
+                    Session::put('data_mahasiswa', $data_mahasiswa);
+                    return redirect(route('mahasiswa.index'));
+                }
+            } elseif ($akses === 'dosen') {
+                $data_dosen = Dosen::where('id_user', $user->id)->first();
+                if (!$data_dosen) {
+                    return redirect()->back()->with('error', 'Data dosen tidak ditemukan.');
+                } else {
+                    Session::put('data_dosen', $data_dosen);
+                    return redirect(route('dosen.index'));
                 }
             }
-
-            return redirect('login');
+        } else {
+            // Authentication failed, redirect back with error message
+            return redirect()->back()->withInput()->with('error', 'Username atau Password salah.');
         }
     }
+
 
     public function logout()
     {

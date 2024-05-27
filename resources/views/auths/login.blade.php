@@ -4,7 +4,14 @@
 @section('title', 'Login')
 
 @section('content')
-    <div class="flex items-center justify-center min-h-screen px-4 py-10 bg-blue-light">
+    <div class="flex flex-col items-center justify-center min-h-screen px-4 py-10 bg-blue-light">
+
+        @if (session('error'))
+            <div class="w-1/3 mb-5 bg-white alert alert-error">
+                {{ session('error') }}
+            </div>
+        @endif
+
         <div class="bg-white w-max h-max rounded-xl">
             <div class="flex flex-col items-center m-14">
 

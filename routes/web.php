@@ -12,7 +12,6 @@ use App\Http\Controllers\JabatanController;
 use App\Http\Controllers\ProgramStudiController;
 use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\PerihalController;
-use App\Http\Controllers\StatusController;
 
 use App\Http\Controllers\SuratController;
 use App\Http\Controllers\SuratMahasiswaController;
@@ -47,9 +46,6 @@ use App\Http\Controllers\ManageUserDosenController;
 | the "web" middleware group. Now create something great!
 |
 */
-// ==========================API====================================
-Route::get('/fetch_data_mahasiswa', [FetchMahasiswaController::class, 'index']);
-Route::get('/fetch_data_dosen', [FetchDosenController::class, 'index']);
 
 // =============================== AUTH ROUTE ================================
 Route::get('/', [LoginController::class, 'index'])->name("welcome.index");
@@ -59,54 +55,67 @@ Route::get('/logout', [LoginController::class, 'logout'])->name("logout");
 
 // =============================== GROUP ROUTE MAHASISWA ================================
 Route::group(['prefix' => 'mahasiswa', 'middleware' => ['auth', 'cekakses:mahasiswa']], function () {
-    Route::get('/dashboard', [UserMahasiswaController::class, 'index'])->name("mahasiswa.index");
 
     Route::prefix('/dashboard')->group(function () {
+
+        Route::get('/', [UserMahasiswaController::class, 'index'])->name("mahasiswa.index");
+
         Route::prefix('/layanan_surat')->group(function () {
             Route::get('/', [LayananSuratMahasiswaController::class, 'index'])->name("mahasiswa.surat.layanan");
             Route::get('/create/{id_perihal}', [LayananSuratMahasiswaController::class, 'create'])->name("mahasiswa.surat.form");
             Route::get('/search', [CariLayananSuratController::class, 'index'])->name("mahasiswa.surat.search");
             Route::post('/', [LayananSuratMahasiswaController::class, 'store'])->name("mahasiswa.surat.form.store");
         });
+
         Route::prefix('/surat')->middleware('CekAksesSurat')->group(function () {
             Route::get('/surat_selesai/{id_surat}', [StreamSuratController::class, 'index'])->name("mahasiswa.surat.stream");
             Route::get('/preview/{id_surat}', [SuratMahasiswaController::class, 'read'])->name("mahasiswa.surat.preview");
             Route::get('/lacak/{id_surat}', [LayananLacakSuratController::class, 'index'])->name("mahasiswa.surat.lacak");
         });
+
         Route::prefix("/profile")->group(function () {
             Route::get('/', [ProfileMahasiswaController::class, 'index'])->name("mahasiswa.profile");
         });
+
     });
+
 });
 
 
 // =============================== GROUP ROUTE Dosen ================================
 Route::group(['prefix' => 'dosen', 'middleware' => ['auth', 'cekakses:dosen']], function () {
-    Route::get('/dashboard', [UserDosenController::class, 'index'])->name("dosen.index");
 
     Route::prefix('/dashboard')->group(function () {
+
+        Route::get('/', [UserDosenController::class, 'index'])->name("dosen.index");
+
         Route::prefix('/layanan_surat')->group(function () {
             Route::get('/', [LayananSuratDosenController::class, 'index'])->name("dosen.surat.layanan");
             Route::get('/create/{id_perihal}', [LayananSuratDosenController::class, 'create'])->name("dosen.surat.form");
             Route::get('/search', [CariLayananSuratController::class, 'index'])->name("dosen.surat.search");
             Route::post('/', [LayananSuratDosenController::class, 'store'])->name("dosen.surat.form.store");
         });
+
         Route::prefix('/surat')->group(function () {
             Route::get('/surat_selesai/{id_surat}', [StreamSuratController::class, 'index'])->name("dosen.surat.stream");
             Route::get('/preview/{id_surat}', [SuratDosenController::class, 'read'])->name("dosen.surat.preview");
             Route::get('/lacak_surat/{id_surat}', [LayananLacakSuratController::class, 'index'])->name("dosen.surat.lacak");
         });
+
         Route::prefix("/profile")->group(function () {
             Route::get('/', [ProfileDosenController::class, 'index'])->name("dosen.profile");
         });
+
     });
+
 });
 
 // =============================== GROUP ROUTE ADMIN ================================
 Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'cekakses:admin']], function () {
-    Route::get('/dashboard', [UserAdminController::class, 'index'])->name("admin.index");
 
     Route::prefix('/dashboard')->group(function () {
+
+        Route::get('/', [UserAdminController::class, 'index'])->name("admin.index");
 
         // Program Studi Routes
         Route::prefix('/program_studi')->group(function () {
@@ -131,16 +140,6 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'cekakses:admin']], 
             Route::put('/{id_kategori}', [KategoriController::class, 'update'])->name("kategori.update");
             Route::delete('/{id_kategori}', [KategoriController::class, 'delete'])->name("kategori.delete");
         });
-
-        // // Status Routes
-        // Route::prefix('/status')->group(function () {
-        //     Route::get('/', [StatusController::class, 'index'])->name("admin.status");
-        //     Route::get('/{id_status}', [StatusController::class, 'show'])->name("status.show");
-        //     Route::get('/create', [StatusController::class, 'create'])->name("status.create");
-        //     Route::post('/', [StatusController::class, 'store'])->name("status.store");
-        //     Route::put('/{id_status}', [StatusController::class, 'update'])->name("status.update");
-        //     Route::delete('/{id_status}', [StatusController::class, 'delete'])->name("status.delete");
-        // });
 
         // Perihal Routes
         Route::prefix('/perihal')->group(function () {
@@ -170,16 +169,20 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'cekakses:admin']], 
             Route::get('/preview/{id_surat}', [SuratController::class, 'edit'])->name("admin.surat.preview");
             Route::put('/preview/accept/{id_surat}', [SuratController::class, 'update'])->name("admin.surat.update");
             Route::put('/preview/reject/{id_surat}', [SuratController::class, 'reject'])->name("admin.surat.update.reject");
-            // Route::post('/', [ProgramStudiController::class, 'store'])->name("surat.store");
-            // Route::put('/{id_prodi}', [ProgramStudiController::class, 'update'])->name("prodi.update");
-            // Route::delete('/{id_prodi}', [ProgramStudiController::class, 'delete'])->name("prodi.delete");
         });
 
+        // Manage User Routes
         Route::prefix('/manage_users')->group(function () {
             Route::get('/', [ManageUserController::class, 'index'])->name("admin.manage_users");
 
             Route::get('/dosen', [ManageUserDosenController::class, 'index'])->name("admin.manage_users.dosen");
             Route::put('/dosen/{id_dosen}', [ManageUserDosenController::class, 'update'])->name("admin.manage_users.dosen.update");
+
+            // ==========================API====================================
+            Route::get('/fetch_data_mahasiswa', [FetchMahasiswaController::class, 'index']);
+            Route::get('/fetch_data_dosen', [FetchDosenController::class, 'index']);
         });
+
     });
+
 });
