@@ -269,6 +269,61 @@ Demikian, atas ketersediaan dan kerjasamanya diucapkan terimakasih."
 
         </p>'
             ],
+
+            [
+                "id_kategori_surat" => "6",
+                "nama_perihal" => "Permohonan Surat Tugas dan SPPD",
+                "nama_tujuan" => "Yth. Ketua Jurusan Elektro",
+                "alamat_tujuan" => "Politeknik Negeri Semarang",
+                "upper_body" => '<p id="hormatContent">
+            Dengan Hormat, <br>
+            Sehubungan dengan kunjungan industri dalam rangka perintisan kerjasama dengan dunia industri yang akan
+            diselenggarakan pada:
+        </p>
+
+        <table class="tabel-rata">
+            <tr>
+                <td>
+                    Tanggal
+                </td>
+                <td>
+                    :
+                </td>
+                <td>
+                    <span id="tanggal_mulaiContent">
+
+                    </span>
+					<span>
+s.d
+                    </span>
+					<span id="tanggal_selesaiContent">
+
+                    </span>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    Lokasi
+                </td>
+                <td>
+                    :
+                </td>
+                <td>
+                    <span id="tempatContent">
+
+                    </span>
+                </td>
+            </tr>
+        </table>
+
+        <p id="maksudContent">
+            Maka kami mengajukan permohonan untuk dapat diberikan:<br>
+            1. Surat Tugas<br>
+            2. SPPD
+        </p>',
+                "lower_body" => 'Demikian permohonan ini kami sampaikan. Atas ketersediaannya, diucapkan terima kasih.'
+            ],
         ];
 
         foreach ($perihals as $perihal) {
