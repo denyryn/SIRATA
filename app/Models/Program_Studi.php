@@ -11,7 +11,9 @@ class Program_Studi extends Model
     use HasFactory;
     protected $table = 'program_studis';
     protected $primaryKey = 'id_prodi';
-    protected $fillable = ['nama_prodi'];
+    protected $fillable = [
+        'nama_prodi'
+    ];
 
     // public function Kelas()
     // {
