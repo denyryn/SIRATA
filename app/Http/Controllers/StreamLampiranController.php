@@ -13,6 +13,6 @@ class StreamLampiranController extends Controller
         $data_surat = Surat::find($id_surat);
         $file_lampiran = $data_surat->lampiran;
 
-        return response()->file(public_path('assets/lampiran/' . $file_lampiran));
+        return response()->file(public_path($file_lampiran));
     }
 }

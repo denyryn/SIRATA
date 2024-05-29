@@ -20,9 +20,10 @@ class UploadSuratController extends Controller
 
         $file_surat = $request->file('surat_selesai');
         $filename = preg_replace('/[^\w]/', '_', $data_surat->id_surat . '_' . $data_surat->nama_perihal . '_' . $data_surat->nama_kategori . '_' . time() . '.' . $file_surat->getClientOriginalExtension());
-        $file_surat->move('uploads/surat_selesai', $filename);
+        $path = "uploads/surat_selesai/";
+        $file_surat->move($path, $filename);
 
-        $data_surat->surat_selesai = $filename;
+        $data_surat->surat_selesai = $path . $filename;
         $data_surat->save();
 
         if (!(str_contains(strtolower($nama_status_terakhir), 'disetujui'))) {

@@ -35,7 +35,6 @@ class SuratController extends Controller
 
         $data_surat = $query->latest()->paginate(10);
 
-
         // Assuming $data_surat is a collection of Surat model instances
         foreach ($data_surat as $surat) {
             // Parse the created_at date using Carbon and format it
@@ -137,12 +136,8 @@ class SuratController extends Controller
             abort(404, __('Template not found.'));
         }
 
-        // dd($data_surat);
-
         $rendered_template = view($template, compact('data_surat', 'no'))->render();
         return view('admin.surat.preview', compact('data_surat', 'nama_status_terakhir', 'rendered_template'));
-        // return view($template, compact('data_surat', 'no'));
-
     }
 
     public function update(Request $request, $id_surat)

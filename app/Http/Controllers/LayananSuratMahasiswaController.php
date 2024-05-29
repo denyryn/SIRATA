@@ -76,9 +76,10 @@ class LayananSuratMahasiswaController extends Controller
 
         $mahasiswas = Mahasiswa::all();
         $jabatans = Jabatan::with('Dosen')->get();
+        $peruntukkan = $data_perihal->kategori_Surat->peruntukkan;
 
         $rendered_template = view($template, compact('no', 'data_perihal', 'tanggal_sekarang', 'mahasiswa_sekarang'))->render();
-        return view($form, compact('data_perihal', 'jabatans', 'form', 'rendered_template', 'mahasiswas', 'mahasiswa_sekarang', 'user_sekarang'));
+        return view($form, compact('data_perihal', 'jabatans', 'peruntukkan', 'form', 'rendered_template', 'mahasiswas', 'mahasiswa_sekarang', 'user_sekarang'));
     }
 
     public function store(Request $request)
@@ -105,8 +106,9 @@ class LayananSuratMahasiswaController extends Controller
         if ($request->hasFile('lampiran')) {
             $file_lampiran = $request->file('lampiran');
             $filename = 'lampiran_' . $data_surat->id_surat . '_' . $data_surat->nama_perihal . '_' . $data_surat->nama_kategori . '_' . time() . '.' . $file_lampiran->getClientOriginalExtension();
-            $file_lampiran->move('uploads/lampiran', $filename);
-            $data_surat->lampiran = $filename;
+            $path = "uploads/lampiran/";
+            $file_lampiran->move($path, $filename);
+            $data_surat->lampiran = $path . $filename;
         }
 
         $data_surat->id_user_pembuat = $id_user_pembuat;

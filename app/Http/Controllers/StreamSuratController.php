@@ -14,6 +14,6 @@ class StreamSuratController extends Controller
 
         $file_surat = $data_surat->surat_selesai;
 
-        return response()->file(public_path('assets/surat/' . $file_surat));
+        return response()->file(public_path($file_surat));
     }
 }

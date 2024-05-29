@@ -30,16 +30,17 @@ class LoginController extends Controller
         if (Auth::attempt($credentials)) {
             // Authentication successful
             $user = auth()->user();
-            Session::put('id_user', $user->id);
+            Session::put('id_user', $user->id_user);
             Session::put('data_user', $user);
 
             $akses = $user->akses;
             Session::put('akses', $akses);
 
+
             if ($akses === 'admin') {
                 return redirect(route('admin.index'));
             } elseif ($akses === 'mahasiswa') {
-                $data_mahasiswa = Mahasiswa::where('id_user', $user->id)->first();
+                $data_mahasiswa = Mahasiswa::where('id_user', $user->id_user)->first();
                 if (!$data_mahasiswa) {
                     return redirect()->back()->with('error', 'Data mahasiswa tidak ditemukan.');
                 } else {
@@ -47,7 +48,7 @@ class LoginController extends Controller
                     return redirect(route('mahasiswa.index'));
                 }
             } elseif ($akses === 'dosen') {
-                $data_dosen = Dosen::where('id_user', $user->id)->first();
+                $data_dosen = Dosen::where('id_user', $user->id_user)->first();
                 if (!$data_dosen) {
                     return redirect()->back()->with('error', 'Data dosen tidak ditemukan.');
                 } else {
