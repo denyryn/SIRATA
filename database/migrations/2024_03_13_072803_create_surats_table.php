@@ -16,9 +16,8 @@ return new class extends Migration {
             $table->unsignedBigInteger('id_user_pembuat')->nullable(); //added this
             $table->unsignedBigInteger('id_kategori_surat');
             $table->string('nama_perihal');
-            $table->string('tujuan_surat')->nullable();
             $table->string('nomor_surat')->nullable();
-            // $table->date('tanggal_surat'); 
+            // $table->date('tanggal_surat');
             $table->text('nama_tujuan');
             $table->text('alamat_tujuan');
             $table->text('upper_body');

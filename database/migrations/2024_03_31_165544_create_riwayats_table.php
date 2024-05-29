@@ -13,7 +13,6 @@ return new class extends Migration {
         Schema::create('riwayats', function (Blueprint $table) {
             $table->bigIncrements('id_riwayat');
             $table->unsignedBigInteger('id_surat');
-            // $table->unsignedBigInteger('id_status');
             $table->string('nama_status');
             $table->string('keterangan_status')->nullable();
 

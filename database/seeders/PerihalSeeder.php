@@ -46,38 +46,91 @@ Demikian, atas ketersediaan dan kerjasamanya diucapkan terimakasih."
                 "alamat_tujuan" => "Polines",
                 "upper_body" => "Sehubungan dengan kegiatan Kuliah Tamu Prodi D3 Teknik Informatika dan Prodi STr Teknologi Rekayasa Komputer Jurusan Teknik Elektro, kami mohon izin untuk meminjam ruang pada :",
                 "lower_body" => '<table style="padding-left: 1cm" class="tabel-rata">
-        <tr>
-            <td>Hari/Tanggal</td>
-            <td>:</td>
-            <td><span id="hariTanggalContent"></span></td>
-        </tr>
-        <tr>
-            <td>Jam</td>
-            <td>:</td>
-            <td><span id="jamMulaiContent"></span><span> s.d </span><span id="jamSelesaiContent"></span><span> WIB</span></td>
-        </tr>
-        <tr>
-            <td>Tempat</td>
-            <td>:</td>
-            <td><span id="tempatContent"></span></td>
-        </tr>
-        <tr>
-            <td>Acara</td>
-            <td>:</td>
-            <td><span id="acaraContent"></span></td>
-        </tr>
-        <tr>
-            <td>Perlengkapan</td>
-            <td>:</td>
-            <td><span id="perlengkapanContent"></span></td>
-        </tr>
-    </table>
-    <div style="padding-top: 0.1cm;"></div>
-    <div>
+            <tr>
+                <td>
+                    Hari/Tanggal
+                </td>
+                <td>
+                    :
+                </td>
+                <td>
+                    <span id="tanggalContent">
+
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Jam
+                </td>
+                <td>
+                    :
+                </td>
+                <td>
+                    <span id="jam_mulaiContent">
+
+                    </span>
+                    <span>
+                        s.d
+                    </span>
+                    <span id="jam_selesaiContent">
+
+                    </span>
+                    <span>
+                        WIB
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Tempat
+                </td>
+                <td>
+                    :
+                </td>
+                <td>
+                    <span id="tempatContent">
+
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Acara
+                </td>
+                <td>
+                    :
+                </td>
+                <td>
+                    <span id="acaraContent">
+
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Perlengkapan
+                </td>
+                <td>
+                    :
+                </td>
+                <td>
+                    <span id="perlengkapanContent">
+
+                    </span>
+                </td>
+            </tr>
+        </table>
+
+        <div style="padding-top: 0.1cm;"></div>
+
         <div>
-            <p id="lowerBodyPartContent"></p>
-        </div>
-    </div>'
+            <div>
+                <p id="lower_body_partContent">
+
+                </p>
+            </div>
+        </div>'
             ],
 
             [
@@ -100,7 +153,7 @@ Demikian, atas ketersediaan dan kerjasamanya diucapkan terimakasih."
                     :
                 </td>
                 <td>
-                    <span id="hariTanggalContent">
+                    <span id="tanggalContent">
 
                     </span>
                 </td>
@@ -113,13 +166,13 @@ Demikian, atas ketersediaan dan kerjasamanya diucapkan terimakasih."
                     :
                 </td>
                 <td>
-                    <span id="jamMulaiContent">
+                    <span id="jam_mulaiContent">
 
                     </span>
                     <span>
                         s.d
                     </span>
-                    <span id="jamSelesaiContent">
+                    <span id="jam_selesaiContent">
 
                     </span>
                     <span>
@@ -155,7 +208,7 @@ Demikian, atas ketersediaan dan kerjasamanya diucapkan terimakasih."
                 "nama_tujuan" => "Yth. Pimpinan ....",
                 "alamat_tujuan" => "Jl. .....",
                 "upper_body" => 'Sehubungan dengan akan dilaksanakan Kuliah Kerja Lapangan (KKL) Program Studi D3 Teknik Informatika dan D4 Teknologi Rekayasa Komputer Politeknik Negeri Semarang, maka kami mengajukan permohonan izin untuk melaksanakan kunjungan Kuliah Kerja Lapangan di ...',
-                "lower_body" => '<p id="lowerBodyPart1Content">
+                "lower_body" => '<p id="lower_body_part1Content">
 
         </p>
 
@@ -168,7 +221,7 @@ Demikian, atas ketersediaan dan kerjasamanya diucapkan terimakasih."
                     :
                 </td>
                 <td>
-                    <span id="hariTanggalContent">
+                    <span id="tanggalContent">
 
                     </span>
                 </td>
@@ -181,13 +234,13 @@ Demikian, atas ketersediaan dan kerjasamanya diucapkan terimakasih."
                     :
                 </td>
                 <td>
-                    <span id="jamMulaiContent">
+                    <span id="jam_mulaiContent">
 
                     </span>
                     <span>
                         s.d
                     </span>
-                    <span id="jamSelesaiContent">
+                    <span id="jam_selesaiContent">
 
                     </span>
                     <span>
@@ -212,7 +265,7 @@ Demikian, atas ketersediaan dan kerjasamanya diucapkan terimakasih."
 
         <div style="padding-top: 0.1cm;"></div>
 
-        <p id="lowerBodyPart2Content">
+        <p id="lower_body_part2Content">
 
         </p>'
             ],
