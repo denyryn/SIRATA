@@ -3,6 +3,10 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
+use Illuminate\Support\Facades\Http;
+
+use App\Http\Controllers\LayananProxyApiController;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -15,11 +19,14 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-Route::get('/message', function () {
-    return response()->json([
-        'id' => '1',
-        'nama' => 'Aria',
-        'nim' => '4.33.22.1.02',
-        'kelas' => 'TI2B'
-    ]);
+Route::prefix('proxy')->group(function () {
+    Route::prefix('mahasiswa')->group(function () {
+        Route::get('/', [LayananProxyApiController::class, 'getMahasiswa'])->name('mahasiswa.getAll');
+        Route::post('/', [LayananProxyApiController::class, 'postMahasiswa'])->name('mahasiswa.post');
+    });
+
+    Route::prefix('dosen')->group(function () {
+        Route::get('/', [LayananProxyApiController::class, 'getDosen'])->name('dosen.getAll');
+        Route::post('/', [LayananProxyApiController::class, 'postDosen'])->name('dosen.post');
+    });
 });

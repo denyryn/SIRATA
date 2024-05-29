@@ -191,8 +191,8 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'cekakses:admin']], 
             Route::get('/mahasiswa', [ManageUserMahasiswaController::class, 'index'])->name("admin.manage_users.mahasiswa");
 
             // ==========================API====================================
-            Route::get('/fetch_data_mahasiswa', [FetchMahasiswaController::class, 'index']);
-            Route::get('/fetch_data_dosen', [FetchDosenController::class, 'index']);
+            Route::get('/fetch_data_mahasiswa', [FetchMahasiswaController::class, 'index'])->name('fetch.mahasiswa');
+            Route::get('/fetch_data_dosen', [FetchDosenController::class, 'index'])->name('fetch.dosen');
         });
 
     });

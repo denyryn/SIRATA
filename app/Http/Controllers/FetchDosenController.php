@@ -14,7 +14,8 @@ class FetchDosenController extends Controller
 {
     public function index(Request $request)
     {
-        ini_set('max_execution_time', 3600);
+        ini_set('max_execution_time', 36000);
+
         $api_token = env('API_TOKEN');
         $api_url = env("DOSEN_API_URL");
 
@@ -29,24 +30,32 @@ class FetchDosenController extends Controller
 
         // Mengambil body respons dan mengubahnya menjadi objek PHP
         $data = json_decode($response->body());
-        $no = 1;
 
         // Memeriksa jika data tidak kosong
-        if (!empty($data->data)) {
+        if (empty($data->data)) {
+            return response()->json([
+                'error' => true,
+                'message' => 'Tidak ada respon dari API. Pastikan token API benar dan koneksi internet stabil.',
+            ], 422);
+        } else {
             foreach ($data->data as $dosen) {
+                $dosen = (object) array_change_key_case((array) $dosen, CASE_LOWER);
 
-                $NIP = $dosen->NIP;
-                $NIDN = $dosen->NIDN;
-                $prodi = Program_Studi::whereRaw('LOWER(nama_prodi) = ?', [strtolower($dosen->Homebase_Prodi)])->first();
-                // $jabatan_default = Jabatan::whereRaw('LOWER(nama_jabatan) = ?', [strtolower("Dosen")])->first();
+                $nip = $dosen->nip;
+                $nidn = $dosen->nidn;
+                $prodi = Program_Studi::whereRaw('LOWER(nama_prodi) = ?', [strtolower($dosen->homebase_prodi)])->first();
 
                 if ($dosen) {
-                    $duplikat = User::where('username', $NIP)->first();
-                    if ($duplikat) {
-                        echo "data duplikat ke-" . $no++ . "<br>";
+                    $duplikat = User::where('username', $nip)->count();
+                    if ($duplikat > 0) {
+                        $total_duplikat = User::where('username', $nip)->get()->count();
+                        return response()->json([
+                            'error' => true,
+                            'message' => 'Data NIP ' . $nip . ' sudah ada ' . $total_duplikat . ' kali lipik, silahkan perbarui NIP yang lain.',
+                        ], 422);
                     } else {
                         $data_user = new User;
-                        $data_user->username = $NIP;
+                        $data_user->username = $nip;
                         $data_user->akses = "dosen";
                         $data_user->password = bcrypt("polinesjaya");
                         $data_user->remember_token = Str::random(60);
@@ -54,20 +63,21 @@ class FetchDosenController extends Controller
                         $data_user->save();
 
                         $data_dosen = new Dosen;
-                        $data_dosen->nip = $NIP;
-                        $data_dosen->nidn = $NIDN;
+                        $data_dosen->nip = $nip;
+                        $data_dosen->nidn = $nidn;
                         $data_dosen->id_user = $data_user->id_user;
                         $data_dosen->id_prodi = $prodi->id_prodi;
-                        // $data_dosen->id_jabatan = $jabatan_default->id_jabatan;
-                        $data_dosen->nama_dosen = $dosen->Nama_dosen;
-                        $data_dosen->gelar_depan = $dosen->Gelar_depan;
-                        $data_dosen->gelar_belakang = $dosen->Gelar_belakang;
+                        $data_dosen->nama_dosen = $dosen->nama_dosen;
+                        $data_dosen->gelar_depan = $dosen->gelar_depan;
+                        $data_dosen->gelar_belakang = $dosen->gelar_belakang;
                         $data_dosen->save();
                     }
                 }
             }
-        } else {
-            echo "Tidak ada respon API.";
+            return response()->json([
+                'success' => true,
+                'message' => 'Data dosen berhasil ditambahkan'
+            ], 201);
         }
     }
 }
