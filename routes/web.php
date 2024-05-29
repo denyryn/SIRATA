@@ -35,6 +35,9 @@ use App\Http\Controllers\ProfileDosenController;
 
 use App\Http\Controllers\ManageUserController;
 use App\Http\Controllers\ManageUserDosenController;
+use App\Http\Controllers\ManageUserMahasiswaController;
+
+use App\Http\Controllers\UserPasswordController;
 
 /*
 |--------------------------------------------------------------------------
@@ -75,6 +78,10 @@ Route::group(['prefix' => 'mahasiswa', 'middleware' => ['auth', 'cekakses:mahasi
 
         Route::prefix("/profile")->group(function () {
             Route::get('/', [ProfileMahasiswaController::class, 'index'])->name("mahasiswa.profile");
+            Route::put('/{id_mahasiswa}', [ProfileMahasiswaController::class, 'update'])->name("mahasiswa.profile.update");
+
+            Route::put('/{id_user}', [UserPasswordController::class, 'update'])->name("mahasiswa.password.update");
+
         });
 
     });
@@ -104,6 +111,9 @@ Route::group(['prefix' => 'dosen', 'middleware' => ['auth', 'cekakses:dosen']], 
 
         Route::prefix("/profile")->group(function () {
             Route::get('/', [ProfileDosenController::class, 'index'])->name("dosen.profile");
+            Route::put('/{id_dosen}', [ProfileDosenController::class, 'update'])->name("dosen.profile.update");
+
+            Route::put('/{id_user}', [UserPasswordController::class, 'update'])->name("dosen.password.update");
         });
 
     });
@@ -177,6 +187,8 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'cekakses:admin']], 
 
             Route::get('/dosen', [ManageUserDosenController::class, 'index'])->name("admin.manage_users.dosen");
             Route::put('/dosen/{id_dosen}', [ManageUserDosenController::class, 'update'])->name("admin.manage_users.dosen.update");
+
+            Route::get('/mahasiswa', [ManageUserMahasiswaController::class, 'index'])->name("admin.manage_users.mahasiswa");
 
             // ==========================API====================================
             Route::get('/fetch_data_mahasiswa', [FetchMahasiswaController::class, 'index']);

@@ -47,14 +47,14 @@
     <div class="p-[0.5cm]"></div>
 
     <div>
-        <p id="namaTujuanContent">
+        <p id="nama_tujuanContent">
             {!! isset($data_surat['surat']->nama_tujuan)
                 ? $data_surat['surat']->nama_tujuan
                 : (isset($data_perihal->nama_tujuan)
                     ? $data_perihal->nama_tujuan
                     : '...........') !!}
         </p>
-        <p id="alamatTujuanContent">
+        <p id="alamat_tujuanContent">
             {!! isset($data_surat['surat']->alamat_tujuan)
                 ? $data_surat['surat']->alamat_tujuan
                 : (isset($data_perihal->alamat_tujuan)
@@ -65,7 +65,7 @@
 
     <div class="p-[0.5cm]"></div>
 
-    <p id="upperBodyContent">
+    <p id="upper_bodyContent">
         {!! isset($data_surat['surat']->upper_body)
             ? $data_surat['surat']->upper_body
             : (isset($data_perihal->upper_body)
@@ -75,7 +75,7 @@
 
     <div class="p-[0.3cm]"></div>
 
-    <div id="lowerBodyContent">
+    <div id="lower_bodyContent">
         {!! isset($data_surat['surat']->lower_body)
             ? $data_surat['surat']->lower_body
             : (isset($data_perihal->lower_body)

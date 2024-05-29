@@ -23,15 +23,6 @@
                         {!! isset($data_surat['surat']->nomor_surat) ? $data_surat['surat']->nomor_surat : '...........' !!}
                     </span>
                 </td>
-                <td style="text-align: right;">
-                    <span>
-                        {!! isset($data_surat['tanggal_surat'])
-                            ? $data_surat['tanggal_surat']
-                            : (isset($tanggal_sekarang)
-                                ? $tanggal_sekarang
-                                : '...........') !!}
-                    </span>
-                </td>
             </tr>
             <tr>
                 <td>
@@ -75,15 +66,63 @@
 
     <div style="padding-top: 0.5cm;"></div>
 
-    <p id="upper_bodyContent" style="text-align: justify;">
+    <div id="upper_bodyContent">
         {!! isset($data_surat['surat']->upper_body)
             ? $data_surat['surat']->upper_body
             : (isset($data_perihal->upper_body)
                 ? $data_perihal->upper_body
                 : '...........') !!}
-    </p>
+    </div>
 
-    <div style="padding-top: 0.1cm;"></div>
+    <div>
+        <div style="background-color: #fff;">
+            <table style="border-collapse: collapse; width: 100%;">
+                <thead>
+                    <th style="border: 1px solid #000; padding: 0.1cm;">No.</th>
+                    <th style="border: 1px solid #000; padding: 0.1cm;">Nama</th>
+                    <th style="border: 1px solid #000; padding: 0.1cm;">Gol.</th>
+                    <th style="border: 1px solid #000; padding: 0.1cm;">NIP</th>
+                </thead>
+                <tbody>
+                    @if (isset($data_surat))
+                        @foreach ($data_surat['data_pemohons'] as $pemohon)
+                            <tr style="border: 1px solid #000; padding: 0.1cm;">
+                                <td style="border: 1px solid #000; padding: 0.1cm; text-align: center;">
+                                    {!! $no++ !!}</td>
+                                <td id="namaContent" style="border: 1px solid #000; padding: 0.1cm; text-align: left;">
+                                    {!! isset($pemohon['identitas']->nama_dosen)
+                                        ? ucwords(strtolower($pemohon['identitas']->nama_dosen))
+                                        : '...........' !!}
+                                </td>
+                                <td id="golonganContent"
+                                    style="border: 1px solid #000; padding: 0.1cm; text-align: center;">
+                                    {!! isset($pemohon['identitas']->golongan) ? $pemohon['identitas']->golongan : '...........' !!}
+                                </td>
+                                <td id="nipContent" style="border: 1px solid #000; padding: 0.1cm; text-align: center;">
+                                    {!! isset($pemohon['identitas']->nip) ? $pemohon['identitas']->nip : '...........' !!}
+                                </td>
+                            </tr>
+                        @endforeach
+                    @else
+                        <tr style="border: 1px solid #000; padding: 0.1cm;">
+                            <td style="border: 1px solid #000; padding: 0.1cm; text-align: center;">
+                                {!! $no++ !!}
+                            </td>
+                            <td id="namaContent" style="border: 1px solid #000; padding: 0.1cm; text-align: justify;">
+                                ...........</td>
+                            <td id="golonganContent" style="border: 1px solid #000; padding: 0.1cm; text-align: center;">
+                                ...........</td>
+                            <td id="nipContent" style="border: 1px solid #000; padding: 0.1cm; text-align: center;">
+                                ...........</td>
+                        </tr>
+                    @endif
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+    <div style="padding-top: 0.5cm;"></div>
 
     <div id="lower_bodyContent">
         {!! isset($data_surat['surat']->lower_body)
@@ -91,92 +130,6 @@
             : (isset($data_perihal->lower_body)
                 ? $data_perihal->lower_body
                 : '...........') !!}
-        {{-- <table style="padding-left: 1cm" class="tabel-rata">
-            <tr>
-                <td>
-                    Hari/Tanggal
-                </td>
-                <td>
-                    :
-                </td>
-                <td>
-                    <span id="hariTanggalContent">
-
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    Jam
-                </td>
-                <td>
-                    :
-                </td>
-                <td>
-                    <span id="jamMulaiContent">
-
-                    </span>
-                    <span>
-                        s.d
-                    </span>
-                    <span id="jamSelesaiContent">
-
-                    </span>
-                    <span>
-                        WIB
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    Tempat
-                </td>
-                <td>
-                    :
-                </td>
-                <td>
-                    <span id="tempatContent">
-
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    Acara
-                </td>
-                <td>
-                    :
-                </td>
-                <td>
-                    <span id="acaraContent">
-
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    Perlengkapan
-                </td>
-                <td>
-                    :
-                </td>
-                <td>
-                    <span id="perlengkapanContent">
-
-                    </span>
-                </td>
-            </tr>
-        </table>
-
-        <div style="padding-top: 0.1cm;"></div>
-
-        <div>
-            <div>
-                <p id="lowerBodyPartContent">
-
-                </p>
-            </div>
-        </div> --}}
     </div>
 
     <div style="padding-top: 0.3cm;"></div>

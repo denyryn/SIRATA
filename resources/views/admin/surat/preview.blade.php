@@ -4,7 +4,10 @@
 
 @section('content')
 
-    @if (!str_contains(strtolower($nama_status_terakhir), 'disetujui') && !$data_surat['surat']->nomor_surat)
+    @if (
+        !str_contains(strtolower($nama_status_terakhir), 'disetujui') &&
+            !str_contains(strtolower($nama_status_terakhir), 'ditolak') &&
+            !$data_surat['surat']->nomor_surat)
         <div class="grid grid-cols-12">
             <div class="grid w-1/2 min-w-full col-start-1 col-end-6 h-fit">
                 <form action="{{ route('admin.surat.update', $data_surat['surat']->id_surat) }}" method="POST"

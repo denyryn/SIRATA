@@ -19,42 +19,42 @@
                 </label>
                 <div class="flex flex-row items-end w-full">
                     <div id="pengajuContainer" class="flex flex-col w-full">
-
                         <select
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 mt-1"
                             name="id_user1" id="id_user1" required>
-                            <option value="">Pilih Mahasiswa Pengaju</option>
-                            @if (Session::get('akses') == 'mahasiswa')
-                                @foreach ($mahasiswas as $mahasiswa)
-                                    <option value="{{ $mahasiswa->id_user }}"
-                                        {{ $mahasiswa->id_user == $user_sekarang->id_user ? 'selected' : 'hidden' }}>
-                                        {{ $mahasiswa->nama_mahasiswa }}
+                            <option value="">Pilih dosen Pengaju</option>
+                            @if (Session::get('akses') == 'dosen')
+                                @foreach ($dosens as $dosen)
+                                    <option value="{{ $dosen->id_user }}"
+                                        {{ $dosen->id_user == $user_sekarang->id_user ? 'selected' : 'hidden' }}>
+                                        {{ $dosen->nama_dosen }}
                                     </option>
-                                    {{ $mahasiswa->nama_mahasiswa }}
+                                    {{ $dosen->nama_dosen }}
                                 @endforeach
                             @else
-                                @foreach ($mahasiswas as $mahasiswa)
-                                    <option value="{{ $mahasiswa->id_user }}">
-                                        {{ $mahasiswa->nama_mahasiswa }}
+                                @foreach ($dosens as $dosen)
+                                    <option value="{{ $dosen->id_user }}">
+                                        {{ $dosen->nama_dosen }}
                                     </option>
                                 @endforeach
                             @endif
                         </select>
-
                     </div>
                     <button class="ml-1 text-xl text-white btn bg-blue-light hover:bg-blue-plain" type="button"
                         id="removePengajuBtn"> - </button>
                     <button class="ml-1 text-xl text-white btn bg-blue-light hover:bg-blue-plain" type="button"
-                        id="addPengajuBtn"> + </button>
+                        id="addPengajuBtn">
+                        + </button>
                 </div>
             </div>
+
             <div class="mb-5">
                 <label for="id_jabatan" class="block mb-2 text-sm font-medium text-gray-900 ">
                     Ditujukan Kepada
                 </label>
                 <select
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 mt-1"
-                    name="id_jabatan" id="id_jabatan">
+                    name="id_jabatan" id="id_jabatan" required>
                     <option value="">Pilih Jabatan yang dituju</option>
                     @foreach ($jabatans as $jabatan)
                         <option value="{{ $jabatan->id_jabatan }}">
@@ -63,6 +63,7 @@
                     @endforeach
                 </select>
             </div>
+
             <div class="mb-5">
                 <label for="nama_perihal" class="block mb-2 text-sm font-medium text-gray-900 ">
                     Nama Perihal
@@ -72,6 +73,7 @@
                     id="perihal" name="nama_perihal" placeholder="Masukkan Nama Perihal" required
                     oninput="updateContent()" value="{{ $data_perihal->nama_perihal }}" />
             </div>
+
             <div class="mb-5">
                 <label for="nama_tujuan" class="block mb-2 text-sm font-medium text-gray-900">
                     Nama Tujuan
@@ -79,8 +81,9 @@
                 <textarea
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                     id="nama_tujuan" name="nama_tujuan" cols="30" rows="2" placeholder="Masukkan Nama Tujuan"
-                    oninput="updateContent()">{{ $data_perihal->nama_tujuan }}</textarea>
+                    oninput="updateContent()" required>{{ $data_perihal->nama_tujuan }}</textarea>
             </div>
+
             <div class="mb-5">
                 <label for="alamat_tujuan" class="block mb-2 text-sm font-medium text-gray-900">
                     Alamat Tujuan
@@ -88,26 +91,72 @@
                 <textarea
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                     id="alamat_tujuan" name="alamat_tujuan" cols="30" rows="2" placeholder="Masukkan Alamat Tujuan"
-                    oninput="updateContent()">{{ $data_perihal->alamat_tujuan }}</textarea>
+                    oninput="updateContent()" required>{{ $data_perihal->alamat_tujuan }}</textarea>
             </div>
             <div class="mb-5">
-                <label for="upper_body" class="block mb-2 text-sm font-medium text-gray-900">
-                    Upper Body
+                <label for="hormat" class="block mb-2 text-sm font-medium text-gray-900">
+                    Hormat
                 </label>
                 <textarea
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                    id="upper_body" name="upper_body" cols="30" rows="4" placeholder="Masukkan Upper Body"
-                    oninput="updateContent()">{{ $data_perihal->upper_body }}</textarea>
+                    id="hormat" name="hormat" cols="30" rows="3" placeholder="Masukkan Upper Body 1"
+                    oninput="updateContent()" required>Dengan Hormat,<br>
+Sehubungan dengan kunjungan industri dalam rangka perintisan kerjasama dengan dunia industri yang akan diselenggarakan pada:</textarea>
             </div>
+
+            <div class="flex flex-row items-center justify-start w-full">
+                <div class="w-1/3 mb-5">
+                    <label for="tanggal_mulai" class="block mb-2 text-sm font-medium text-gray-900">
+                        Tanggal Mulai
+                    </label>
+                    <input type="date"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                        id="tanggal_mulai" name="tanggal_mulai" oninput="updateContent()" required>
+                </div>
+                <span class="text-black"> &nbsp; s.d &nbsp; </span>
+                <div class="w-1/3 mb-5">
+                    <label for="tanggal_selesai" class="block mb-2 text-sm font-medium text-gray-900">
+                        Tanggal Selesai
+                    </label>
+                    <input type="date"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                        id="tanggal_selesai" name="tanggal_selesai" oninput="updateContent()" required>
+                </div>
+            </div>
+
+            <div class="mb-5">
+                <label for="tempat" class="block mb-2 text-sm font-medium text-gray-900">
+                    Tempat
+                </label>
+                <input type="text"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                    id="tempat" name="tempat" oninput="updateContent()" required>
+            </div>
+
+            <div class="mb-5">
+                <label for="maksud" class="block mb-2 text-sm font-medium text-gray-900">
+                    Maksud
+                </label>
+                <textarea
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                    id="maksud" name="maksud" cols="30" rows="3" placeholder="Masukkan Upper Body 2"
+                    oninput="updateContent()" required>
+Maka kami mengajukan permohonan untuk dapat diberikan:<br>
+1. Surat Tugas<br>
+2. SPPD<br>
+                </textarea>
+            </div>
+
             <div class="mb-5">
                 <label for="lower_body" class="block mb-2 text-sm font-medium text-gray-900">
                     Lower Body
                 </label>
                 <textarea
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                    id="lower_body" name="lower_body" cols="30" rows="4" placeholder="Masukkan Lower Body"
-                    oninput="updateContent()">{{ $data_perihal->lower_body }}</textarea>
+                    id="lower_body" name="lower_body" cols="30" rows="2" placeholder="Masukkan Lower Body"
+                    oninput="updateContent()">{{ old('lower_body', $data_perihal->lower_body) }}</textarea>
             </div>
+
             <div class="mb-5">
                 <label for="lampiran" class="block mb-2 text-sm font-medium text-gray-900">
                     lampiran
@@ -115,6 +164,10 @@
                 <input
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                     type="file" accept="application/pdf" name="lampiran" id="lampiran">
+            </div>
+
+            <div>
+                <textarea hidden id="upper_body" name="upper_body"></textarea>
             </div>
 
             <button type="submit" onsubmit="updateContent()"

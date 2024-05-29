@@ -59,7 +59,7 @@
 
                 <div class="mx-5">
                     <a class="bg-transparent outline outline-blue-600 h-[20rem] size-fit btn hover:text-white text-blue-600 hover:bg-blue-600 animate-none"
-                        href="{{ route('admin.manage_users.dosen') }}">
+                        href="{{ route('admin.manage_users.mahasiswa') }}">
                         <div class="hover:text-white size-40">
                             <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <g id="SVGRepo_bgCarrier" stroke-width="0"></g>

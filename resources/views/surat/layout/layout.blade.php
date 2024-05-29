@@ -9,6 +9,7 @@
     <style>
         body {
             font-family: 'Times New Roman', Times, serif;
+            font-size: 12px;
             padding: 5cm 2cm 5cm 2cm;
             background-color: white;
         }

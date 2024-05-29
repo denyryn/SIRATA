@@ -43,17 +43,44 @@
                     </tr>
                 </table>
             </div>
-            <div class="flex flex-col items-center justify-center md:items-none md:pe-12">
-                <div class="py-5 md:pb-5">
-                    <img class="rounded-sm size-40"
-                        src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
-                        alt="Blank_profile">
+
+            <form id="new_profile_image" class="hidden" action="{{ route('dosen.profile.update', $data_dosen->id_dosen) }}"
+                method="POST" enctype="multipart/form-data">
+                @csrf
+                @method('PUT')
+
+                <div class="flex flex-col items-center justify-center md:items-none md:pe-12">
+                    <div class="py-5 md:pb-5">
+                        <label for="foto_profil" class="cursor-pointer ">
+                            <input id="foto_profil" name="foto_profil" class="hidden" type="file"
+                                onchange="loadFile(event)" />
+                            <img id="new_profile_image_preview" class="rounded-sm size-40"
+                                src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
+                                alt="Blank_profile">
+                        </label>
+                    </div>
+                    <button
+                        class="w-full py-2 text-white duration-100 ease-in-out rounded-md bg-blue-light hover:bg-blue-plain animate-none"
+                        value="submit">
+                        Submit
+                    </button>
                 </div>
-                <button
-                    class="w-full py-2 text-white duration-100 ease-in-out rounded-md bg-blue-light hover:bg-blue-plain animate-none">
-                    Edit Profile
-                </button>
+            </form>
+
+            <div id="profile_image">
+                <div class="flex flex-col items-center justify-center md:items-none md:pe-12">
+                    <div class="py-5 md:pb-5">
+                        <img id="profile_image_preview" class="rounded-sm size-40"
+                            src="{{ $data_dosen->user->foto_profil ? asset($data_dosen->user->foto_profil) : 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png' }} "
+                            alt="{{ $data_dosen->nama_dosen }}'s Portrait" title="cakepnyoooo">
+                    </div>
+                    <button id="editProfileBtn"
+                        class="w-full py-2 text-white duration-100 ease-in-out rounded-md bg-blue-light hover:bg-blue-plain animate-none">
+                        Edit Profile
+                    </button>
+                </div>
             </div>
+
         </div>
 
         <div class="flex items-center justify-start w-full h-10 rounded-lg ps-12 bg-blue-light">
@@ -81,5 +108,8 @@
             </div>
         </div>
     </div>
+
+    <script src="{{ asset('js/profile/handleForm.js') }}"></script>
+
 @endsection
 
