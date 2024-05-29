@@ -34,6 +34,10 @@ class KategoriSeeder extends Seeder
                 "nama_kategori" => "Permohonan Izin Kunjungan KKL",
                 "peruntukkan" => "dosen"
             ],
+            [
+                "nama_kategori" => "Permohonan Surat Tugas SPPD",
+                "peruntukkan" => "dosen"
+            ],
         ];
 
         foreach ($kategori_surats as $kategori_surat) {

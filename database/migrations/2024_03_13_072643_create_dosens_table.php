@@ -27,7 +27,6 @@ return new class extends Migration {
             $table->foreign('id_user')->references('id_user')->on('users');
             // $table->foreign('id_jabatan')->references('id_jabatan')->on('jabatans');
             $table->foreign('id_prodi')->references('id_prodi')->on('program_studis');
-            $table->foreign('id_tanda_tangan')->references('id_tanda_tangan')->on('tanda_tangans')->nullable();
         });
     }
 
