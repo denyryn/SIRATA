@@ -3,7 +3,7 @@
 @section('title', 'Permohonan Magang')
 
 @section('content')
-    <table class="nomor-perihal">
+    <table class="tabel-rata">
         <tr>
             <td>
                 Nomor
@@ -39,7 +39,7 @@
     <div style="padding-top: 0.5cm;"></div>
 
     <div>
-        <span id="namaTujuanContent" style="margin-top: 0;">
+        <span id="nama_tujuanContent" style="margin-top: 0;">
             {!! isset($data_surat['surat']->nama_tujuan)
                 ? $data_surat['surat']->nama_tujuan
                 : (isset($data_perihal->nama_tujuan)
@@ -47,7 +47,7 @@
                     : '...........') !!}
         </span>
         <br>
-        <span id="alamatTujuanContent" style="margin-top: 0;">
+        <span id="alamat_tujuanContent" style="margin-top: 0;">
             {!! isset($data_surat['surat']->alamat_tujuan)
                 ? $data_surat['surat']->alamat_tujuan
                 : (isset($data_perihal->alamat_tujuan)
@@ -58,7 +58,7 @@
 
     <div style="padding-top: 0.5cm;"></div>
 
-    <p id="upperBodyContent" style="text-align: justify;">
+    <p id="upper_bodyContent" style="text-align: justify;">
         {!! isset($data_surat['surat']->upper_body)
             ? $data_surat['surat']->upper_body
             : (isset($data_perihal->upper_body)
@@ -84,17 +84,15 @@
                                 <td style="border: 1px solid #000; padding: 0.1cm; text-align: center;">
                                     {!! $no++ !!}
                                 </td>
-                                <td id="namaContentElement"
-                                    style="border: 1px solid #000; padding: 0.1cm; text-align: left;">
+                                <td id="namaContent" style="border: 1px solid #000; padding: 0.1cm; text-align: left;">
                                     {!! isset($pemohon['identitas']->nama_mahasiswa)
                                         ? ucwords(strtolower($pemohon['identitas']->nama_mahasiswa))
                                         : '...........' !!}
                                 </td>
-                                <td id="nimContentElement"
-                                    style="border: 1px solid #000; padding: 0.1cm; text-align: center;">
+                                <td id="nimContent" style="border: 1px solid #000; padding: 0.1cm; text-align: center;">
                                     {!! isset($pemohon['identitas']->nim) ? $pemohon['identitas']->nim : '...........' !!}
                                 </td>
-                                <td id="programStudiContentElement"
+                                <td id="program_studiContent"
                                     style="border: 1px solid #000; padding: 0.1cm; text-align: center;">
                                     {!! isset($pemohon['data_prodi']->nama_prodi) ? $pemohon['data_prodi']->nama_prodi : '...........' !!}
                                 </td>
@@ -105,14 +103,13 @@
                             <td style="border: 1px solid #000; padding: 0.1cm; text-align: center;">
                                 {!! $no++ !!}
                             </td>
-                            <td id="namaContentElement"
-                                style="border: 1px solid #000; padding: 0.1cm; text-align: justify;">
+                            <td id="namaContent" style="border: 1px solid #000; padding: 0.1cm; text-align: justify;">
                                 ...........
                             </td>
-                            <td id="nimContentElement" style="border: 1px solid #000; padding: 0.1cm; text-align: center;">
+                            <td id="nimContent" style="border: 1px solid #000; padding: 0.1cm; text-align: center;">
                                 ...........
                             </td>
-                            <td id="programStudiContentElement"
+                            <td id="program_studiContent"
                                 style="border: 1px solid #000; padding: 0.1cm; text-align: center;">
                                 ...........
                             </td>
@@ -126,7 +123,7 @@
     <div style="padding-top: 0.1cm;"></div>
 
     <div>
-        <p id="lowerBodyContent" style="text-align: justify;">
+        <p id="lower_bodyContent" style="text-align: justify;">
             {!! isset($data_surat['surat']->lower_body)
                 ? $data_surat['surat']->lower_body
                 : (isset($data_perihal->lower_body)

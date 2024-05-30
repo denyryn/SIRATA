@@ -19,7 +19,6 @@ return new class extends Migration {
 
             $table->foreign('id_user')->references('id_user')->on('users');
             $table->foreign('id_surat')->references('id_surat')->on('surats');
-
         });
     }
 

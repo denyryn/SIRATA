@@ -16,10 +16,10 @@ class Dosen extends Model
         'id_user',
         // 'id_jabatan',
         'id_prodi',
-        // 'id_tanda_tangan',
         'nama_dosen',
         'gelar_depan',
-        'gelar_belakang'
+        'gelar_belakang',
+        'golongan'
     ];
 
     public function User()
@@ -37,8 +37,9 @@ class Dosen extends Model
         return $this->hasMany(Mahasiswa::class, 'id_dosen_pembimbing');
     }
 
-    public function Tanda_Tangan()
+    public function Program_Studi()
     {
-        return $this->hasOne(Tanda_Tangan::class, 'id_dosen');
+        return $this->belongsTo(Program_Studi::class, 'id_prodi');
     }
+
 }

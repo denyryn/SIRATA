@@ -8,12 +8,12 @@ use App\Models\Surat;
 
 class StreamSuratController extends Controller
 {
-    public function index(Request $request, $id_surat)
+    public function index($id_surat)
     {
         $data_surat = Surat::find($id_surat);
 
         $file_surat = $data_surat->surat_selesai;
 
-        return response()->file(public_path('assets/surat/' . $file_surat));
+        return response()->file(public_path($file_surat));
     }
 }

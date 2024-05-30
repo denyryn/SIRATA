@@ -22,24 +22,19 @@ class SuratMahasiswaController extends Controller
         $riwayat_status_terakhir = $surat->Riwayat()->latest()->first();
         $nama_status_terakhir = $riwayat_status_terakhir->nama_status;
 
-        $tanggal_surat = Carbon::parse($surat->created_at)->format('F Y');
+        $tanggal_surat = Carbon::parse($surat->created_at)->translatedFormat('d F Y');
 
         // dd($tanggal_surat);
 
         $pemohons = $surat->Pemohon()->get();
 
         foreach ($pemohons as $pemohon) {
-            if ($pemohon->user->akses == 'mahasiswa') {
-                $identitas = $pemohon->user->load('mahasiswa.program_studi')->mahasiswa;
-                $data_prodi = $identitas->program_studi;
-                $data_pemohons[] = [
-                    'identitas' => $identitas,
-                    'data_prodi' => $data_prodi
-                ];
-            } else if ($pemohon->user->akses == 'dosen') {
-                $pemohon = $pemohon->user->dosen;
-                $data_pemohons[] = $pemohon;
-            }
+            $identitas = $pemohon->user->load('mahasiswa.program_studi')->mahasiswa;
+            $data_prodi = $identitas->program_studi;
+            $data_pemohons[] = [
+                'identitas' => $identitas,
+                'data_prodi' => $data_prodi
+            ];
         }
 
         //mencari jabatan dari surat
@@ -50,9 +45,9 @@ class SuratMahasiswaController extends Controller
             'surat' => $surat,
             'tanggal_surat' => $tanggal_surat,
             'nama_status_terakhir' => $nama_status_terakhir,
-            'data_pemohons' => $data_pemohons,
-            'nama_jabatan' => $nama_jabatan,
-            'pemilik_jabatan' => $dosen_petinggi,
+            'data_pemohons' => $data_pemohons ?? [],
+            'nama_jabatan' => $nama_jabatan ?? '',
+            'pemilik_jabatan' => $dosen_petinggi ?? null,
         ];
 
         // dd($data_surat['pemilik_jabatan']);
@@ -68,7 +63,7 @@ class SuratMahasiswaController extends Controller
         // dd($data_surat);
 
         $rendered_template = view($template, compact('data_surat', 'no'))->render();
-        return view('mahasiswa.surat.preview', compact('data_surat', 'nama_status_terakhir', 'rendered_template'));
+        return view('mahasiswa.surat.preview', compact('data_surat', 'rendered_template'));
 
     }
 }

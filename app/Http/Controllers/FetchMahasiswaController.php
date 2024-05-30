@@ -15,6 +15,7 @@ class FetchMahasiswaController extends Controller
     public function index(Request $request)
     {
         ini_set('max_execution_time', 3600);
+
         $api_token = env('API_TOKEN');
         $api_url = env("MAHASISWA_API_URL");
 
@@ -29,44 +30,54 @@ class FetchMahasiswaController extends Controller
 
         // Mengambil body respons dan mengubahnya menjadi objek PHP
         $data = json_decode($response->body());
-        $no = 1;
 
         // Memeriksa jika data tidak kosong
-        if (!empty($data->data)) {
+        if (empty($data->data)) {
+            return response()->json([
+                'error' => true,
+                'message' => 'Tidak ada respon dari API. Pastikan token API benar dan koneksi internet stabil.'
+            ], 422);
+        } else {
             // Looping melalui setiap mahasiswa dalam data
             foreach ($data->data as $mahasiswa) {
 
                 //menghapus tanda titik pada nim
-                $NIM = str_replace('.', '', $mahasiswa->NIM);
-                $prodi = Program_Studi::whereRaw('LOWER(nama_prodi) = ?', [strtolower($mahasiswa->Program_studi)])->first();
-                $dosen_pembimbing = Dosen::where('nip', $mahasiswa->NIP_dosen_wali)->first();
+                $nim = str_replace('.', '', $mahasiswa->nim);
+                $prodi = Program_Studi::whereRaw('LOWER(nama_prodi) = ?', [strtolower($mahasiswa->program_studi)])->first();
+                $dosen_pembimbing = Dosen::where('nip', $mahasiswa->nip_dosen_wali)->first();
 
                 if ($mahasiswa) {
-                    $duplikat = User::where('username', $NIM)->first(); // Check if user with the NIM already exists
-                    if ($duplikat) {
-                        echo "data duplikat ke-" . $no++ . "<br>";
+                    $duplikat = User::where('username', $nim)->count();
+                    if ($duplikat > 0) {
+                        $total_duplikat = User::where('username', $nim)->get()->count();
+                        return response()->json([
+                            'error' => true,
+                            'message' => 'Data NIM ' . $nim . ' sudah ada ' . $total_duplikat . ' kali lipik, silahkan perbarui NIM yang lain.'
+                        ], 422);
                     } else {
-                        // If user with NIM doesn't exist, create new user and student record
+                        // If user with nim doesn't exist, create new user and student record
                         $data_user = new User;
-                        $data_user->username = $NIM;
+                        $data_user->username = $nim;
                         $data_user->akses = "mahasiswa";
                         $data_user->password = bcrypt("polinesjaya");
                         $data_user->remember_token = Str::random(60);
-                        $data_user->email = $mahasiswa->Email;
+                        $data_user->email = $mahasiswa->email;
                         $data_user->save();
 
                         $data_mahasiswa = new Mahasiswa;
-                        $data_mahasiswa->nim = $NIM;
+                        $data_mahasiswa->nim = $nim;
                         $data_mahasiswa->id_user = $data_user->id_user;
                         $data_mahasiswa->id_prodi = $prodi->id_prodi;
                         $data_mahasiswa->id_dosen_pembimbing = ((!is_null($dosen_pembimbing) && !is_null($dosen_pembimbing->id_dosen)) ? $dosen_pembimbing->id_dosen : null);
-                        $data_mahasiswa->nama_mahasiswa = $mahasiswa->Nama;
+                        $data_mahasiswa->nama_mahasiswa = $mahasiswa->nama;
                         $data_mahasiswa->save();
                     }
                 }
             }
-        } else {
-            echo "Tidak ada data mahasiswa yang perlu diupdate.";
+            return response()->json([
+                'success' => true,
+                'message' => 'Data mahasiswa berhasil ditambahkan'
+            ], 201);
         }
     }
 }

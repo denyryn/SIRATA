@@ -136,7 +136,7 @@
                 </a>
             </li>
             <li>
-                <a href="/surat" class="border-none outline-none group">
+                <a href="{{ route('admin.manage_users') }}" class="border-none outline-none group">
                     <div
                         class="flex items-center justify-start w-full p-2 py-3 border-none outline-none hover:bg-blue-lighter px-7">
                         <svg class="w-5 h-5 transition duration-75" viewBox="0 0 20 20" version="1.1"

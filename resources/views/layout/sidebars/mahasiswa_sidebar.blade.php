@@ -89,7 +89,7 @@
                 </a>
             </li>
             <li>
-                <a href="/surat" class="group">
+                <a href="{{ route('mahasiswa.profile') }}" class="group">
                     <div class="flex items-center justify-start w-full p-2 py-3 hover:bg-blue-lighter px-7">
                         <svg class="w-5 h-5 transition duration-75" viewBox="0 0 20 20" version="1.1"
                             xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"

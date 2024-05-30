@@ -7,6 +7,11 @@
         <iframe id="templateFrame"
             class="md:w-[21cm] w-full min-h-[70vh] overflow-auto max-h-screen border-black rounded-[0.5rem] border-0 transform scale-100 align-middle mt-1"
             srcdoc="{{ $rendered_template }}" frameborder="0"></iframe>
+        @if ($data_surat['surat']->lampiran)
+            <a class="btn" href="">
+                Lampiran
+            </a>
+        @endif
     </div>
 
     <script>

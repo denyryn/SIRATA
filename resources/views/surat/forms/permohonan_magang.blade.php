@@ -6,7 +6,7 @@
 @section('content')
     <div class="grid grid-cols-12">
         <form id="surat_form" action="{{ route(Session::get('akses') . '.surat.form.store') }}" method="POST"
-            class="grid w-1/2 min-w-full col-start-1 col-end-6 grid-">
+            enctype="multipart/form-data" class="grid w-1/2 min-w-full col-start-1 col-end-6 grid-">
             @csrf
             @method('POST')
 
@@ -108,8 +108,16 @@
                     id="lower_body" name="lower_body" cols="30" rows="4" placeholder="Masukkan Lower Body"
                     oninput="updateContent()">{{ $data_perihal->lower_body }}</textarea>
             </div>
+            <div class="mb-5">
+                <label for="lampiran" class="block mb-2 text-sm font-medium text-gray-900">
+                    lampiran
+                </label>
+                <input
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                    type="file" accept="application/pdf" name="lampiran" id="lampiran">
+            </div>
 
-            <button type=" submit"
+            <button type="submit" onsubmit="updateContent()"
                 class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">Submit</button>
         </form>
         <div class="col-start-7 col-end-13 p-2 rounded-[1rem] shadow-xl bg-blue-lighter">
@@ -148,180 +156,18 @@
     </div>
 
     <script>
-        function updateContent() {
-            // Get the iframe element
-            const templateFrame = document.getElementById("templateFrame");
-
-            // Access the content document of the iframe
-            const templateDocument = templateFrame.contentDocument || templateFrame.contentWindow.document;
-
-            // Get the body element inside the iframe
-            const perihalElement = templateDocument.getElementById("perihalContent");
-            const namaTujuanElement = templateDocument.getElementById("namaTujuanContent");
-            const alamatTujuanElement = templateDocument.getElementById("alamatTujuanContent");
-            const upperBodyElement = templateDocument.getElementById("upperBodyContent");
-            const lowerBodyElement = templateDocument.getElementById("lowerBodyContent");
-            const namaPengajuElement = templateDocument.getElementById("namaPengajuContent");
-            const nimPengajuElement = templateDocument.getElementById("nimPengajuContent");
-
-            // Get the body data from the input in the parent document
-            const perihalData = document.getElementById("perihal").value;
-            const namaTujuanData = document.getElementById("nama_tujuan").value;
-            const alamatTujuanData = document.getElementById("alamat_tujuan").value;
-            const upperBodyData = document.getElementById("upper_body").value;
-            const lowerBodyData = document.getElementById("lower_body").value;
-            const namaPengajuData = document.getElementById("nama_pengaju").value;
-            const nimPengajuData = document.getElementById("nim_pengaju").value;
-
-            perihalElement.innerHTML = perihalData;
-            namaTujuanElement.innerHTML = namaTujuanData;
-            alamatTujuanElement.innerHTML = alamatTujuanData;
-            upperBodyElement.innerHTML = upperBodyData;
-            lowerBodyElement.innerHTML = lowerBodyData;
-            namaPengajuElement.innerHTML = namaPengajuData;
-            nimPengajuElement.innerHTML = nimPengajuData;
-        }
+        @if ($peruntukkan == 'dosen')
+            const dosens = @json(isset($dosens) ? $dosens : []);
+        @else
+            const mahasiswas = @json(isset($mahasiswas) ? $mahasiswas : []);
+        @endif
     </script>
+    <script src="{{ asset('js/suratForm/handleMultiplePengaju.js') }}"></script>
+    <script src="{{ asset('js/suratForm/handleTextareas.js') }}"></script>
+    <script src="{{ asset('js/suratForm/indonesiaDays.js') }}"></script>
+    <script src="{{ asset('js/suratForm/indonesiaMonths.js') }}"></script>
+    <script src="{{ asset('js/suratForm/previewZoom.js') }}"></script>
+    <script src="{{ asset('js/suratForm/updateContent.js') }}"></script>
 
-    <script>
-        // Get a reference to the iframe element
-        const templateFrame = document.getElementById('templateFrame');
-        let zoomLevel = 1;
-
-        // Function to zoom the iframe content
-        function zoomIn() {
-            // Check if secure context allows access
-            const templateDoc = templateFrame.contentDocument || templateFrame.contentWindow.document;
-            if (!templateDoc) return; // Abort if document access is not allowed
-
-            // Apply zoom using CSS transform on secure context
-            templateDoc.documentElement.style.transform = `scale(${zoomLevel + 0.1})`;
-            zoomLevel += 0.1;
-        }
-
-        function zoomOut() {
-            // Check if secure context allows access
-            const templateDoc = templateFrame.contentDocument || templateFrame.contentWindow.document;
-            if (!templateDoc) return; // Abort if document access is not allowed
-
-            // Ensure zoom doesn't go negative
-            zoomLevel = Math.max(zoomLevel - 0.1, 0.1);
-            templateDoc.documentElement.style.transform = `scale(${zoomLevel})`;
-        }
-    </script>
-
-    <script>
-        const textarea = document.getElementById('lower_body');
-
-        textarea.addEventListener('keydown', function(event) {
-            // Check if Enter key is pressed (key code 13)
-            if (event.keyCode === 13) {
-                // Prevent the default behavior of the Enter key
-                event.preventDefault();
-
-                // Insert <br> tag at the cursor position
-                const cursorPos = textarea.selectionStart;
-                const textBeforeCursor = textarea.value.substring(0, cursorPos);
-                const textAfterCursor = textarea.value.substring(cursorPos);
-                textarea.value = textBeforeCursor + '<br>\n' + textAfterCursor;
-
-                // Move the cursor position after the inserted <br> tag
-                const newPos = cursorPos + 5; // 4 characters for <br>
-                textarea.setSelectionRange(newPos, newPos);
-            }
-        });
-    </script>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const container = document.getElementById('pengajuContainer');
-            const addButton = document.getElementById('addPengajuBtn');
-            const removeButton = document.getElementById('removePengajuBtn');
-            const form = document.getElementById('surat_form');
-            let newOption;
-
-            let count = 1;
-
-            addButton.addEventListener('click', function() {
-                if (count <= 8) {
-                    count++;
-
-                    const newSelect = createSelectElement(count);
-                    container.appendChild(newSelect);
-                } else {
-                    alert('Maximum limit reached (8)');
-                }
-            });
-
-            removeButton.addEventListener('click', function() {
-                if (count > 1) {
-                    count--;
-                    container.removeChild(container.lastElementChild);
-                }
-            });
-
-            form.addEventListener('submit', function(event) {
-                event.preventDefault();
-
-                // Get all select elements
-                const selectElements = document.querySelectorAll('select[name^="id_user"]');
-                const selectedValues = {};
-
-                // Loop through select elements and get selected values
-                selectElements.forEach(function(select) {
-                    const selectedOption = select.options[select.selectedIndex];
-                    if (selectedOption.value !== '') {
-                        const name = select.getAttribute('name');
-                        selectedValues[name] = selectedOption.value;
-                    }
-                });
-
-                // Set the selected values to hidden input fields in the form
-                Object.keys(selectedValues).forEach(function(key) {
-                    const hiddenInput = document.createElement('input');
-                    hiddenInput.setAttribute('type', 'hidden');
-                    hiddenInput.setAttribute('name', key);
-                    hiddenInput.setAttribute('value', selectedValues[key]);
-                    form.appendChild(hiddenInput);
-                });
-
-                // Set the final count value to a hidden input field in the form
-                const countInput = document.createElement('input');
-                countInput.setAttribute('type', 'hidden');
-                countInput.setAttribute('name', 'count');
-                countInput.setAttribute('value', count);
-                form.appendChild(countInput);
-
-                // Submit the form
-                form.submit();
-            });
-
-            function createSelectElement(index) {
-                const newSelect = document.createElement('select');
-                newSelect.setAttribute('class',
-                    'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 mt-1'
-                );
-                newSelect.setAttribute('name', `id_user${index}`); // Use array notation for multiple selections
-                newSelect.setAttribute('id', `id_user${index}`); // Use array notation for multiple selections
-                newSelect.setAttribute('required', 'required');
-
-                const option = document.createElement('option');
-                option.setAttribute('value', '');
-                option.textContent = 'Pilih Mahasiswa Pengaju';
-                newSelect.appendChild(option);
-
-                // Add options from existing data (e.g., mahasiswas)
-                @foreach ($mahasiswas as $mahasiswa)
-                    // Create a new option element for each mahasiswa
-                    newOption = document.createElement('option');
-                    newOption.setAttribute('value', '{{ $mahasiswa->id_user }}');
-                    newOption.textContent = '{{ $mahasiswa->nama_mahasiswa }}';
-                    newSelect.appendChild(newOption);
-                @endforeach
-
-                return newSelect;
-            }
-        });
-    </script>
 @endsection
 

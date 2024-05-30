@@ -55,7 +55,8 @@ class SuratController extends Controller
             // Extract the nama_status from each Riwayat and assign it to $item->riwayat
             // dd($surat->riwayat);
 
-            $pemohon = Pemohon::where('id_surat', $surat->id_surat)->first()->user->username;
+            // $pemohon = Pemohon::where('id_surat', $surat->id_surat)->first()->user->username;
+            $pemohon = $surat->user->username;
             $surat->pemohon = $pemohon;
 
             // Fetch the Kategori Surat for this Surat
@@ -88,7 +89,7 @@ class SuratController extends Controller
         }
 
 
-        $tanggal_surat = Carbon::parse($surat->created_at)->format('F Y');
+        $tanggal_surat = Carbon::parse($surat->created_at)->translatedFormat('d F Y');
 
         $pemohons = $surat->Pemohon()->get();
 
@@ -101,8 +102,14 @@ class SuratController extends Controller
                     'data_prodi' => $data_prodi
                 ];
             } else if ($pemohon->user->akses == 'dosen') {
-                $pemohon = $pemohon->user->dosen;
-                $data_pemohons[] = $pemohon;
+                $identitas = $pemohon->user->load('dosen.program_studi', 'dosen.jabatan')->dosen;
+                $data_prodi = $identitas->program_studi;
+                $jabatan = $identitas->jabatan;
+                $data_pemohons[] = [
+                    'identitas' => $identitas,
+                    'data_prodi' => $data_prodi,
+                    'jabatan' => $jabatan,
+                ];
             }
         }
 
@@ -114,9 +121,9 @@ class SuratController extends Controller
             'surat' => $surat,
             'tanggal_surat' => $tanggal_surat,
             'nama_status_terakhir' => $nama_status_terakhir,
-            'data_pemohons' => $data_pemohons,
-            'nama_jabatan' => $nama_jabatan,
-            'pemilik_jabatan' => $dosen_petinggi,
+            'data_pemohons' => $data_pemohons ?? [],
+            'nama_jabatan' => $nama_jabatan ?? '',
+            'pemilik_jabatan' => $dosen_petinggi ?? null,
         ];
 
         // dd($data_surat['pemilik_jabatan']);
@@ -129,12 +136,8 @@ class SuratController extends Controller
             abort(404, __('Template not found.'));
         }
 
-        // dd($data_surat);
-
         $rendered_template = view($template, compact('data_surat', 'no'))->render();
         return view('admin.surat.preview', compact('data_surat', 'nama_status_terakhir', 'rendered_template'));
-        // return view($template, compact('data_surat', 'no'));
-
     }
 
     public function update(Request $request, $id_surat)

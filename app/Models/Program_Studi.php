@@ -11,7 +11,9 @@ class Program_Studi extends Model
     use HasFactory;
     protected $table = 'program_studis';
     protected $primaryKey = 'id_prodi';
-    protected $fillable = ['nama_prodi'];
+    protected $fillable = [
+        'nama_prodi'
+    ];
 
     // public function Kelas()
     // {
@@ -21,5 +23,10 @@ class Program_Studi extends Model
     public function Mahasiswa()
     {
         return $this->hasMany(Mahasiswa::class, 'id_prodi');
+    }
+
+    public function Dosen()
+    {
+        return $this->hasMany(Dosen::class, 'id_prodi');
     }
 }

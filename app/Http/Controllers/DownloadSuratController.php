@@ -20,7 +20,7 @@ class DownloadSuratController extends Controller
         $riwayat_status_terakhir = $surat->Riwayat()->latest()->first();
         $nama_status_terakhir = $riwayat_status_terakhir->nama_status;
 
-        $tanggal_surat = Carbon::parse($surat->created_at)->format('F Y');
+        $tanggal_surat = Carbon::parse($surat->created_at)->translatedFormat('d F Y');
 
         $pemohons = $surat->Pemohon()->get();
 
@@ -33,8 +33,14 @@ class DownloadSuratController extends Controller
                     'data_prodi' => $data_prodi
                 ];
             } else if ($pemohon->user->akses == 'dosen') {
-                $pemohon = $pemohon->user->dosen;
-                $data_pemohons[] = $pemohon;
+                $identitas = $pemohon->user->load('dosen.program_studi', 'dosen.jabatan')->dosen;
+                $data_prodi = $identitas->program_studi;
+                $jabatan = $identitas->jabatan;
+                $data_pemohons[] = [
+                    'identitas' => $identitas,
+                    'data_prodi' => $data_prodi,
+                    'jabatan' => $jabatan,
+                ];
             }
         }
 

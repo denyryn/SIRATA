@@ -13,6 +13,7 @@ class Surat extends Model
     protected $fillable = [
         // 'id_riwayat',
         'id_kategori_surat',
+        'id_user_pembuat',
         'nama_perihal',
         'tujuan_surat',
         'nomor_surat',
@@ -25,7 +26,7 @@ class Surat extends Model
 
     public function User()
     {
-        return $this->belongsTo('app\Models\User', 'id_user');
+        return $this->belongsTo(User::class, 'id_user_pembuat');
     }
 
     public function Kategori_Surat()

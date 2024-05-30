@@ -44,17 +44,29 @@
         <div class="overflow-auto">
             <table border="1" class="table">
                 <thead>
-                    <th>ID.</th>
-                    <th>Tanggal Surat</th>
-                    <th>NIM / NIP</th>
-                    <th>Perihal</th>
-                    <th>Jenis Surat</th>
-                    <th>Waktu</th>
-                    <th>Aksi</th>
-                    <th>Keterangan</th>
+                    <th class="text-center">ID.</th>
+                    <th class="text-center">Tanggal Surat</th>
+                    <th class="text-center">NIM / NIP</th>
+                    <th class="text-center">Perihal</th>
+                    <th class="text-center">Jenis Surat</th>
+                    <th class="text-center">Waktu</th>
+                    <th class="text-center">Aksi</th>
+                    <th class="text-center">Keterangan</th>
                 </thead>
                 <tbody class="text-gray-900">
                     @foreach ($data_surat as $surat)
+                        @php
+                            $color = '';
+                            if (str_contains(strtolower($surat->status_terbaru), 'pending')) {
+                                $color = 'yellow';
+                            } elseif (str_contains(strtolower($surat->status_terbaru), 'diproses')) {
+                                $color = 'orange';
+                            } elseif (str_contains(strtolower($surat->status_terbaru), 'disetujui')) {
+                                $color = 'green';
+                            } elseif (str_contains(strtolower($surat->status_terbaru), 'ditolak')) {
+                                $color = 'red';
+                            }
+                        @endphp
                         <tr>
                             <td>{{ $surat->id_surat }}</td>
                             <td>{{ $surat->tanggal_buat }}</td>
@@ -62,60 +74,82 @@
                             <td>{{ $surat->nama_perihal }}</td>
                             <td>{{ $surat->nama_kategori }}</td>
                             <td>{{ $surat->jam_buat }}</td>
-                            <td class="flex flex-row">
+                            <td class="flex flex-row items-center justify-center">
                                 @if (!str_contains(strtolower($surat->status_terbaru), 'disetujui'))
                                     <a href="{{ route('admin.surat.preview', $surat->id_surat) }}" class="w-fit">
                                         <button
-                                            class="p-2 px-4 text-center text-white duration-150 bg-blue-600 rounded-lg btn hover:bg-blue-700">
-                                            Preview
+                                            class="p-2 px-4 text-center text-white duration-150 bg-blue-600 rounded-lg animate-none btn hover:bg-blue-700"
+                                            title="Periksa">
+                                            <span class="text-white size-5">
+                                                <svg fill="currentColor" xmlns="http://www.w3.org/2000/svg"
+                                                    viewBox="0 0 52.00 52.00" enable-background="new 0 0 52 52"
+                                                    xml:space="preserve" stroke="#000000"
+                                                    stroke-width="0.0005200000000000001">
+                                                    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                                                    <g id="SVGRepo_tracerCarrier" stroke-linecap="round"
+                                                        stroke-linejoin="round"></g>
+                                                    <g id="SVGRepo_iconCarrier">
+                                                        <g>
+                                                            <path
+                                                                d="M51.8,25.1C47.1,15.6,37.3,9,26,9S4.9,15.6,0.2,25.1c-0.3,0.6-0.3,1.3,0,1.8C4.9,36.4,14.7,43,26,43 s21.1-6.6,25.8-16.1C52.1,26.3,52.1,25.7,51.8,25.1z M26,37c-6.1,0-11-4.9-11-11s4.9-11,11-11s11,4.9,11,11S32.1,37,26,37z">
+                                                            </path>
+                                                            <path
+                                                                d="M26,19c-3.9,0-7,3.1-7,7s3.1,7,7,7s7-3.1,7-7S29.9,19,26,19z">
+                                                            </path>
+                                                        </g>
+                                                    </g>
+                                                </svg>
+                                            </span>
                                         </button>
                                     </a>
                                 @endif
                                 @if (str_contains(strtolower($surat->status_terbaru), 'disetujui'))
                                     <a href="{{ route('admin.surat.stream', $surat->id_surat) }}"
-                                        class="p-2 px-4 ml-2 text-center text-white duration-150 bg-green-600 rounded-lg btn hover:bg-green-700">
-                                        <svg class="text-white size-5" viewBox="0 0 24 24" fill="none"
-                                            xmlns="http://www.w3.org/2000/svg">
-                                            <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                                            <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round">
-                                            </g>
-                                            <g id="SVGRepo_iconCarrier">
-                                                <path
-                                                    d="M5.625 15C5.625 14.5858 5.28921 14.25 4.875 14.25C4.46079 14.25 4.125 14.5858 4.125 15H5.625ZM4.875 16H4.125H4.875ZM19.275 15C19.275 14.5858 18.9392 14.25 18.525 14.25C18.1108 14.25 17.775 14.5858 17.775 15H19.275ZM11.1086 15.5387C10.8539 15.8653 10.9121 16.3366 11.2387 16.5914C11.5653 16.8461 12.0366 16.7879 12.2914 16.4613L11.1086 15.5387ZM16.1914 11.4613C16.4461 11.1347 16.3879 10.6634 16.0613 10.4086C15.7347 10.1539 15.2634 10.2121 15.0086 10.5387L16.1914 11.4613ZM11.1086 16.4613C11.3634 16.7879 11.8347 16.8461 12.1613 16.5914C12.4879 16.3366 12.5461 15.8653 12.2914 15.5387L11.1086 16.4613ZM8.39138 10.5387C8.13662 10.2121 7.66533 10.1539 7.33873 10.4086C7.01212 10.6634 6.95387 11.1347 7.20862 11.4613L8.39138 10.5387ZM10.95 16C10.95 16.4142 11.2858 16.75 11.7 16.75C12.1142 16.75 12.45 16.4142 12.45 16H10.95ZM12.45 5C12.45 4.58579 12.1142 4.25 11.7 4.25C11.2858 4.25 10.95 4.58579 10.95 5H12.45ZM4.125 15V16H5.625V15H4.125ZM4.125 16C4.125 18.0531 5.75257 19.75 7.8 19.75V18.25C6.61657 18.25 5.625 17.2607 5.625 16H4.125ZM7.8 19.75H15.6V18.25H7.8V19.75ZM15.6 19.75C17.6474 19.75 19.275 18.0531 19.275 16H17.775C17.775 17.2607 16.7834 18.25 15.6 18.25V19.75ZM19.275 16V15H17.775V16H19.275ZM12.2914 16.4613L16.1914 11.4613L15.0086 10.5387L11.1086 15.5387L12.2914 16.4613ZM12.2914 15.5387L8.39138 10.5387L7.20862 11.4613L11.1086 16.4613L12.2914 15.5387ZM12.45 16V5H10.95V16H12.45Z"
-                                                    fill="currentColor"></path>
-                                            </g>
-                                        </svg>
+                                        class="p-2 px-4 text-center text-white duration-150 bg-green-600 rounded-lg btn hover:bg-green-700"
+                                        title="Unduh Surat Selesai">
+                                        <span class="text-white size-5">
+                                            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                                                <g id="SVGRepo_tracerCarrier" stroke-linecap="round"
+                                                    stroke-linejoin="round"></g>
+                                                <g id="SVGRepo_iconCarrier">
+                                                    <path
+                                                        d="M3 15C3 17.8284 3 19.2426 3.87868 20.1213C4.75736 21 6.17157 21 9 21H15C17.8284 21 19.2426 21 20.1213 20.1213C21 19.2426 21 17.8284 21 15"
+                                                        stroke="currentColor" stroke-width="2.16" stroke-linecap="round"
+                                                        stroke-linejoin="round"></path>
+                                                    <path d="M12 3V16M12 16L16 11.625M12 16L8 11.625" stroke="currentColor"
+                                                        stroke-width="2.16" stroke-linecap="round" stroke-linejoin="round">
+                                                    </path>
+                                                </g>
+                                            </svg>
+                                        </span>
                                     </a>
                                 @elseif (str_contains(strtolower($surat->status_terbaru), 'ybs'))
                                     <a href="{{ route('admin.surat.download', $surat->id_surat) }}"
-                                        class="p-2 px-4 ml-2 text-center text-white duration-150 bg-orange-600 rounded-lg btn hover:bg-orange-700">
-                                        <svg class="text-white size-5" viewBox="0 0 24 24" fill="none"
-                                            xmlns="http://www.w3.org/2000/svg">
-                                            <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                                            <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round">
-                                            </g>
-                                            <g id="SVGRepo_iconCarrier">
-                                                <path
-                                                    d="M5.625 15C5.625 14.5858 5.28921 14.25 4.875 14.25C4.46079 14.25 4.125 14.5858 4.125 15H5.625ZM4.875 16H4.125H4.875ZM19.275 15C19.275 14.5858 18.9392 14.25 18.525 14.25C18.1108 14.25 17.775 14.5858 17.775 15H19.275ZM11.1086 15.5387C10.8539 15.8653 10.9121 16.3366 11.2387 16.5914C11.5653 16.8461 12.0366 16.7879 12.2914 16.4613L11.1086 15.5387ZM16.1914 11.4613C16.4461 11.1347 16.3879 10.6634 16.0613 10.4086C15.7347 10.1539 15.2634 10.2121 15.0086 10.5387L16.1914 11.4613ZM11.1086 16.4613C11.3634 16.7879 11.8347 16.8461 12.1613 16.5914C12.4879 16.3366 12.5461 15.8653 12.2914 15.5387L11.1086 16.4613ZM8.39138 10.5387C8.13662 10.2121 7.66533 10.1539 7.33873 10.4086C7.01212 10.6634 6.95387 11.1347 7.20862 11.4613L8.39138 10.5387ZM10.95 16C10.95 16.4142 11.2858 16.75 11.7 16.75C12.1142 16.75 12.45 16.4142 12.45 16H10.95ZM12.45 5C12.45 4.58579 12.1142 4.25 11.7 4.25C11.2858 4.25 10.95 4.58579 10.95 5H12.45ZM4.125 15V16H5.625V15H4.125ZM4.125 16C4.125 18.0531 5.75257 19.75 7.8 19.75V18.25C6.61657 18.25 5.625 17.2607 5.625 16H4.125ZM7.8 19.75H15.6V18.25H7.8V19.75ZM15.6 19.75C17.6474 19.75 19.275 18.0531 19.275 16H17.775C17.775 17.2607 16.7834 18.25 15.6 18.25V19.75ZM19.275 16V15H17.775V16H19.275ZM12.2914 16.4613L16.1914 11.4613L15.0086 10.5387L11.1086 15.5387L12.2914 16.4613ZM12.2914 15.5387L8.39138 10.5387L7.20862 11.4613L11.1086 16.4613L12.2914 15.5387ZM12.45 16V5H10.95V16H12.45Z"
-                                                    fill="currentColor"></path>
-                                            </g>
-                                        </svg>
+                                        class="p-2 px-4 ml-2 text-center text-white duration-150 bg-orange-600 rounded-lg btn hover:bg-orange-700"
+                                        title="unduh Surat Proses">
+                                        <span class="text-white size-5">
+                                            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                                                <g id="SVGRepo_tracerCarrier" stroke-linecap="round"
+                                                    stroke-linejoin="round"></g>
+                                                <g id="SVGRepo_iconCarrier">
+                                                    <path
+                                                        d="M3 15C3 17.8284 3 19.2426 3.87868 20.1213C4.75736 21 6.17157 21 9 21H15C17.8284 21 19.2426 21 20.1213 20.1213C21 19.2426 21 17.8284 21 15"
+                                                        stroke="currentColor" stroke-width="2.16" stroke-linecap="round"
+                                                        stroke-linejoin="round"></path>
+                                                    <path d="M12 3V16M12 16L16 11.625M12 16L8 11.625" stroke="currentColor"
+                                                        stroke-width="2.16" stroke-linecap="round"
+                                                        stroke-linejoin="round">
+                                                    </path>
+                                                </g>
+                                            </svg>
+                                        </span>
                                     </a>
                                 @endif
 
                             </td>
                             <td>
-                                @php
-                                    if (str_contains(strtolower($surat->status_terbaru), 'pending')) {
-                                        $color = 'yellow';
-                                    } elseif (str_contains(strtolower($surat->status_terbaru), 'diproses')) {
-                                        $color = 'orange';
-                                    } elseif (str_contains(strtolower($surat->status_terbaru), 'disetujui')) {
-                                        $color = 'green';
-                                    } elseif (str_contains(strtolower($surat->status_terbaru), 'ditolak')) {
-                                        $color = 'red';
-                                    }
-                                @endphp
                                 <div
                                     class="p-2 w-full text-center text-white bg-{{ $color }}-600 rounded-lg pointer-events-none btn animate-none">
                                     {{ $surat->status_terbaru }}
