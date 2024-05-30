@@ -9,13 +9,15 @@
     <style>
         body {
             font-family: 'Times New Roman', Times, serif;
-            font-size: 12px;
+            font-size: 12pt;
             padding: 5cm 2cm 5cm 2cm;
             background-color: white;
         }
 
         .tabel-rata {
             width: 100%;
+            border-spacing: 1.5;
+            /* border-collapse: collapse; */
         }
 
         .tabel-rata tr td:first-child {

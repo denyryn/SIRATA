@@ -54,7 +54,8 @@
                                 <a href="#" class="label-text-alt link link-hover">Forgot password?</a>
                             </label>
                             <div class="mt-1 form-control">
-                                <button class="text-white border-none bg-blue-plain btn hover:bg-blue-light">Login</button>
+                                <button
+                                    class="text-white border-none animate-none bg-blue-plain btn hover:bg-blue-light">Login</button>
                             </div>
 
                         </form>

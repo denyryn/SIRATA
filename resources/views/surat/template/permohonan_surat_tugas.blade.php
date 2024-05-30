@@ -11,6 +11,17 @@
             <th></th>
         </thead>
         <tbody>
+            @if (isset($data_surat['surat']->lampiran))
+                <tr>
+                    <td>
+                        Lampiran
+                    </td>
+                    <td> : </td>
+                    <td>
+                        1
+                    </td>
+                </tr>
+            @endif
             {{-- <tr>
                 <td>
                     Nomor
@@ -72,67 +83,6 @@
             : (isset($data_perihal->upper_body)
                 ? $data_perihal->upper_body
                 : '...........') !!}
-        {{-- <p id="hormatContent">
-            Dengan Hormat, <br>
-            Sehubungan dengan kunjungan industri dalam rangka perintisan kerjasama dengan dunia industri yang akan
-            diselenggarakan pada:
-        </p>
-
-        <table class="tabel-rata">
-            <tr>
-                <td>
-                    Hari/Tanggal
-                </td>
-                <td>
-                    :
-                </td>
-                <td>
-                    <span id="hariTanggalContent">
-
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    Waktu
-                </td>
-                <td>
-                    :
-                </td>
-                <td>
-                    <span id="jamMulaiContent">
-
-                    </span>
-                    <span>
-                        s.d
-                    </span>
-                    <span id="jamSelesaiContent">
-
-                    </span>
-                    <span>
-                        WIB
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    Tempat
-                </td>
-                <td>
-                    :
-                </td>
-                <td>
-                    <span id="tempatContent">
-
-                    </span>
-                </td>
-            </tr>
-        </table>
-
-        <p id="maksudContent">
-            Kami bermaksud untuk mengajukan permohonan surat tugas kepada pimpinan Politeknik Negeri Semarang dengan rincian
-            dosen sebagai berikut:
-        </p> --}}
     </div>
 
     <div>

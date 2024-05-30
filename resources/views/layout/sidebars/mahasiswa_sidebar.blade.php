@@ -15,8 +15,8 @@
     <div class="h-full py-4 overflow-y-auto bg-blue-500 ">
 
         <div class="flex flex-col items-center my-5">
-            <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
-                class="m-3 rounded-full h-14 sm:h-14" alt="User" />
+            <img src="{{ asset(Session::has('data_user') && Session::get('data_user')->foto_profil ? Session::get('data_user')->foto_profil : 'images/blank_profile.png') }}"
+                class="m-3 rounded-full h-14 sm:h-14" alt="User" title="cakepnyooo" />
             <div class="text-sm text-center text-white">
                 <span class="block">
                     {{ Session::has('data_mahasiswa') ? Session::get('data_mahasiswa')->nama_mahasiswa : 'Error' }}

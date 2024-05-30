@@ -31,6 +31,9 @@ class FetchDosenController extends Controller
         // Mengambil body respons dan mengubahnya menjadi objek PHP
         $data = json_decode($response->body());
 
+        //inisialisasi awal total duplikat
+        $total_duplikat = 0;
+
         // Memeriksa jika data tidak kosong
         if (empty($data->data)) {
             return response()->json([
@@ -46,13 +49,9 @@ class FetchDosenController extends Controller
                 $prodi = Program_Studi::whereRaw('LOWER(nama_prodi) = ?', [strtolower($dosen->homebase_prodi)])->first();
 
                 if ($dosen) {
-                    $duplikat = User::where('username', $nip)->count();
-                    if ($duplikat > 0) {
-                        $total_duplikat = User::where('username', $nip)->get()->count();
-                        return response()->json([
-                            'error' => true,
-                            'message' => 'Data NIP ' . $nip . ' sudah ada ' . $total_duplikat . ' kali lipik, silahkan perbarui NIP yang lain.',
-                        ], 422);
+                    $duplikat = User::where('username', $nip)->first();
+                    if ($duplikat) {
+                        $total_duplikat++;
                     } else {
                         $data_user = new User;
                         $data_user->username = $nip;
@@ -76,7 +75,7 @@ class FetchDosenController extends Controller
             }
             return response()->json([
                 'success' => true,
-                'message' => 'Data dosen berhasil ditambahkan'
+                'message' => 'Data dosen berhasil ditambahkan dengan total duplikat ' . $total_duplikat + 1,
             ], 201);
         }
     }

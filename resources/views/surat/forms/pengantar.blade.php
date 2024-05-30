@@ -19,31 +19,40 @@
                 </label>
                 <div class="flex flex-row items-end w-full">
                     <div id="pengajuContainer" class="flex flex-col w-full">
+                        <div name="pemohon1"
+                            class="mb-2 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 p-2.5">
 
-                        <select
-                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 mt-1"
-                            name="id_user1" id="id_user1" required>
-                            <option value="">Pilih Mahasiswa Pengaju</option>
                             @if (Session::get('akses') == 'mahasiswa')
-                                @foreach ($mahasiswas as $mahasiswa)
-                                    <option value="{{ $mahasiswa->id_user }}"
-                                        {{ $mahasiswa->id_user == $user_sekarang->id_user ? 'selected' : 'hidden' }}>
-                                        {{ $mahasiswa->nama_mahasiswa }}
-                                    </option>
-                                @endforeach
+                                <select
+                                    class="id_user bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 mt-1"
+                                    name="id_user1" id="id_user1" disabled required>
+                                    <option value="">Pilih Pengaju Utama</option>
+                                    @foreach ($mahasiswas as $mahasiswa)
+                                        <option value="{{ $mahasiswa->id_user }}"
+                                            {{ $mahasiswa->id_user == $user_sekarang->id_user ? 'selected' : '' }}>
+                                            {{ $mahasiswa->nama_mahasiswa }}
+                                        </option>
+                                    @endforeach
+                                </select>
                             @else
-                                @foreach ($mahasiswas as $mahasiswa)
-                                    <option value="{{ $mahasiswa->id_user }}">
-                                        {{ $mahasiswa->nama_mahasiswa }}
-                                    </option>
-                                @endforeach
+                                <select
+                                    class="id_user bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 mt-1"
+                                    name="id_user1" id="id_user1" required>
+                                    <option value="">Pilih Pengaju Utama</option>
+                                    @foreach ($mahasiswas as $mahasiswa)
+                                        <option value="{{ $mahasiswa->id_user }}">
+                                            {{ $mahasiswa->nama_mahasiswa }}
+                                        </option>
+                                    @endforeach
+                                </select>
                             @endif
-                        </select>
+
+                        </div>
 
                     </div>
-                    <button class="ml-1 text-xl text-white btn bg-blue-light hover:bg-blue-plain" type="button"
+                    <button class="mb-2 ml-1 text-xl text-white btn bg-blue-light hover:bg-blue-plain" type="button"
                         id="removePengajuBtn"> - </button>
-                    <button class="ml-1 text-xl text-white btn bg-blue-light hover:bg-blue-plain" type="button"
+                    <button class="mb-2 ml-1 text-xl text-white btn bg-blue-light hover:bg-blue-plain" type="button"
                         id="addPengajuBtn"> + </button>
                 </div>
             </div>
@@ -116,9 +125,8 @@
                     type="file" accept="application/pdf" name="lampiran" id="lampiran">
             </div>
 
-            <button type="submit"
-                class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center"
-                onsubmit="updateContent()">Submit</button>
+            <button type="submit" onmouseover="updateContent()"
+                class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">Submit</button>
         </form>
         <div class="col-start-7 col-end-13 p-2 rounded-[1rem] shadow-xl bg-blue-lighter">
             <button class="p-1 bg-white rounded-[0.5rem] " onclick="zoomIn()">
@@ -154,6 +162,18 @@
                 srcdoc="{{ $rendered_template }}" frameborder="0"></iframe>
         </div>
     </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            $('.id_user').select2({
+                placeholder: 'Pilih Pengaju',
+                allowClear: true,
+            });
+        });
+    </script>
 
     <script>
         @if ($peruntukkan == 'dosen')

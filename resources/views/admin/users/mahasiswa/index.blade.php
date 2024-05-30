@@ -60,7 +60,7 @@
                                 {{ $mahasiswa->nim ? $mahasiswa->nim : '-' }}
                             </td>
                             <td>
-                                {{ $mahasiswa->nama_mahasiswa ? $mahasiswa->nama_mahasiswa : '-' }}
+                                {{ $mahasiswa->nama_mahasiswa ? strtoupper($mahasiswa->nama_mahasiswa) : '-' }}
                             </td>
                             <td>
                                 {{ $mahasiswa->id_dosen_pembimbing ? $mahasiswa->dosen->nama_dosen : '-' }}

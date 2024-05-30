@@ -108,84 +108,9 @@
         </div>
     </div>
 
-    <script>
-        function updateContent() {
-            // Get the iframe element
-            const templateFrame = document.getElementById("templateFrame");
-
-            // Access the content document of the iframe
-            const templateDocument = templateFrame.contentDocument || templateFrame.contentWindow.document;
-
-            // Get the body element inside the iframe
-            const perihalElement = templateDocument.getElementById("perihalContent");
-            const namaTujuanElement = templateDocument.getElementById("namaTujuanContent");
-            const alamatTujuanElement = templateDocument.getElementById("alamatTujuanContent");
-            const upperBodyElement = templateDocument.getElementById("upperBodyContent");
-            const lowerBodyElement = templateDocument.getElementById("lowerBodyContent");
-
-            // Get the body data from the input in the parent document
-            const perihalData = document.getElementById("perihal").value;
-            const namaTujuanData = document.getElementById("nama_tujuan").value;
-            const alamatTujuanData = document.getElementById("alamat_tujuan").value;
-            const upperBodyData = document.getElementById("upper_body").value;
-            const lowerBodyData = document.getElementById("lower_body").value;
-
-            perihalElement.innerHTML = perihalData;
-            namaTujuanElement.innerHTML = namaTujuanData;
-            alamatTujuanElement.innerHTML = alamatTujuanData;
-            upperBodyElement.innerHTML = upperBodyData;
-            lowerBodyElement.innerHTML = lowerBodyData;
-        }
-    </script>
-
-    <script>
-        // Get a reference to the iframe element
-        const templateFrame = document.getElementById('templateFrame');
-        let zoomLevel = 1;
-
-        // Function to zoom the iframe content
-        function zoomIn() {
-            // Check if secure context allows access
-            const templateDoc = templateFrame.contentDocument || templateFrame.contentWindow.document;
-            if (!templateDoc) return; // Abort if document access is not allowed
-
-            // Apply zoom using CSS transform on secure context
-            templateDoc.documentElement.style.transform = `scale(${zoomLevel + 0.1})`;
-            zoomLevel += 0.1;
-        }
-
-        function zoomOut() {
-            // Check if secure context allows access
-            const templateDoc = templateFrame.contentDocument || templateFrame.contentWindow.document;
-            if (!templateDoc) return; // Abort if document access is not allowed
-
-            // Ensure zoom doesn't go negative
-            zoomLevel = Math.max(zoomLevel - 0.1, 0.1);
-            templateDoc.documentElement.style.transform = `scale(${zoomLevel})`;
-        }
-    </script>
-
-    <script>
-        const textarea = document.getElementById('lower_body');
-
-        textarea.addEventListener('keydown', function(event) {
-            // Check if Enter key is pressed (key code 13)
-            if (event.keyCode === 13) {
-                // Prevent the default behavior of the Enter key
-                event.preventDefault();
-
-                // Insert <br> tag at the cursor position
-                const cursorPos = textarea.selectionStart;
-                const textBeforeCursor = textarea.value.substring(0, cursorPos);
-                const textAfterCursor = textarea.value.substring(cursorPos);
-                textarea.value = textBeforeCursor + '<br>\n' + textAfterCursor;
-
-                // Move the cursor position after the inserted <br> tag
-                const newPos = cursorPos + 5; // 4 characters for <br>
-                textarea.setSelectionRange(newPos, newPos);
-            }
-        });
-    </script>
+    <script src="{{ asset('js/suratForm/previewZoom.js') }}"></script>
+    <script src="{{ asset('js/suratForm/updateContent.js') }}"></script>
+    <script src="{{ asset('js/suratForm/handleTextareas.js') }}"></script>
 
 @endsection
 

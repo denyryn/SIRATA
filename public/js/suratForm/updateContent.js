@@ -1,13 +1,17 @@
+document.addEventListener("DOMContentLoaded", function () {
+    updateContent();
+});
+
 function updateContent() {
     const templateFrame = document.getElementById("templateFrame");
     const templateDocument =
         templateFrame.contentDocument || templateFrame.contentWindow.document;
 
     const elements = [
+        // isi surat
         "perihal",
         "nama_tujuan",
         "alamat_tujuan",
-
         "upper_body",
         "lower_body",
 
@@ -26,21 +30,70 @@ function updateContent() {
         "tanggal",
         "tanggal_mulai",
         "tanggal_selesai",
+
+        // tambahan fitur
+        "waktu_selesai_null",
     ];
 
-    for (const elementId of elements) {
+    let elementId;
+    let data;
+
+    for (elementId of elements) {
         const element = getElementSafely(
             templateDocument,
             `${elementId}Content`,
         );
 
-        let data;
-        if (elementId === "tanggal") {
-            data = formatDateType1Safely(elementId); // Use formatDateSafely for tanggal element
-        } else if (elementId !== "tanggal" && elementId.includes("tanggal")) {
-            data = formatDateType2Safely(elementId);
-        } else {
-            data = getElementValueSafely(elementId); // Use getElementValueSafely for other elements
+        switch (elementId) {
+            case "tanggal":
+                data = formatDateType1Safely(elementId);
+                break;
+            case "waktu_selesai_null":
+                const jam_selesaiContent = getElementSafely(
+                    templateDocument,
+                    `jam_selesaiContent`,
+                );
+                const jam_selesaiContainer = getElementSafely(
+                    document,
+                    `jam_selesaiContainer`,
+                );
+                const jam_selesaiInput = getElementSafely(
+                    document,
+                    `jam_selesai`,
+                );
+                const sdSpan = getElementSafely(document, `sd`);
+
+                if (isRadioChecked(elementId)) {
+                    jam_selesaiContainer.classList.add("hidden");
+                    jam_selesaiInput.removeAttribute("required");
+                    sdSpan.innerHTML = "s.d Selesai";
+
+                    data = "WIB s.d Selesai";
+
+                    if (jam_selesaiContent) {
+                        jam_selesaiContent.innerHTML = data;
+                    }
+                } else {
+                    jam_selesaiContainer.classList.remove("hidden");
+                    !jam_selesaiInput.hasAttribute("required")
+                        ? jam_selesaiInput.setAttribute("required", "")
+                        : "";
+                    sdSpan.innerHTML = "s.d";
+
+                    data = " s.d " + jam_selesaiInput.value + " WIB";
+
+                    if (jam_selesaiContent) {
+                        jam_selesaiContent.innerHTML = data;
+                    }
+                }
+                break;
+            default:
+                if (elementId.includes("tanggal")) {
+                    data = formatDateType2Safely(elementId);
+                } else {
+                    data = getElementValueSafely(elementId);
+                }
+                break;
         }
 
         console.log(
@@ -51,13 +104,18 @@ function updateContent() {
         );
 
         if (element && data !== null && !isInputHidden(elementId)) {
-            element.innerHTML = data;
+            if (element) element.innerHTML = data;
             console.log(`Updated element with ID '${elementId}'.`);
         } else {
             console.log(`Skipped updating element with ID '${elementId}'.`);
         }
 
-        if (element && data !== null && isInputHidden(elementId)) {
+        if (
+            element &&
+            data !== null &&
+            isInputHidden(elementId) &&
+            elementId.includes("body")
+        ) {
             const elementValue = getElementInnerHTML(
                 templateDocument,
                 `${elementId}Content`,
@@ -67,6 +125,16 @@ function updateContent() {
             inputElement.value = elementValue;
         }
     }
+}
+
+function isRadioChecked(id) {
+    const element = document.getElementById(id);
+    return element ? element.checked : false;
+}
+
+function getElementByIdSafely(document, id) {
+    const element = document.getElementById(id);
+    return element ? element : null;
 }
 
 function getElementValueSafely(id) {

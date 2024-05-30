@@ -70,14 +70,8 @@ Demikian, atas ketersediaan dan kerjasamanya diucapkan terimakasih."
                     <span id="jam_mulaiContent">
 
                     </span>
-                    <span>
-                        s.d
-                    </span>
                     <span id="jam_selesaiContent">
 
-                    </span>
-                    <span>
-                        WIB
                     </span>
                 </td>
             </tr>
@@ -169,14 +163,8 @@ Demikian, atas ketersediaan dan kerjasamanya diucapkan terimakasih."
                     <span id="jam_mulaiContent">
 
                     </span>
-                    <span>
-                        s.d
-                    </span>
                     <span id="jam_selesaiContent">
 
-                    </span>
-                    <span>
-                        WIB
                     </span>
                 </td>
             </tr>
@@ -237,14 +225,8 @@ Demikian, atas ketersediaan dan kerjasamanya diucapkan terimakasih."
                     <span id="jam_mulaiContent">
 
                     </span>
-                    <span>
-                        s.d
-                    </span>
                     <span id="jam_selesaiContent">
 
-                    </span>
-                    <span>
-                        WIB
                     </span>
                 </td>
             </tr>
