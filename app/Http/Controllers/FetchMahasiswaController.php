@@ -76,7 +76,7 @@ class FetchMahasiswaController extends Controller
 
             return response()->json([
                 'success' => true,
-                'message' => 'Data mahasiswa berhasil ditambahkan dengan total duplikat ' . $duplikat ? $total_duplikat + 1 : $total_duplikat,
+                'message' => 'Data mahasiswa berhasil ditambahkan dengan total duplikat ' . ($duplikat ? $total_duplikat + 1 : $total_duplikat),
             ], 201);
         }
     }

@@ -75,7 +75,7 @@ class FetchDosenController extends Controller
             }
             return response()->json([
                 'success' => true,
-                'message' => 'Data dosen berhasil ditambahkan dengan total duplikat ' . $duplikat ? $total_duplikat + 1 : $total_duplikat,
+                'message' => 'Data dosen berhasil ditambahkan dengan total duplikat ' . ($duplikat ? $total_duplikat + 1 : $total_duplikat),
             ], 201);
         }
     }
