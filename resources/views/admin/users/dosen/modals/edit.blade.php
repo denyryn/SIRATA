@@ -34,7 +34,7 @@
                         </label>
                         <input type="text" name="nip" id="nip"
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                            placeholder="Ketik NIP" required value="{{ $dosen->nip }}" disabled>
+                            placeholder="Ketik NIP" required value="{{ $dosen->nip }}">
                     </div>
                     <div class="col-span-2">
                         <label for="nidn" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
@@ -42,7 +42,7 @@
                         </label>
                         <input type="text" name="nidn" id="nidn"
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                            placeholder="Ketik NIDN" required value="{{ $dosen->nidn }}" disabled>
+                            placeholder="Ketik NIDN" required value="{{ $dosen->nidn }}">
                     </div>
                     <div class="col-span-2">
                         <label for="nama_dosen" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
@@ -50,8 +50,16 @@
                         </label>
                         <input type="text" name="nama_dosen" id="nama_dosen"
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                            placeholder="Ketik nama dosen" required value="{{ $dosen->nama_dosen }}" disabled>
+                            placeholder="Ketik nama dosen" required value="{{ $dosen->nama_dosen }}">
                     </div>
+                    {{-- <div class="col-span-2">
+                        <label for="id_prodi" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                            Homebase Prodi
+                        </label>
+                        <input type="text" name="id_prodi" id="id_prodi"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                            placeholder="Ketik nama golongan" required value="{{ $dosen->id_prodi }}">
+                    </div> --}}
                     <div class="col-span-2">
                         <label for="golongan" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                             Golongan

@@ -115,7 +115,8 @@
                 <textarea
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                     id="lower_body_part1" name="lower_body_part1" cols="30" rows="2" placeholder="Masukkan Lower Body"
-                    oninput="updateContent()">Adapun rencana pelaksanaannya adalah:</textarea>
+                    oninput="updateContent()">
+                </textarea>
             </div>
             <div class="mb-5">
                 <label for="tanggal" class="block mb-2 text-sm font-medium text-gray-900">
@@ -164,7 +165,7 @@
                 <textarea
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                     id="lower_body_part2" name="lower_body_part2" cols="30" rows="2" placeholder="Masukkan Lower Body"
-                    oninput="updateContent()">Demikian permohonan kami, atas izin dan kesempatan yang diberikan diucapkan Terima Kasih.</textarea>
+                    oninput="updateContent()"></textarea>
             </div>
             <div class="mb-5">
                 <label for="lampiran" class="block mb-2 text-sm font-medium text-gray-900">

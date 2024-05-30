@@ -65,13 +65,13 @@
                             <td>
                                 {{ $mahasiswa->id_dosen_pembimbing ? $mahasiswa->dosen->nama_dosen : '-' }}
                             </td>
-                            {{-- <td>
-                                <a data-modal-target="edit-mahasiswa-modal{{ $mahasiswa->id_mahasiswa }}"
+                            <td>
+                                <button data-modal-target="edit-mahasiswa-modal{{ $mahasiswa->id_mahasiswa }}"
                                     data-modal-toggle="edit-mahasiswa-modal{{ $mahasiswa->id_mahasiswa }}"
                                     class="m-2 text-white bg-blue-600 btn no-animation hover:bg-blue-700" href="#">
                                     Edit
-                                </a>
-                            </td> --}}
+                                </button>
+                            </td>
                         </tr>
                     @endforeach
                 </tbody>
@@ -84,6 +84,9 @@
         </div>
 
         {{-- Iterasi supaya modals edit dari semua data dapat keluar --}}
+        @foreach ($data_mahasiswas as $mahasiswa)
+            @include('admin.users.mahasiswa.modals.edit')
+        @endforeach
 
     </div>
 @endsection

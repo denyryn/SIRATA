@@ -80,7 +80,7 @@ Route::group(['prefix' => 'mahasiswa', 'middleware' => ['auth', 'cekakses:mahasi
             Route::get('/', [ProfileMahasiswaController::class, 'index'])->name("mahasiswa.profile");
             Route::put('/{id_mahasiswa}', [ProfileMahasiswaController::class, 'update'])->name("mahasiswa.profile.update");
 
-            Route::put('/{id_user}', [UserPasswordController::class, 'update'])->name("mahasiswa.password.update");
+            Route::put('/', [UserPasswordController::class, 'update'])->name("mahasiswa.password.update");
 
         });
 
@@ -189,6 +189,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'cekakses:admin']], 
             Route::put('/dosen/{id_dosen}', [ManageUserDosenController::class, 'update'])->name("admin.manage_users.dosen.update");
 
             Route::get('/mahasiswa', [ManageUserMahasiswaController::class, 'index'])->name("admin.manage_users.mahasiswa");
+            Route::put('/mahasiswa/{id_mahasiswa}', [ManageUserMahasiswaController::class, 'update'])->name("admin.manage_users.mahasiswa.update");
 
             // ==========================API====================================
             Route::get('/fetch_data_mahasiswa', [FetchMahasiswaController::class, 'index'])->name('fetch.mahasiswa');

@@ -104,8 +104,8 @@
                 <textarea
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                     id="hormat" name="hormat" cols="30" rows="3" placeholder="Masukkan Upper Body 1"
-                    oninput="updateContent()" required>Dengan Hormat,<br>
-Sehubungan dengan kunjungan industri dalam rangka perintisan kerjasama dengan dunia industri yang akan diselenggarakan pada:</textarea>
+                    oninput="updateContent()" required>
+                </textarea>
             </div>
             <div class="mb-5">
                 <label for="tanggal" class="block mb-2 text-sm font-medium text-gray-900">
@@ -156,7 +156,8 @@ Sehubungan dengan kunjungan industri dalam rangka perintisan kerjasama dengan du
                 <textarea
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                     id="maksud" name="maksud" cols="30" rows="3" placeholder="Masukkan Upper Body 2"
-                    oninput="updateContent()" required>Kami bermaksud untuk mengajukan permohonan surat tugas kepada pimpinan Politeknik Negeri Semarang dengan rincian dosen sebagai berikut:</textarea>
+                    oninput="updateContent()" required>
+                </textarea>
             </div>
 
             <div class="mb-5">

@@ -107,8 +107,8 @@
                 <textarea
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                     id="hormat" name="hormat" cols="30" rows="3" placeholder="Masukkan Upper Body 1"
-                    oninput="updateContent()" required>Dengan Hormat,<br>
-Sehubungan dengan kunjungan industri dalam rangka perintisan kerjasama dengan dunia industri yang akan diselenggarakan pada:</textarea>
+                    oninput="updateContent()" required>
+                </textarea>
             </div>
 
             <div class="flex flex-row items-center justify-start w-full">
@@ -148,9 +148,6 @@ Sehubungan dengan kunjungan industri dalam rangka perintisan kerjasama dengan du
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                     id="maksud" name="maksud" cols="30" rows="3" placeholder="Masukkan Upper Body 2"
                     oninput="updateContent()" required>
-Maka kami mengajukan permohonan untuk dapat diberikan:<br>
-1. Surat Tugas<br>
-2. SPPD<br>
                 </textarea>
             </div>
 

@@ -1,39 +1,61 @@
 document.addEventListener("DOMContentLoaded", function () {
+    loadContent();
     updateContent();
 });
+
+const elements = [
+    // isi surat
+    "perihal",
+    "nama_tujuan",
+    "alamat_tujuan",
+    "upper_body",
+    "lower_body",
+
+    // pecahan dari body
+    "lower_body_part",
+    "lower_body_part1",
+    "lower_body_part2",
+    "hormat",
+    "maksud",
+    "jam_mulai",
+    "jam_selesai",
+    "tempat",
+    "acara",
+    "perlengkapan",
+    "peserta",
+    "tanggal",
+    "tanggal_mulai",
+    "tanggal_selesai",
+
+    // tambahan fitur
+    "waktu_selesai_null",
+];
+
+function loadContent() {
+    const templateFrame = document.getElementById("templateFrame");
+    const templateDocument =
+        templateFrame.contentDocument || templateFrame.contentWindow.document;
+
+    let elementId;
+
+    for (elementId of elements) {
+        const element = getElementSafely(
+            templateDocument,
+            `${elementId}Content`,
+        );
+        const inputElement = getElementSafely(document, `${elementId}`);
+
+        if (inputElement && inputElement.value.trim() === "") {
+            const frameElement = element.innerHTML;
+            inputElement.value = frameElement.trim();
+        }
+    }
+}
 
 function updateContent() {
     const templateFrame = document.getElementById("templateFrame");
     const templateDocument =
         templateFrame.contentDocument || templateFrame.contentWindow.document;
-
-    const elements = [
-        // isi surat
-        "perihal",
-        "nama_tujuan",
-        "alamat_tujuan",
-        "upper_body",
-        "lower_body",
-
-        // pecahan dari body
-        "lower_body_part",
-        "lower_body_part1",
-        "lower_body_part2",
-        "hormat",
-        "maksud",
-        "jam_mulai",
-        "jam_selesai",
-        "tempat",
-        "acara",
-        "perlengkapan",
-        "peserta",
-        "tanggal",
-        "tanggal_mulai",
-        "tanggal_selesai",
-
-        // tambahan fitur
-        "waktu_selesai_null",
-    ];
 
     let elementId;
     let data;

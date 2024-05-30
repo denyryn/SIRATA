@@ -22,7 +22,7 @@
             </div>
 
             <!-- Modal body -->
-            <form class="p-4 md:p-5" method="POST" action="{{ route('mahasiswa.password.update') }}">
+            <form class="p-4 md:p-5" method="POST" action="{{ route('dosen.password.update') }}">
                 @csrf
                 @method('PUT')
 
