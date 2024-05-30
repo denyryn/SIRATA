@@ -42,6 +42,7 @@ class FetchMahasiswaController extends Controller
         } else {
             // Looping melalui setiap mahasiswa dalam data
             foreach ($data->data as $mahasiswa) {
+                $mahasiswa = (object) array_change_key_case((array) $mahasiswa, CASE_LOWER);
 
                 //menghapus tanda titik pada nim
                 $nim = str_replace('.', '', $mahasiswa->nim);
@@ -75,7 +76,7 @@ class FetchMahasiswaController extends Controller
 
             return response()->json([
                 'success' => true,
-                'message' => 'Data mahasiswa berhasil ditambahkan dengan total duplikat ' . $total_duplikat + 1,
+                'message' => 'Data mahasiswa berhasil ditambahkan dengan total duplikat ' . $duplikat ? $total_duplikat + 1 : $total_duplikat,
             ], 201);
         }
     }
