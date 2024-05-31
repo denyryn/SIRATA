@@ -31,6 +31,8 @@ class FetchMahasiswaController extends Controller
         // Mengambil body respons dan mengubahnya menjadi objek PHP
         $data = json_decode($response->body());
 
+        $total_duplikat = 0;
+
         // Memeriksa jika data tidak kosong
         if (empty($data->data)) {
             return response()->json([
@@ -40,6 +42,7 @@ class FetchMahasiswaController extends Controller
         } else {
             // Looping melalui setiap mahasiswa dalam data
             foreach ($data->data as $mahasiswa) {
+                $mahasiswa = (object) array_change_key_case((array) $mahasiswa, CASE_LOWER);
 
                 //menghapus tanda titik pada nim
                 $nim = str_replace('.', '', $mahasiswa->nim);
@@ -47,13 +50,9 @@ class FetchMahasiswaController extends Controller
                 $dosen_pembimbing = Dosen::where('nip', $mahasiswa->nip_dosen_wali)->first();
 
                 if ($mahasiswa) {
-                    $duplikat = User::where('username', $nim)->count();
-                    if ($duplikat > 0) {
-                        $total_duplikat = User::where('username', $nim)->get()->count();
-                        return response()->json([
-                            'error' => true,
-                            'message' => 'Data NIM ' . $nim . ' sudah ada ' . $total_duplikat . ' kali lipik, silahkan perbarui NIM yang lain.'
-                        ], 422);
+                    $duplikat = User::where('username', $nim)->first();
+                    if ($duplikat) {
+                        $total_duplikat++;
                     } else {
                         // If user with nim doesn't exist, create new user and student record
                         $data_user = new User;
@@ -74,9 +73,10 @@ class FetchMahasiswaController extends Controller
                     }
                 }
             }
+
             return response()->json([
                 'success' => true,
-                'message' => 'Data mahasiswa berhasil ditambahkan'
+                'message' => 'Data mahasiswa berhasil ditambahkan dengan total duplikat ' . ($duplikat ? $total_duplikat + 1 : $total_duplikat),
             ], 201);
         }
     }

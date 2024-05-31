@@ -4,6 +4,17 @@
 
 @section('content')
     <table class="tabel-rata">
+        @if (isset($data_surat['surat']->lampiran))
+            <tr>
+                <td>
+                    Lampiran
+                </td>
+                <td> : </td>
+                <td>
+                    1
+                </td>
+            </tr>
+        @endif
         <tr>
             <td>
                 Nomor

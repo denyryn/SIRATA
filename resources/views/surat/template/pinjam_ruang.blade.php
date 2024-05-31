@@ -11,6 +11,17 @@
             <th></th>
         </thead>
         <tbody>
+            @if (isset($data_surat['surat']->lampiran))
+                <tr>
+                    <td>
+                        Lampiran
+                    </td>
+                    <td> : </td>
+                    <td>
+                        1
+                    </td>
+                </tr>
+            @endif
             <tr>
                 <td>
                     Nomor
@@ -91,92 +102,6 @@
             : (isset($data_perihal->lower_body)
                 ? $data_perihal->lower_body
                 : '...........') !!}
-        {{-- <table style="padding-left: 1cm" class="tabel-rata">
-            <tr>
-                <td>
-                    Hari/Tanggal
-                </td>
-                <td>
-                    :
-                </td>
-                <td>
-                    <span id="hariTanggalContent">
-
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    Jam
-                </td>
-                <td>
-                    :
-                </td>
-                <td>
-                    <span id="jamMulaiContent">
-
-                    </span>
-                    <span>
-                        s.d
-                    </span>
-                    <span id="jamSelesaiContent">
-
-                    </span>
-                    <span>
-                        WIB
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    Tempat
-                </td>
-                <td>
-                    :
-                </td>
-                <td>
-                    <span id="tempatContent">
-
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    Acara
-                </td>
-                <td>
-                    :
-                </td>
-                <td>
-                    <span id="acaraContent">
-
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    Perlengkapan
-                </td>
-                <td>
-                    :
-                </td>
-                <td>
-                    <span id="perlengkapanContent">
-
-                    </span>
-                </td>
-            </tr>
-        </table>
-
-        <div style="padding-top: 0.1cm;"></div>
-
-        <div>
-            <div>
-                <p id="lowerBodyPartContent">
-
-                </p>
-            </div>
-        </div> --}}
     </div>
 
     <div style="padding-top: 0.3cm;"></div>

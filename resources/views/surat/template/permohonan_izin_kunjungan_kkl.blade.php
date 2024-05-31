@@ -11,6 +11,17 @@
             <th></th>
         </thead>
         <tbody>
+            @if (isset($data_surat['surat']->lampiran))
+                <tr>
+                    <td>
+                        Lampiran
+                    </td>
+                    <td> : </td>
+                    <td>
+                        1
+                    </td>
+                </tr>
+            @endif
             <tr>
                 <td>
                     Nomor
@@ -82,71 +93,6 @@
                 ? $data_perihal->lower_body
                 : '...........') !!}
     </div>
-
-    {{-- <div id="lowerBodyContent">
-
-        <p id="lowerBodyPart1Content">
-
-        </p>
-
-        <table style="padding-left: 1cm" class="tabel-rata">
-            <tr>
-                <td>
-                    Hari/Tanggal
-                </td>
-                <td>
-                    :
-                </td>
-                <td>
-                    <span id="hariTanggalContent">
-
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    Waktu
-                </td>
-                <td>
-                    :
-                </td>
-                <td>
-                    <span id="jamMulaiContent">
-
-                    </span>
-                    <span>
-                        s.d
-                    </span>
-                    <span id="jamSelesaiContent">
-
-                    </span>
-                    <span>
-                        WIB
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    Peserta
-                </td>
-                <td>
-                    :
-                </td>
-                <td>
-                    <span id="pesertaContent">
-
-                    </span>
-                </td>
-            </tr>
-        </table>
-
-        <div style="padding-top: 0.1cm;"></div>
-
-        <p id="lowerBodyPart2Content">
-
-        </p>
-
-    </div> --}}
 
     <div class="p-[0.3cm]"></div>
 

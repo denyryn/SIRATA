@@ -4,22 +4,34 @@
 
 @section('content')
     <table class="tabel-rata">
+        @if (isset($data_surat['surat']->lampiran))
+            <tr>
+                <td>
+                    Lampiran
+                </td>
+                <td> : </td>
+                <td>
+                    1
+                </td>
+            </tr>
+        @endif
+
         <tr>
             <td>Perihal</td>
             <td> : </td>
             <td>
-                <p id="perihalContent">
+                <span id="perihalContent">
                     {!! isset($data_surat['surat']->nama_perihal)
                         ? $data_surat['surat']->nama_perihal
                         : (isset($data_perihal->nama_perihal)
                             ? $data_perihal->nama_perihal
                             : '...........') !!}
-                </p>
+                </span>
             </td>
         </tr>
     </table>
 
-    <div style="padding-top: 0.1cm;"></div>
+    <div style="padding-top: 0.5cm;"></div>
 
     <div>
         <span id="nama_tujuanContent">

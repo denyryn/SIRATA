@@ -41,6 +41,14 @@ class SuratDosenController extends Controller
         $dosen_petinggi = Jabatan::where('id_jabatan', $surat->id_jabatan)->first()?->dosen;
         $nama_jabatan = Jabatan::where('id_jabatan', $surat->id_jabatan)->first()?->nama_jabatan;
 
+        $jabatan_trk = Jabatan::with('dosen')
+            ->where('nama_jabatan', 'like', '%' . "rekayasa komputer" . '%')
+            ->first();
+
+        $jabatan_ti = Jabatan::with('dosen')
+            ->where('nama_jabatan', 'like', '%' . "teknik informatika" . '%')
+            ->first();
+
         $data_surat = [
             'surat' => $surat,
             'tanggal_surat' => $tanggal_surat,
@@ -48,8 +56,9 @@ class SuratDosenController extends Controller
             'data_pemohons' => $data_pemohons ?? [],
             'nama_jabatan' => $nama_jabatan ?? '',
             'pemilik_jabatan' => $dosen_petinggi ?? null,
+            'kaprodi-trk_statis' => $jabatan_trk ?? null,
+            'kaprodi-ti_statis' => $jabatan_ti ?? null,
         ];
-
         // dd($data_surat['pemilik_jabatan']);
 
         $no = 1;

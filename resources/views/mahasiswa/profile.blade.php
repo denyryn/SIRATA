@@ -46,14 +46,17 @@
             <form id="new_profile_image" class="hidden"
                 action="{{ route('mahasiswa.profile.update', $data_mahasiswa->id_mahasiswa) }}" method="POST"
                 enctype="multipart/form-data">
+                @csrf
+                @method('PUT')
+
                 <div class="flex flex-col items-center justify-center md:items-none md:pe-12">
                     <div class="py-5 md:pb-5">
                         <label for="foto_profil" class="cursor-pointer">
                             <input id="foto_profil" name="foto_profil" class="hidden" type="file"
                                 onchange="loadFile(event)" />
-                            <img id="new_profile_image_preview" class="rounded-sm size-40"
-                                src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
-                                alt="Blank_profile">
+                            <img id="new_profile_image_preview" class="rounded-sm size-40" <img
+                                src="{{ asset($data_user->foto_profil ? $data_user->foto_profil : 'images/blank_profile.png') }}"
+                                alt="Profile Picture">
                         </label>
                     </div>
                     <button
@@ -68,8 +71,8 @@
                 <div class="flex flex-col items-center justify-center md:items-none md:pe-12">
                     <div class="py-5 md:pb-5">
                         <img id="profile_image_preview" class="rounded-sm size-40"
-                            src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
-                            alt="Blank_profile">
+                            src="{{ asset($data_user->foto_profil ? $data_user->foto_profil : 'images/blank_profile.png') }}"
+                            title="cakepnyooo" alt="Blank_profile">
                     </div>
                     <button id="editProfileBtn"
                         class="w-full py-2 text-white duration-100 ease-in-out rounded-md bg-blue-light hover:bg-blue-plain animate-none">
@@ -89,12 +92,12 @@
                     <tr>
                         <td class="py-2">Username &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</td>
                         <td class="py-2">: &nbsp&nbsp&nbsp&nbsp</td>
-                        <td class="py-2">{{ $data_mahasiswa->user->username }}</td>
+                        <td class="py-2">{{ $data_user->username }}</td>
                     </tr>
                     <tr>
                         <td class="py-2">Hak Akses</td>
                         <td class="py-2">:</td>
-                        <td class="py-2">{{ $data_mahasiswa->user->akses }}</td>
+                        <td class="py-2">{{ $data_user->akses }}</td>
                     </tr>
                     <tr>
                         <td class="py-2">Password</td>
@@ -123,7 +126,6 @@
                                     Ubah Password
                                 </span>
                             </button>
-
                         </td>
                     </tr>
                 </table>

@@ -19,32 +19,39 @@
                 </label>
                 <div class="flex flex-row items-end w-full">
                     <div id="pengajuContainer" class="flex flex-col w-full">
-                        <select
-                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 mt-1"
-                            name="id_user1" id="id_user1" required>
-                            <option value="">Pilih dosen Pengaju</option>
+                        <div name="pemohon1"
+                            class="mb-2 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 p-2.5">
                             @if (Session::get('akses') == 'dosen')
-                                @foreach ($dosens as $dosen)
-                                    <option value="{{ $dosen->id_user }}"
-                                        {{ $dosen->id_user == $user_sekarang->id_user ? 'selected' : 'hidden' }}>
-                                        {{ $dosen->nama_dosen }}
-                                    </option>
-                                    {{ $dosen->nama_dosen }}
-                                @endforeach
+                                <select
+                                    class="id_user bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 mt-1"
+                                    name="id_user1" id="id_user1" required>
+                                    <option value="">Pilih Pengaju Utama</option>
+                                    @foreach ($dosens as $dosen)
+                                        <option value="{{ $dosen->id_user }}"
+                                            {{ $dosen->id_user == $user_sekarang->id_user ? 'selected' : 'hidden' }}>
+                                            {{ $dosen->nama_dosen }}
+                                        </option>
+                                    @endforeach
+                                </select>
                             @else
-                                @foreach ($dosens as $dosen)
-                                    <option value="{{ $dosen->id_user }}">
-                                        {{ $dosen->nama_dosen }}
-                                    </option>
-                                @endforeach
+                                <select
+                                    class="id_user bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 mt-1"
+                                    name="id_user1" id="id_user1" required>
+                                    <option value="">Pilih Pengaju Utama</option>
+                                    @foreach ($dosens as $dosen)
+                                        <option value="{{ $dosen->id_user }}">
+                                            {{ $dosen->nama_dosen }}
+                                        </option>
+                                    @endforeach
+                                </select>
                             @endif
-                        </select>
+                        </div>
+
                     </div>
-                    <button class="ml-1 text-xl text-white btn bg-blue-light hover:bg-blue-plain" type="button"
+                    <button class="mb-2 ml-1 text-xl text-white btn bg-blue-light hover:bg-blue-plain" type="button"
                         id="removePengajuBtn"> - </button>
-                    <button class="ml-1 text-xl text-white btn bg-blue-light hover:bg-blue-plain" type="button"
-                        id="addPengajuBtn">
-                        + </button>
+                    <button class="mb-2 ml-1 text-xl text-white btn bg-blue-light hover:bg-blue-plain" type="button"
+                        id="addPengajuBtn"> + </button>
                 </div>
             </div>
 
@@ -97,8 +104,8 @@
                 <textarea
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                     id="hormat" name="hormat" cols="30" rows="3" placeholder="Masukkan Upper Body 1"
-                    oninput="updateContent()" required>Dengan Hormat,<br>
-Sehubungan dengan kunjungan industri dalam rangka perintisan kerjasama dengan dunia industri yang akan diselenggarakan pada:</textarea>
+                    oninput="updateContent()" required>
+                </textarea>
             </div>
             <div class="mb-5">
                 <label for="tanggal" class="block mb-2 text-sm font-medium text-gray-900">
@@ -109,7 +116,7 @@ Sehubungan dengan kunjungan industri dalam rangka perintisan kerjasama dengan du
                     id="tanggal" name="tanggal" oninput="updateContent()" required>
             </div>
 
-            <div class="flex flex-row items-center justify-start w-full">
+            <div class="flex flex-row items-center justify-between w-full">
                 <div class="w-1/3 mb-5">
                     <label for="jam_mulai" class="block mb-2 text-sm font-medium text-gray-900">
                         Waktu Mulai
@@ -118,14 +125,18 @@ Sehubungan dengan kunjungan industri dalam rangka perintisan kerjasama dengan du
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                         id="jam_mulai" name="jam_mulai" oninput="updateContent()" required>
                 </div>
-                <span class="text-black"> &nbsp; s.d &nbsp; </span>
-                <div class="w-1/3 mb-5">
+                <span id="sd" class="mx-1 text-black"> &nbsp; s.d &nbsp; </span>
+                <div id="jam_selesaiContainer" class="w-1/3 mb-5">
                     <label for="jam_selesai" class="block mb-2 text-sm font-medium text-gray-900">
                         Waktu Selesai
                     </label>
                     <input type="time"
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                         id="jam_selesai" name="jam_selesai" oninput="updateContent()" required>
+                </div>
+                <div>
+                    <input type="checkbox" name="waktu_selesai_null" id="waktu_selesai_null" checked="checked"
+                        oninput="updateContent()">
                 </div>
             </div>
 
@@ -145,7 +156,8 @@ Sehubungan dengan kunjungan industri dalam rangka perintisan kerjasama dengan du
                 <textarea
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                     id="maksud" name="maksud" cols="30" rows="3" placeholder="Masukkan Upper Body 2"
-                    oninput="updateContent()" required>Kami bermaksud untuk mengajukan permohonan surat tugas kepada pimpinan Politeknik Negeri Semarang dengan rincian dosen sebagai berikut:</textarea>
+                    oninput="updateContent()" required>
+                </textarea>
             </div>
 
             <div class="mb-5">
@@ -171,7 +183,7 @@ Sehubungan dengan kunjungan industri dalam rangka perintisan kerjasama dengan du
                 <textarea hidden id="upper_body" name="upper_body"></textarea>
             </div>
 
-            <button type="submit" onsubmit="updateContent()"
+            <button type="submit" onmouseover="updateContent()"
                 class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">Submit</button>
         </form>
         <div class="col-start-7 col-end-13 p-2 rounded-[1rem] shadow-xl bg-blue-lighter">
@@ -208,6 +220,18 @@ Sehubungan dengan kunjungan industri dalam rangka perintisan kerjasama dengan du
                 srcdoc="{{ $rendered_template }}" frameborder="0"></iframe>
         </div>
     </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            $('.id_user').select2({
+                placeholder: 'Pilih Pengaju',
+                allowClear: true,
+            });
+        });
+    </script>
 
     <script>
         @if ($peruntukkan == 'dosen')

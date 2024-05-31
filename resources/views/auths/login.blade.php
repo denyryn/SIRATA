@@ -36,25 +36,16 @@
                                 <input id="username" name="username" type="text" placeholder="NIM/NIP"
                                     class="w-full input input-bordered rounded-2xl" required />
                             </div>
-                            <table class="min-w-full border-separate border-spacing-y-4">
-                                <tr>
-
-                                </tr>
-                                <tr>
-                                    <div class="form-control">
-                                        <label for="password" class="label">
-                                            <span class="label-text">Password</span>
-                                        </label>
-                                        <input id="password" name="password" type="password" placeholder="Password"
-                                            class="input input-bordered rounded-2xl " required />
-                                    </div>
-                                </tr>
-                            </table>
-                            <label class="label">
-                                <a href="#" class="label-text-alt link link-hover">Forgot password?</a>
-                            </label>
-                            <div class="mt-1 form-control">
-                                <button class="text-white border-none bg-blue-plain btn hover:bg-blue-light">Login</button>
+                            <div class="form-control">
+                                <label for="password" class="label">
+                                    <span class="label-text">Password</span>
+                                </label>
+                                <input id="password" name="password" type="password" placeholder="Password"
+                                    class="input input-bordered rounded-2xl " required />
+                            </div>
+                            <div class="mt-3 form-control">
+                                <button
+                                    class="text-white border-none animate-none bg-blue-plain btn hover:bg-blue-light">Login</button>
                             </div>
 
                         </form>

@@ -70,14 +70,8 @@ Demikian, atas ketersediaan dan kerjasamanya diucapkan terimakasih."
                     <span id="jam_mulaiContent">
 
                     </span>
-                    <span>
-                        s.d
-                    </span>
                     <span id="jam_selesaiContent">
 
-                    </span>
-                    <span>
-                        WIB
                     </span>
                 </td>
             </tr>
@@ -127,7 +121,7 @@ Demikian, atas ketersediaan dan kerjasamanya diucapkan terimakasih."
         <div>
             <div>
                 <p id="lower_body_partContent">
-
+Demikian permohonan kami, atas izin dan kesempatan yang diberikan diucapkan Terima Kasih.
                 </p>
             </div>
         </div>'
@@ -169,14 +163,8 @@ Demikian, atas ketersediaan dan kerjasamanya diucapkan terimakasih."
                     <span id="jam_mulaiContent">
 
                     </span>
-                    <span>
-                        s.d
-                    </span>
                     <span id="jam_selesaiContent">
 
-                    </span>
-                    <span>
-                        WIB
                     </span>
                 </td>
             </tr>
@@ -209,7 +197,7 @@ Demikian, atas ketersediaan dan kerjasamanya diucapkan terimakasih."
                 "alamat_tujuan" => "Jl. .....",
                 "upper_body" => 'Sehubungan dengan akan dilaksanakan Kuliah Kerja Lapangan (KKL) Program Studi D3 Teknik Informatika dan D4 Teknologi Rekayasa Komputer Politeknik Negeri Semarang, maka kami mengajukan permohonan izin untuk melaksanakan kunjungan Kuliah Kerja Lapangan di ...',
                 "lower_body" => '<p id="lower_body_part1Content">
-
+Adapun rencana pelaksanaannya adalah:
         </p>
 
         <table style="padding-left: 1cm" class="tabel-rata">
@@ -266,7 +254,7 @@ Demikian, atas ketersediaan dan kerjasamanya diucapkan terimakasih."
         <div style="padding-top: 0.1cm;"></div>
 
         <p id="lower_body_part2Content">
-
+Demikian permohonan kami, atas izin dan kesempatan yang diberikan diucapkan Terima Kasih.
         </p>'
             ],
 
@@ -275,10 +263,9 @@ Demikian, atas ketersediaan dan kerjasamanya diucapkan terimakasih."
                 "nama_perihal" => "Permohonan Surat Tugas dan SPPD",
                 "nama_tujuan" => "Yth. Ketua Jurusan Elektro",
                 "alamat_tujuan" => "Politeknik Negeri Semarang",
-                "upper_body" => '<p id="hormatContent">
-            Dengan Hormat, <br>
-            Sehubungan dengan kunjungan industri dalam rangka perintisan kerjasama dengan dunia industri yang akan
-            diselenggarakan pada:
+                "upper_body" => '<p id="hormatContent"><br>
+Dengan Hormat,<br>
+Sehubungan dengan kunjungan industri dalam rangka perintisan kerjasama dengan dunia industri yang akan diselenggarakan pada:
         </p>
 
         <table class="tabel-rata">

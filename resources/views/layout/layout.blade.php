@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
@@ -14,27 +15,27 @@
 
 <body class="font-poppins">
     @if (Session::has('akses'))
-    @php
-        $akses = Session::get('akses');
-    @endphp
+        @php
+            $akses = Session::get('akses');
+        @endphp
 
-    @switch($akses)
-        @case('admin')
-            @include('layout.sidebars.admin_sidebar')
+        @switch($akses)
+            @case('admin')
+                @include('layout.sidebars.admin_sidebar')
             @break
 
-        @case('mahasiswa')
-            @include('layout.sidebars.mahasiswa_sidebar')
+            @case('mahasiswa')
+                @include('layout.sidebars.mahasiswa_sidebar')
             @break
 
-        @case('dosen')
-            @include('layout.sidebars.dosen_sidebar')
+            @case('dosen')
+                @include('layout.sidebars.dosen_sidebar')
             @break
 
-        @default
-            {{-- Default action jika 'akses' tidak cocok dengan admin, mahasiswa, atau dosen --}}
-    @endswitch
-@endif
+            @default
+                {{-- Default action jika 'akses' tidak cocok dengan admin, mahasiswa, atau dosen --}}
+        @endswitch
+    @endif
 
     {{-- header --}}
     <div class="p-4 content sm:ml-64">

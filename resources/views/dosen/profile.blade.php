@@ -55,7 +55,7 @@
                             <input id="foto_profil" name="foto_profil" class="hidden" type="file"
                                 onchange="loadFile(event)" />
                             <img id="new_profile_image_preview" class="rounded-sm size-40"
-                                src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
+                                src="{{ asset($data_user->foto_profil ? $data_user->foto_profil : 'images/blank_profile.png') }}"
                                 alt="Blank_profile">
                         </label>
                     </div>
@@ -71,7 +71,7 @@
                 <div class="flex flex-col items-center justify-center md:items-none md:pe-12">
                     <div class="py-5 md:pb-5">
                         <img id="profile_image_preview" class="rounded-sm size-40"
-                            src="{{ $data_dosen->user->foto_profil ? asset($data_dosen->user->foto_profil) : 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png' }} "
+                            src="{{ asset($data_user->foto_profil ? $data_user->foto_profil : 'images/blank_profile.png') }}"
                             alt="{{ $data_dosen->nama_dosen }}'s Portrait" title="cakepnyoooo">
                     </div>
                     <button id="editProfileBtn"

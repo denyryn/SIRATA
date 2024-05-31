@@ -47,6 +47,7 @@
                     <th class="text-center">ID.</th>
                     <th class="text-center">Tanggal Surat</th>
                     <th class="text-center">NIM / NIP</th>
+                    <th class="text-center">Nama pengaju</th>
                     <th class="text-center">Perihal</th>
                     <th class="text-center">Jenis Surat</th>
                     <th class="text-center">Waktu</th>
@@ -56,6 +57,12 @@
                 <tbody class="text-gray-900">
                     @foreach ($data_surat as $surat)
                         @php
+                            $nama_pengaju = $surat->user->dosen
+                                ? $surat->user->dosen->nama_dosen
+                                : $surat->user->mahasiswa->nama_mahasiswa;
+
+                            $surat->nama_pengaju = $nama_pengaju;
+
                             $color = '';
                             if (str_contains(strtolower($surat->status_terbaru), 'pending')) {
                                 $color = 'yellow';
@@ -70,7 +77,8 @@
                         <tr>
                             <td>{{ $surat->id_surat }}</td>
                             <td>{{ $surat->tanggal_buat }}</td>
-                            <td>{{ $surat->pemohon }}</td>
+                            <td>{{ $surat->user->username }}</td>
+                            <td>{{ strtoupper($surat->nama_pengaju) }}</td>
                             <td>{{ $surat->nama_perihal }}</td>
                             <td>{{ $surat->nama_kategori }}</td>
                             <td>{{ $surat->jam_buat }}</td>

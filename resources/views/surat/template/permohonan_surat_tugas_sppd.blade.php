@@ -11,6 +11,17 @@
             <th></th>
         </thead>
         <tbody>
+            @if (isset($data_surat['surat']->lampiran))
+                <tr>
+                    <td>
+                        Lampiran
+                    </td>
+                    <td> : </td>
+                    <td>
+                        1
+                    </td>
+                </tr>
+            @endif
             <tr>
                 <td>
                     Nomor
@@ -134,42 +145,89 @@
 
     <div style="padding-top: 0.3cm;"></div>
 
-    <div style="width: 50%; margin-left: auto;">
-        <table>
-            <tr>
-                <td>Semarang,
-                    {!! isset($data_surat['tanggal_surat'])
-                        ? $data_surat['tanggal_surat']
-                        : (isset($tanggal_sekarang)
-                            ? $tanggal_sekarang
-                            : '...........') !!}
-                </td>
-            </tr>
-            <tr>
-                <td>{!! isset($data_surat['nama_jabatan']) ? $data_surat['nama_jabatan'] : 'Ketua Jurusan ..........' !!},</td>
-            </tr>
-            <tr>
-                <td>
-                    <div style="padding: 1cm;"></div>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    {!! isset($data_surat['pemilik_jabatan']->nama_dosen)
-                        ? $data_surat['pemilik_jabatan']->gelar_depan .
-                            ' ' .
-                            ucwords(strtolower($data_surat['pemilik_jabatan']->nama_dosen)) .
-                            ' ' .
-                            $data_surat['pemilik_jabatan']->gelar_belakang
-                        : '...........' !!}
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    NIP. {!! isset($data_surat['pemilik_jabatan']->nip) ? $data_surat['pemilik_jabatan']->nip : '...........' !!}
-                </td>
-            </tr>
-        </table>
+    <div>
+        <div style="float: left; width: 48%; margin-right: 2%;">
+            <table style="width: 100%;">
+                <tr>
+                    <td>{!! 'Kaprodi STr Teknologi Rekayasa Komputer' !!},</td>
+                </tr>
+                <tr>
+                    <td>
+                        <div style="padding: 1cm;"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        {!! isset($data_surat['kaprodi-trk_statis'])
+                            ? (isset($data_surat['kaprodi-trk_statis']->dosen->gelar_depan)
+                                    ? $data_surat['kaprodi-trk_statis']->dosen->gelar_depan
+                                    : '') .
+                                ' ' .
+                                ucwords(
+                                    strtolower(
+                                        isset($data_surat['kaprodi-trk_statis']->dosen->nama_dosen)
+                                            ? $data_surat['kaprodi-trk_statis']->dosen->nama_dosen
+                                            : '',
+                                    ),
+                                ) .
+                                ' ' .
+                                (isset($data_surat['kaprodi-trk_statis']->dosen->gelar_belakang)
+                                    ? $data_surat['kaprodi-trk_statis']->dosen->gelar_belakang
+                                    : '')
+                            : '...........' !!}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        NIP. {!! isset($data_surat['kaprodi-trk_statis']->dosen->nip)
+                            ? $data_surat['kaprodi-trk_statis']->dosen->nip
+                            : '...........' !!}
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div style="float: left; width: 48%;">
+            <table style="width: 100%;">
+                <tr>
+                    <td>{!! 'Kaprodi Teknik Informatika' !!},</td>
+                </tr>
+                <tr>
+                    <td>
+                        <div style="padding: 1cm;"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        {!! isset($data_surat['kaprodi-ti_statis'])
+                            ? (isset($data_surat['kaprodi-ti_statis']->dosen->gelar_depan)
+                                    ? $data_surat['kaprodi-ti_statis']->dosen->gelar_depan
+                                    : '') .
+                                ' ' .
+                                ucwords(
+                                    strtolower(
+                                        isset($data_surat['kaprodi-ti_statis']->dosen->nama_dosen)
+                                            ? $data_surat['kaprodi-ti_statis']->dosen->nama_dosen
+                                            : '',
+                                    ),
+                                ) .
+                                ' ' .
+                                (isset($data_surat['kaprodi-ti_statis']->dosen->gelar_belakang)
+                                    ? $data_surat['kaprodi-ti_statis']->dosen->gelar_belakang
+                                    : '')
+                            : '...........' !!}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        NIP. {!! isset($data_surat['kaprodi-ti_statis']->dosen->nip)
+                            ? $data_surat['kaprodi-ti_statis']->dosen->nip
+                            : '...........' !!}
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div style="clear: both;"></div>
     </div>
+
 @endsection
 

@@ -64,7 +64,7 @@
                                 {{ $dosen->nidn ? $dosen->nidn : '-' }}
                             </td>
                             <td>
-                                {{ $dosen->nama_dosen ? $dosen->nama_dosen : '-' }}
+                                {{ $dosen->nama_dosen ? strtoupper($dosen->nama_dosen) : '-' }}
                             </td>
                             <td>
                                 {{ $dosen->golongan ? $dosen->golongan : '-' }}

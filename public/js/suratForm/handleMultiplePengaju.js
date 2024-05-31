@@ -3,16 +3,34 @@ document.addEventListener("DOMContentLoaded", function () {
     const addButton = document.getElementById("addPengajuBtn");
     const removeButton = document.getElementById("removePengajuBtn");
     const form = document.getElementById("surat_form");
-    let newOption;
-
     let count = 1;
 
     addButton.addEventListener("click", function () {
         if (count <= 8) {
             count++;
-
+            const newDiv = document.createElement("div");
+            newDiv.setAttribute("name", "pemohon" + count); // Update name attribute
+            newDiv.classList.add(
+                "mb-2",
+                "text-sm",
+                "text-gray-900",
+                "border",
+                "border-gray-300",
+                "rounded-lg",
+                "bg-gray-50",
+                "focus:ring-blue-500",
+                "focus:border-blue-500",
+                "p-2.5",
+            );
             const newSelect = createSelectElement(count);
-            container.appendChild(newSelect);
+            newDiv.appendChild(newSelect);
+            container.appendChild(newDiv);
+
+            // Initialize Select2 for the new dropdown
+            $("#id_user" + count).select2({
+                placeholder: "Pilih Pengaju",
+                allowClear: true,
+            });
         } else {
             alert("Maximum limit reached (8)");
         }
@@ -26,6 +44,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     form.addEventListener("submit", function (event) {
+        event.preventDefault();
         event.preventDefault();
 
         // Get all select elements
@@ -67,18 +86,17 @@ document.addEventListener("DOMContentLoaded", function () {
         const newSelect = document.createElement("select");
         newSelect.setAttribute(
             "class",
-            "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 mt-1",
+            "id_user bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 mt-1",
         );
-        newSelect.setAttribute("name", `id_user${index}`); // Use array notation for multiple selections
-        newSelect.setAttribute("id", `id_user${index}`); // Use array notation for multiple selections
+        newSelect.setAttribute("name", "id_user" + index);
+        newSelect.setAttribute("id", "id_user" + index);
         newSelect.setAttribute("required", "required");
 
         const option = document.createElement("option");
         option.setAttribute("value", "");
-        option.textContent = "Pilih Pengaju Tambahan ";
+        option.textContent = "Pilih Pengaju Tambahan";
         newSelect.appendChild(option);
 
-        // Check if dosens is available and not empty
         if (
             typeof dosens !== "undefined" &&
             dosens !== null &&

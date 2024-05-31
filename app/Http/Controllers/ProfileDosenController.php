@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Storage;
 
 use App\Models\Dosen;
 use App\Models\User;
@@ -13,8 +14,8 @@ class ProfileDosenController extends Controller
     public function index()
     {
         $data_dosen = Session::get('data_dosen');
-        dd($data_dosen->user->foto_profil);
-        return view("dosen.profile", compact("data_dosen"));
+        $data_user = Session::get('data_user');
+        return view("dosen.profile", compact("data_dosen", "data_user"));
     }
 
     public function update(Request $request, $id_dosen)
@@ -29,6 +30,10 @@ class ProfileDosenController extends Controller
 
         // Handle the uploaded image
         if ($request->hasFile('foto_profil')) {
+            if ($data_user->foto_profil) {
+                unlink(public_path($data_user->foto_profil));
+            }
+
             $image = $request->file('foto_profil');
             $imageName = $data_dosen->id_user . time() . '.' . $image->getClientOriginalExtension();
             $image->move('users/images/profile', $imageName);
