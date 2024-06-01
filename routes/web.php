@@ -38,6 +38,7 @@ use App\Http\Controllers\ManageUserDosenController;
 use App\Http\Controllers\ManageUserMahasiswaController;
 
 use App\Http\Controllers\UserPasswordController;
+use App\Http\Controllers\SendMailToUserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -181,6 +182,11 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'cekakses:admin']], 
             Route::put('/preview/reject/{id_surat}', [SuratController::class, 'reject'])->name("admin.surat.update.reject");
         });
 
+        //Mail Routes
+        Route::prefix('/mail')->group(function () {
+            Route::get('/{id_surat}', [SendMailToUserController::class, 'index'])->name("admin.users.send_mail");
+        });
+
         // Manage User Routes
         Route::prefix('/manage_users')->group(function () {
             Route::get('/', [ManageUserController::class, 'index'])->name("admin.manage_users");
@@ -199,3 +205,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'cekakses:admin']], 
     });
 
 });
+
+Route::get('/mail', function () {
+    return view('email.send_to_user');
+})->name('home');
