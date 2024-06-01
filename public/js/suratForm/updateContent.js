@@ -111,8 +111,6 @@ function updateContent() {
                 }
                 break;
 
-            case "nama_tujuan":
-                data = "YTH. " + element.value;
             default:
                 if (elementId.includes("tanggal")) {
                     data = formatDateType2Safely(elementId);

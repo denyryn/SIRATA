@@ -3,10 +3,12 @@ document.addEventListener("DOMContentLoaded", function () {
     const addButton = document.getElementById("addPengajuBtn");
     const removeButton = document.getElementById("removePengajuBtn");
     const form = document.getElementById("surat_form");
+
+    const maxPengajus = 7;
     let count = 1;
 
     addButton.addEventListener("click", function () {
-        if (count <= 8) {
+        if (count < maxPengajus) {
             count++;
             const newDiv = document.createElement("div");
             newDiv.setAttribute("name", "pemohon" + count); // Update name attribute
@@ -32,7 +34,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 allowClear: true,
             });
         } else {
-            alert("Maximum limit reached (8)");
+            alert("Maksimal Pengaju sudah Tercapai.");
         }
     });
 

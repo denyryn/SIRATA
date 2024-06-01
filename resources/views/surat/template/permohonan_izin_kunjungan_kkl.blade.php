@@ -58,13 +58,14 @@
     <div class="p-[0.5cm]"></div>
 
     <div>
-        <p id="nama_tujuanContent">
+        <span>Yth. </span>
+        <span id="nama_tujuanContent">
             {!! isset($data_surat['surat']->nama_tujuan)
                 ? $data_surat['surat']->nama_tujuan
                 : (isset($data_perihal->nama_tujuan)
                     ? $data_perihal->nama_tujuan
                     : '...........') !!}
-        </p>
+        </span>
         <p id="alamat_tujuanContent">
             {!! isset($data_surat['surat']->alamat_tujuan)
                 ? $data_surat['surat']->alamat_tujuan

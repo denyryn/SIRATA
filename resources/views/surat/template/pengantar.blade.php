@@ -34,6 +34,7 @@
     <div style="padding-top: 0.5cm;"></div>
 
     <div>
+        <span>Yth. </span>
         <span id="nama_tujuanContent">
             {!! isset($data_surat['surat']->nama_tujuan)
                 ? $data_surat['surat']->nama_tujuan
