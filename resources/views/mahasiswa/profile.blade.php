@@ -50,7 +50,7 @@
                 @method('PUT')
 
                 <div class="flex flex-col items-center justify-center md:items-none md:pe-12">
-                    <div class="py-5 md:pb-5">
+                    <div class="py-5 duration-150 md:pb-5 hover:brightness-50">
                         <label for="foto_profil" class="cursor-pointer">
                             <input id="foto_profil" name="foto_profil" class="hidden" type="file"
                                 onchange="loadFile(event)" />
@@ -103,7 +103,6 @@
                         <td class="py-2">Password</td>
                         <td class="py-2">:</td>
                         <td class="py-2">
-
                             <button type="button" data-modal-target="ubah-password-modal"
                                 data-modal-toggle="ubah-password-modal"
                                 class="flex flex-row p-2 text-white duration-150 ease-in-out bg-blue-500 rounded-md hover:bg-blue-600 h-fit w-fit justify-evenly animate-none">

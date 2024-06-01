@@ -70,6 +70,7 @@ function updateContent() {
             case "tanggal":
                 data = formatDateType1Safely(elementId);
                 break;
+
             case "waktu_selesai_null":
                 const jam_selesaiContent = getElementSafely(
                     templateDocument,
@@ -109,6 +110,9 @@ function updateContent() {
                     }
                 }
                 break;
+
+            case "nama_tujuan":
+                data = "YTH. " + element.value;
             default:
                 if (elementId.includes("tanggal")) {
                     data = formatDateType2Safely(elementId);

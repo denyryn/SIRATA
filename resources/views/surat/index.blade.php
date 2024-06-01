@@ -36,8 +36,9 @@
     </nav>
 
     @if (!$data_perihal)
-        <div class="flex items-center justify-center h-screen">
-            <p>Raono</p>
+        <div class="flex flex-col items-center justify-center h-screen">
+            <img src="{{ asset('images/404.png') }}" class="size-[20rem]" alt="">
+            <span class="font-bold">Data Surat Tidak Ditemukan</span>
         </div>
     @endif
 

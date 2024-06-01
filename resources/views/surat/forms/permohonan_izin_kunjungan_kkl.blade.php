@@ -25,7 +25,7 @@
                             @if (Session::get('akses') == 'dosen')
                                 <select
                                     class="id_user bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 mt-1"
-                                    name="id_user1" id="id_user1" required>
+                                    name="id_user1" id="id_user1" disabled required>
                                     <option value="">Pilih Pengaju Utama</option>
                                     @foreach ($dosens as $dosen)
                                         <option value="{{ $dosen->id_user }}"

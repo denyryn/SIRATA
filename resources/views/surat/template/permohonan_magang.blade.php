@@ -11,7 +11,9 @@
                 </td>
                 <td> : </td>
                 <td>
-                    1
+                    <span>
+                        1
+                    </span>
                 </td>
             </tr>
         @endif

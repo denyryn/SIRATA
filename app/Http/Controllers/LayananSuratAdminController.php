@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+
 use App\Models\Perihal;
 use App\Models\Surat;
 use App\Models\Kategori_Surat;
@@ -74,51 +76,61 @@ class LayananSuratAdminController extends Controller
         $status_awal = 'Pending';
         $count = $request->input('count');
 
-        $request->validate([
-            'lampiran' => 'nullable|mimes:pdf',
-        ]);
+        try {
+            $request->validate([
+                'lampiran' => 'nullable|mimes:pdf',
+            ]);
 
-        $data_surat = new surat;
-        // $data_surat->id_user = $request->id_user;
-        $data_surat->id_kategori_surat = $request->id_kategori_surat;
-        $data_surat->id_jabatan = $request->id_jabatan;
-        $data_surat->nama_perihal = $request->nama_perihal;
-        $data_surat->nama_tujuan = $request->nama_tujuan;
-        $data_surat->alamat_tujuan = $request->alamat_tujuan;
-        $data_surat->upper_body = $request->upper_body;
-        $data_surat->lower_body = $request->lower_body;
+            DB::beginTransaction(); // Begin transaction
 
-        if ($request->hasFile('lampiran')) {
-            $file_lampiran = $request->file('lampiran');
-            $filename = 'lampiran_' . $data_surat->id_surat . '_' . $data_surat->nama_perihal . '_' . $data_surat->nama_kategori . '_' . time() . '.' . $file_lampiran->getClientOriginalExtension();
-            $path = "uploads/lampiran/";
-            $file_lampiran->move($path, $filename);
-            $data_surat->lampiran = $path . $filename;
-        }
+            $data_surat = new Surat;
+            $data_surat->id_kategori_surat = $request->id_kategori_surat;
+            $data_surat->id_jabatan = $request->id_jabatan;
+            $data_surat->nama_perihal = $request->nama_perihal;
+            $data_surat->nama_tujuan = $request->nama_tujuan;
+            $data_surat->alamat_tujuan = $request->alamat_tujuan;
+            $data_surat->upper_body = $request->upper_body;
+            $data_surat->lower_body = $request->lower_body;
 
-        $data_surat->id_user_pembuat = $request->input("id_user1");
-        $data_surat->save();
-
-        for ($i = 1; $i <= $count; $i++) {
-            if ($request->has("id_user$i")) {
-                $id_user = $request->input("id_user$i");
-
-                if ($i == 1) {
-                    $data_surat->id_user_pembuat = $id_user;
-                }
-
-                $data_pemohon = new pemohon;
-                $data_pemohon->id_user = $id_user;
-                $data_pemohon->id_surat = $data_surat->id_surat;
-                $data_pemohon->save();
+            if ($request->hasFile('lampiran')) {
+                $file_lampiran = $request->file('lampiran');
+                $filename = 'lampiran_' . $data_surat->id_surat . '_' . $data_surat->nama_perihal . '_' . $data_surat->nama_kategori . '_' . time() . '.' . $file_lampiran->getClientOriginalExtension();
+                $path = "uploads/lampiran/";
+                $file_lampiran->move($path, $filename);
+                $data_surat->lampiran = $path . $filename;
             }
+
+            $data_surat->id_user_pembuat = $request->input("id_user1");
+            $data_surat->save();
+
+            for ($i = 1; $i <= $count; $i++) {
+                if ($request->has("id_user$i")) {
+                    $id_user = $request->input("id_user$i");
+
+                    if ($i == 1) {
+                        $data_surat->id_user_pembuat = $id_user;
+                    }
+
+                    $data_pemohon = new Pemohon;
+                    $data_pemohon->id_user = $id_user;
+                    $data_pemohon->id_surat = $data_surat->id_surat;
+                    $data_pemohon->save();
+                }
+            }
+
+            $data_riwayat = new Riwayat;
+            $data_riwayat->nama_status = $status_awal;
+            $data_riwayat->id_surat = $data_surat->id_surat;
+            $data_riwayat->save();
+
+            DB::commit(); // Commit transaction
+
+            return redirect()->route("admin.surat");
+        } catch (\Exception $e) {
+            DB::rollback(); // Rollback transaction if an exception occurs
+
+            return redirect()->back()->with("error", "Terjadi kesalahan: " . $e->getMessage());
         }
-
-        $data_riwayat = new riwayat;
-        $data_riwayat->nama_status = $status_awal;
-        $data_riwayat->id_surat = $data_surat->id_surat;
-        $data_riwayat->save();
-
-        return redirect()->route("admin.surat");
     }
+
 }

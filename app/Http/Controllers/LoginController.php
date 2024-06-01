@@ -45,7 +45,7 @@ class LoginController extends Controller
                     return redirect()->back()->with('error', 'Data mahasiswa tidak ditemukan.');
                 } else {
                     Session::put('data_mahasiswa', $data_mahasiswa);
-                    return redirect(route('mahasiswa.index'));
+                    return redirect(route('mahasiswa.index'))->with('success', 'Login Berhasil');
                 }
             } elseif ($akses === 'dosen') {
                 $data_dosen = Dosen::where('id_user', $user->id_user)->first();
@@ -53,7 +53,7 @@ class LoginController extends Controller
                     return redirect()->back()->with('error', 'Data dosen tidak ditemukan.');
                 } else {
                     Session::put('data_dosen', $data_dosen);
-                    return redirect(route('dosen.index'));
+                    return redirect(route('dosen.index'))->with('success', 'Login Berhasil');
                 }
             }
         } else {

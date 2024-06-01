@@ -113,7 +113,7 @@ Route::group(['prefix' => 'dosen', 'middleware' => ['auth', 'cekakses:dosen']], 
             Route::get('/', [ProfileDosenController::class, 'index'])->name("dosen.profile");
             Route::put('/{id_dosen}', [ProfileDosenController::class, 'update'])->name("dosen.profile.update");
 
-            Route::put('/{id_user}', [UserPasswordController::class, 'update'])->name("dosen.password.update");
+            Route::put('/', [UserPasswordController::class, 'update'])->name("dosen.password.update");
         });
 
     });

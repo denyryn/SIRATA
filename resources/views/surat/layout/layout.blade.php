@@ -10,7 +10,7 @@
         body {
             font-family: 'Times New Roman', Times, serif;
             font-size: 12pt;
-            padding: 5cm 2cm 5cm 2cm;
+            padding: 4cm 3cm 4cm 3cm;
             background-color: white;
         }
 

@@ -16,7 +16,7 @@
 
         <div class="flex flex-col items-center my-5">
             <img src="{{ asset(Session::has('data_user') && Session::get('data_user')->foto_profil ? Session::get('data_user')->foto_profil : 'images/blank_profile.png') }}"
-                class="m-3 rounded-full h-14 sm:h-14" alt="User" title="cakepnyooo" />
+                class="m-3 rounded-full h-14 sm:h-14 shrink-0 grow-0" alt="User" title="cakepnyooo" />
             <div class="text-sm text-center text-white">
                 <span class="block">
                     {{ Session::has('data_mahasiswa') ? Session::get('data_mahasiswa')->nama_mahasiswa : 'Error' }}
