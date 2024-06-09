@@ -39,12 +39,12 @@
                     <tr>
                         <td class="py-2">Email</td>
                         <td class="py-2">:</td>
-                        <td class="py-2">{{ $data_dosen->user->email ? $data_dosen->user->email : '-' }}</td>
+                        <td class="py-2">{{ $data_user->email ? $data_user->email : '-' }}</td>
                     </tr>
                 </table>
             </div>
 
-            <form id="new_profile_image" class="hidden" action="{{ route('dosen.profile.update', $data_dosen->id_dosen) }}"
+            {{-- <form id="new_profile_image" class="hidden" action="{{ route('dosen.profile.update', $data_dosen->id_dosen) }}"
                 method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
@@ -65,16 +65,16 @@
                         Submit
                     </button>
                 </div>
-            </form>
+            </form> --}}
 
-            <div id="profile_image">
+            <div>
                 <div class="flex flex-col items-center justify-center md:items-none md:pe-12">
                     <div class="py-5 md:pb-5">
-                        <img id="profile_image_preview" class="rounded-sm size-40"
+                        <img class="rounded-sm size-40"
                             src="{{ asset($data_user->foto_profil ? $data_user->foto_profil : 'images/blank_profile.png') }}"
                             alt="{{ $data_dosen->nama_dosen }}'s Portrait" title="cakepnyoooo">
                     </div>
-                    <button id="editProfileBtn"
+                    <button data-modal-target="ubah-profil-modal" data-modal-toggle="ubah-profil-modal"
                         class="w-full py-2 text-white duration-100 ease-in-out rounded-md bg-blue-light hover:bg-blue-plain animate-none">
                         Edit Profile
                     </button>
@@ -133,6 +133,7 @@
     </div>
 
     @include('dosen.modals.ubah_password')
+    @include('dosen.modals.ubah_profil')
 
     <script src="{{ asset('js/profile/handleForm.js') }}"></script>
 

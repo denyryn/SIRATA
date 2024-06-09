@@ -38,19 +38,19 @@
                     <tr>
                         <td class="py-2">Email</td>
                         <td class="py-2">:</td>
-                        <td class="py-2">{{ $data_mahasiswa->user->email }}</td>
+                        <td class="py-2">{{ $data_user->email }}</td>
                     </tr>
                 </table>
             </div>
 
-            <form id="new_profile_image" class="hidden"
+            {{-- <form id="new_profile_image" class="hidden"
                 action="{{ route('mahasiswa.profile.update', $data_mahasiswa->id_mahasiswa) }}" method="POST"
                 enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
 
                 <div class="flex flex-col items-center justify-center md:items-none md:pe-12">
-                    <div class="py-5 duration-150 md:pb-5 hover:brightness-50">
+                    <div class="py-5 duration-150 md:pb-5 brightness-75 hover:brightness-50">
                         <label for="foto_profil" class="cursor-pointer">
                             <input id="foto_profil" name="foto_profil" class="hidden" type="file"
                                 onchange="loadFile(event)" />
@@ -65,16 +65,16 @@
                         Submit
                     </button>
                 </div>
-            </form>
+            </form> --}}
 
             <div id="profile_image">
                 <div class="flex flex-col items-center justify-center md:items-none md:pe-12">
                     <div class="py-5 md:pb-5">
-                        <img id="profile_image_preview" class="rounded-sm size-40"
+                        <img class="rounded-sm size-40"
                             src="{{ asset($data_user->foto_profil ? $data_user->foto_profil : 'images/blank_profile.png') }}"
                             title="cakepnyooo" alt="Blank_profile">
                     </div>
-                    <button id="editProfileBtn"
+                    <button data-modal-target="ubah-profil-modal" data-modal-toggle="ubah-profil-modal"
                         class="w-full py-2 text-white duration-100 ease-in-out rounded-md bg-blue-light hover:bg-blue-plain animate-none">
                         Edit Profile
                     </button>
@@ -133,6 +133,7 @@
     </div>
 
     @include('mahasiswa.modals.ubah_password')
+    @include('mahasiswa.modals.ubah_profil')
 
     <script src="{{ asset('js/profile/handleForm.js') }}"></script>
 

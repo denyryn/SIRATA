@@ -166,7 +166,11 @@
                 </td>
             </tr>
             <tr>
-                <td>{!! isset($data_surat['nama_jabatan']) ? $data_surat['nama_jabatan'] : 'Ketua Jurusan ..........' !!},</td>
+                <td>
+                    <span id="nama_jabatanContent">
+                        {!! isset($data_surat['nama_jabatan']) ? $data_surat['nama_jabatan'] : '' !!}
+                    </span>
+                </td>
             </tr>
             <tr>
                 <td>
@@ -175,18 +179,22 @@
             </tr>
             <tr>
                 <td>
-                    {!! isset($data_surat['pemilik_jabatan']->nama_dosen)
-                        ? $data_surat['pemilik_jabatan']->gelar_depan .
-                            ' ' .
-                            ucwords(strtolower($data_surat['pemilik_jabatan']->nama_dosen)) .
-                            ' ' .
-                            $data_surat['pemilik_jabatan']->gelar_belakang
-                        : '...........' !!}
+                    <span id="pemilik_jabatanContent">
+                        {!! isset($data_surat['pemilik_jabatan']->nama_dosen)
+                            ? $data_surat['pemilik_jabatan']->gelar_depan .
+                                ' ' .
+                                ucwords(strtolower($data_surat['pemilik_jabatan']->nama_dosen)) .
+                                ' ' .
+                                $data_surat['pemilik_jabatan']->gelar_belakang
+                            : '' !!}
+                    </span>
                 </td>
             </tr>
             <tr>
                 <td>
-                    NIP. {!! isset($data_surat['pemilik_jabatan']->nip) ? $data_surat['pemilik_jabatan']->nip : '...........' !!}
+                    <span id="nip_jabatanContent">
+                        NIP. {!! isset($data_surat['pemilik_jabatan']->nip) ? $data_surat['pemilik_jabatan']->nip : '' !!}
+                    </span>
                 </td>
             </tr>
         </table>

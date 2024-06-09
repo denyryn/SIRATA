@@ -39,6 +39,7 @@ use App\Http\Controllers\ManageUserMahasiswaController;
 
 use App\Http\Controllers\UserPasswordController;
 use App\Http\Controllers\SendMailToUserController;
+use App\Http\Controllers\StreamLampiranController;
 
 /*
 |--------------------------------------------------------------------------
@@ -74,12 +75,13 @@ Route::group(['prefix' => 'mahasiswa', 'middleware' => ['auth', 'cekakses:mahasi
         Route::prefix('/surat')->middleware('CekAksesSurat')->group(function () {
             Route::get('/surat_selesai/{id_surat}', [StreamSuratController::class, 'index'])->name("mahasiswa.surat.stream");
             Route::get('/preview/{id_surat}', [SuratMahasiswaController::class, 'read'])->name("mahasiswa.surat.preview");
+            Route::get('/lampiran/{id_surat}', [StreamLampiranController::class, 'index'])->name("mahasiswa.surat.lampiran");
             Route::get('/lacak/{id_surat}', [LayananLacakSuratController::class, 'index'])->name("mahasiswa.surat.lacak");
         });
 
         Route::prefix("/profile")->group(function () {
             Route::get('/', [ProfileMahasiswaController::class, 'index'])->name("mahasiswa.profile");
-            Route::put('/{id_mahasiswa}', [ProfileMahasiswaController::class, 'update'])->name("mahasiswa.profile.update");
+            Route::put('/update', [ProfileMahasiswaController::class, 'update'])->name("mahasiswa.profile.update");
 
             Route::put('/', [UserPasswordController::class, 'update'])->name("mahasiswa.password.update");
 
@@ -107,12 +109,13 @@ Route::group(['prefix' => 'dosen', 'middleware' => ['auth', 'cekakses:dosen']], 
         Route::prefix('/surat')->group(function () {
             Route::get('/surat_selesai/{id_surat}', [StreamSuratController::class, 'index'])->name("dosen.surat.stream");
             Route::get('/preview/{id_surat}', [SuratDosenController::class, 'read'])->name("dosen.surat.preview");
+            Route::get('/lampiran/{id_surat}', [StreamLampiranController::class, 'index'])->name("dosen.surat.lampiran");
             Route::get('/lacak_surat/{id_surat}', [LayananLacakSuratController::class, 'index'])->name("dosen.surat.lacak");
         });
 
         Route::prefix("/profile")->group(function () {
             Route::get('/', [ProfileDosenController::class, 'index'])->name("dosen.profile");
-            Route::put('/{id_dosen}', [ProfileDosenController::class, 'update'])->name("dosen.profile.update");
+            Route::put('/update', [ProfileDosenController::class, 'update'])->name("dosen.profile.update");
 
             Route::put('/', [UserPasswordController::class, 'update'])->name("dosen.password.update");
         });
@@ -177,6 +180,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'cekakses:admin']], 
             Route::get('/download/{id_surat}', [DownloadSuratController::class, 'index'])->name("admin.surat.download");
             Route::put('/upload/surat_selesai/{id_surat}', [UploadSuratController::class, 'index'])->name("admin.surat.upload");
             Route::get('/stream/surat_selesai/{id_surat}', [StreamSuratController::class, 'index'])->name("admin.surat.stream");
+            Route::get('/lampiran/{id_surat}', [StreamLampiranController::class, 'index'])->name("admin.surat.lampiran");
             Route::get('/preview/{id_surat}', [SuratController::class, 'edit'])->name("admin.surat.preview");
             Route::put('/preview/accept/{id_surat}', [SuratController::class, 'update'])->name("admin.surat.update");
             Route::put('/preview/reject/{id_surat}', [SuratController::class, 'reject'])->name("admin.surat.update.reject");
@@ -192,9 +196,11 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'cekakses:admin']], 
             Route::get('/', [ManageUserController::class, 'index'])->name("admin.manage_users");
 
             Route::get('/dosen', [ManageUserDosenController::class, 'index'])->name("admin.manage_users.dosen");
+            Route::post('/dosen', [ManageUserDosenController::class, 'store'])->name("admin.manage_users.dosen.create");
             Route::put('/dosen/{id_dosen}', [ManageUserDosenController::class, 'update'])->name("admin.manage_users.dosen.update");
 
             Route::get('/mahasiswa', [ManageUserMahasiswaController::class, 'index'])->name("admin.manage_users.mahasiswa");
+            Route::post('/mahasiswa', [ManageUserMahasiswaController::class, 'store'])->name("admin.manage_users.mahasiswa.create");
             Route::put('/mahasiswa/{id_mahasiswa}', [ManageUserMahasiswaController::class, 'update'])->name("admin.manage_users.mahasiswa.update");
 
             // ==========================API====================================

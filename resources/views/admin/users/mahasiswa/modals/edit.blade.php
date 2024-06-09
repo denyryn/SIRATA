@@ -45,24 +45,40 @@
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                             placeholder="Ketik Nama Mahasiswa" required value="{{ $mahasiswa->nama_mahasiswa }}">
                     </div>
-                    {{-- <div class="col-span-2">
+                    <div class="col-span-2">
                         <label for="id_dosen_pembimbing"
                             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                             Dosen Pembimbing
                         </label>
-                        <input type="text" name="id_dosen_pembimbing" id="id_dosen_pembimbing"
+                        <select name="id_dosen_pembimbing" id="id_dosen_pembimbing"
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                            placeholder="Ketik nama mahasiswa" required value="{{ $mahasiswa->id_dosen_pembimbing }}"
-                            >
-                    </div> --}}
-                    {{-- <div class="col-span-2">
+                            required>
+                            <option value="">Pilih Dosen Pembimbing</option> <!-- Default option -->
+                            @foreach ($data_dosen as $dosen)
+                                <option value="{{ $dosen->id_dosen }}"
+                                    @if ($dosen->id_dosen == $mahasiswa->id_dosen_pembimbing) selected @endif>
+                                    {{ $dosen->nama_dosen }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="col-span-2">
                         <label for="id_prodi" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                             Program Studi
                         </label>
-                        <input type="text" name="id_prodi" id="id_prodi"
+                        <select name="id_prodi" id="id_prodi"
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                            placeholder="Ketik nama id_prodi" required value="{{ $mahasiswa->id_prodi }}">
-                    </div> --}}
+                            required>
+                            <option value="">Pilih Program Studi</option> <!-- Default option -->
+                            @foreach ($data_prodi as $prodi)
+                                <option value="{{ $prodi->id_prodi }}"
+                                    @if ($prodi->id_prodi == $mahasiswa->id_prodi) selected @endif>
+                                    {{ $prodi->nama_prodi }}
+                                </option>
+                            @endforeach
+                        </select>
+
+                    </div>
                 </div>
                 <button type="submit"
                     class="text-white inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">

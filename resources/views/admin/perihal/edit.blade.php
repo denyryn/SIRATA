@@ -37,19 +37,19 @@
                 <label for="nama_tujuan" class="block mb-2 text-sm font-medium text-gray-900">
                     Nama Tujuan
                 </label>
-                <textarea
+                <input type="text"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                    id="nama_tujuan" name="nama_tujuan" cols="30" rows="2" placeholder="Masukkan Nama Tujuan"
-                    oninput="updateContent()">{{ $data_perihal->nama_tujuan }}</textarea>
+                    id="nama_tujuan" name="nama_tujuan" placeholder="Masukkan Nama Tujuan" onchange="updateContent()"
+                    value="{{ $data_perihal->nama_tujuan }}">
             </div>
             <div class="mb-5">
                 <label for="alamat_tujuan" class="block mb-2 text-sm font-medium text-gray-900">
                     Alamat Tujuan
                 </label>
-                <textarea
+                <input type="text"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                    id="alamat_tujuan" name="alamat_tujuan" cols="30" rows="2" placeholder="Masukkan Alamat Tujuan"
-                    oninput="updateContent()">{{ $data_perihal->alamat_tujuan }}</textarea>
+                    id="alamat_tujuan" name="alamat_tujuan" placeholder="Masukkan Alamat Tujuan" onchange="updateContent()"
+                    value="{{ $data_perihal->alamat_tujuan }}">
             </div>
             <div class="mb-5">
                 <label for="upper_body" class="block mb-2 text-sm font-medium text-gray-900">
@@ -58,7 +58,7 @@
                 <textarea
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                     id="upper_body" name="upper_body" cols="30" rows="4" placeholder="Masukkan Upper Body"
-                    oninput="updateContent()">{{ $data_perihal->upper_body }}</textarea>
+                    onchange="updateContent()">{{ $data_perihal->upper_body }}</textarea>
             </div>
             <div class="mb-5">
                 <label for="lower_body" class="block mb-2 text-sm font-medium text-gray-900">
@@ -67,7 +67,7 @@
                 <textarea
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                     id="lower_body" name="lower_body" cols="30" rows="4" placeholder="Masukkan Lower Body"
-                    oninput="updateContent()">{{ $data_perihal->lower_body }}</textarea>
+                    onchange="updateContent()">{{ $data_perihal->lower_body }}</textarea>
             </div>
 
             <button type=" submit"
@@ -110,7 +110,7 @@
 
     <script src="{{ asset('js/suratForm/previewZoom.js') }}"></script>
     <script src="{{ asset('js/suratForm/updateContent.js') }}"></script>
-    <script src="{{ asset('js/suratForm/handleTextareas.js') }}"></script>
+    <script src="{{ asset('js/suratForm/handleTextareasHtml.js') }}"></script>
 
 @endsection
 

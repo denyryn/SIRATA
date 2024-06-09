@@ -38,7 +38,7 @@ class SuratController extends Controller
         // Assuming $data_surat is a collection of Surat model instances
         foreach ($data_surat as $surat) {
             // Parse the created_at date using Carbon and format it
-            $surat->tanggal_buat = Carbon::parse($surat->created_at)->format('Y-m-d');
+            $surat->tanggal_buat = Carbon::parse($surat->created_at)->format('j M Y');
             $surat->jam_buat = Carbon::parse($surat->created_at)->format('H:i:s');
 
             // Fetch the latest related Riwayat entry for this Surat
@@ -58,6 +58,7 @@ class SuratController extends Controller
             // $pemohon = Pemohon::where('id_surat', $surat->id_surat)->first()->user->username;
             $pemohon = $surat->user->username;
             $surat->pemohon = $pemohon;
+
 
             // Fetch the Kategori Surat for this Surat
             $kategori_surat = Kategori_Surat::find($surat->id_kategori_surat);

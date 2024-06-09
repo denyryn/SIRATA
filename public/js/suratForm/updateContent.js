@@ -10,6 +10,15 @@ const elements = [
     "alamat_tujuan",
     "upper_body",
     "lower_body",
+    "id_jabatan",
+
+    // "id_user1",
+    // "id_user2",
+    // "id_user3",
+    // "id_user4",
+    // "id_user5",
+    // "id_user6",
+    // "id_user7",
 
     // pecahan dari body
     "lower_body_part",
@@ -45,9 +54,9 @@ function loadContent() {
         );
         const inputElement = getElementSafely(document, `${elementId}`);
 
-        if (inputElement && inputElement.value.trim() === "") {
-            const frameElement = element.innerHTML;
-            inputElement.value = frameElement.trim();
+        if (element && inputElement && inputElement.value.trim() === "") {
+            inputElement.value = element.innerHTML.trim();
+            inputElement.value = element.innerHTML.trim().replace(/\s+/g, " ");
         }
     }
 }
@@ -111,12 +120,165 @@ function updateContent() {
                 }
                 break;
 
+            case "id_jabatan":
+                const jabatan_input = getElementSafely(document, elementId);
+                const selectedJabatan =
+                    jabatan_input.options[jabatan_input.selectedIndex];
+
+                var nama_jabatanVal = selectedJabatan.dataset.nama_jabatan;
+                var pemilik_jabatanVal =
+                    selectedJabatan.dataset.pemilik_jabatan;
+                var nip_jabatanVal = selectedJabatan.dataset.nip_jabatan;
+
+                var nama_jabatanContainer = getElementSafely(
+                    templateDocument,
+                    `nama_jabatanContent`,
+                );
+                var pemilik_jabatanContainer = getElementSafely(
+                    templateDocument,
+                    `pemilik_jabatanContent`,
+                );
+                var nip_jabatanContainer = getElementSafely(
+                    templateDocument,
+                    `nip_jabatanContent`,
+                );
+
+                if (nama_jabatanContainer) {
+                    nama_jabatanContainer.innerHTML = nama_jabatanVal
+                        ? nama_jabatanVal
+                        : "........";
+                }
+
+                if (pemilik_jabatanContainer) {
+                    pemilik_jabatanContainer.innerHTML = pemilik_jabatanVal
+                        ? toTitleCase(pemilik_jabatanVal)
+                        : "........";
+                }
+
+                if (nip_jabatanContainer) {
+                    nip_jabatanContainer.innerHTML = nip_jabatanVal
+                        ? nip_jabatanVal
+                        : "........";
+                }
+
+                break;
+
             default:
                 if (elementId.includes("tanggal")) {
                     data = formatDateType2Safely(elementId);
-                } else {
-                    data = getElementValueSafely(elementId);
+                    break;
                 }
+
+                // if (elementId.includes("id_user")) {
+                //     const user_row = getElementSafely(
+                //         templateDocument,
+                //         `${elementId}Content`,
+                //     );
+
+                //     if (!user_row) {
+                //         // Create a new <tr> element
+                //         var newRow = document.createElement("tr");
+                //         newRow.style.border = "1px solid #000";
+                //         newRow.style.padding = "0.1cm";
+
+                //         // Create and append <td> elements with inner content
+                //         var cell1 = document.createElement("td");
+                //         cell1.style.border = "1px solid #000";
+                //         cell1.style.padding = "0.1cm";
+                //         cell1.style.textAlign = "center";
+                //         cell1.textContent = "..."; // Replace '...' with actual content
+
+                //         var cell2 = document.createElement("td");
+                //         cell2.id = `nama_${elementId}Content`; // Set the id attribute
+                //         cell2.style.border = "1px solid #000";
+                //         cell2.style.padding = "0.1cm";
+                //         cell2.style.textAlign = "justify";
+                //         cell2.textContent = "..."; // Replace '...' with actual content
+
+                //         var cell3 = document.createElement("td");
+                //         cell3.id = `nim_${elementId}Content`; // Set the id attribute
+                //         cell3.style.border = "1px solid #000";
+                //         cell3.style.padding = "0.1cm";
+                //         cell3.style.textAlign = "center";
+                //         cell3.textContent = "..."; // Replace '...' with actual content
+
+                //         var cell4 = document.createElement("td");
+                //         cell4.id = `program_${elementId}Content`; // Set the id attribute
+                //         cell4.style.border = "1px solid #000";
+                //         cell4.style.padding = "0.1cm";
+                //         cell4.style.textAlign = "center";
+                //         cell4.textContent = "..."; // Replace '...' with actual content
+
+                //         // Append the cells to the row
+                //         newRow.appendChild(cell1);
+                //         newRow.appendChild(cell2);
+                //         newRow.appendChild(cell3);
+                //         newRow.appendChild(cell4);
+
+                //         // Append the row to the table (assuming you have a table with id 'user_containerContent')
+                //         var table = document.getElementById(
+                //             "user_containerContent",
+                //         );
+
+                //         table.appendChild(newRow);
+                //     }
+
+                //     const user_input = getElementSafely(document, elementId);
+                //     const selectedUser =
+                //         user_input.options[user_input.selectedIndex];
+
+                //     var nama_userVal = selectedUser.dataset.nama_user;
+                //     var ni_userVal = selectedUser.dataset.ni_user;
+                //     var prodi_userVal = selectedUser.dataset.prodi_user;
+                //     var golongan_userVal = selectedUser.dataset.golongan_user;
+
+                //     var nama_userContainer = getElementSafely(
+                //         templateDocument,
+                //         `nama_${elementId}Content`,
+                //     );
+
+                //     var ni_userContainer = getElementSafely(
+                //         templateDocument,
+                //         `ni_${elementId}Content`,
+                //     );
+
+                //     var prodi_userContainer = getElementSafely(
+                //         templateDocument,
+                //         `prodi_${elementId}Content`,
+                //     );
+
+                //     var golongan_userContainer = getElementSafely(
+                //         templateDocument,
+                //         `golongan_${elementId}Content`,
+                //     );
+
+                //     if (nama_userContainer) {
+                //         nama_userContainer.innerHTML = nama_userVal
+                //             ? nama_userVal
+                //             : "........";
+                //     }
+
+                //     if (ni_userContainer) {
+                //         ni_userContainer.innerHTML = ni_userVal
+                //             ? ni_userVal
+                //             : "........";
+                //     }
+
+                //     if (prodi_userContainer) {
+                //         prodi_userContainer.innerHTML = prodi_userVal
+                //             ? prodi_userVal
+                //             : "........";
+                //     }
+
+                //     if (golongan_userContainer) {
+                //         golongan_userContainer.innerHTML = golongan_userVal
+                //             ? golongan_userVal
+                //             : "........";
+                //     }
+                //     break;
+                // }
+
+                data = getElementValueSafely(elementId);
                 break;
         }
 
@@ -206,6 +368,12 @@ function formatDateType1Safely(id) {
     };
 
     return element ? dateObject.toLocaleDateString("id-ID", options) : null;
+}
+
+function toTitleCase(str) {
+    return str.toLowerCase().replace(/(^|\s)\w/g, function (char) {
+        return char.toUpperCase();
+    });
 }
 
 function isInputHidden(id) {

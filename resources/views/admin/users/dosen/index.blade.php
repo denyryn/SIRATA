@@ -4,10 +4,10 @@
 
 @section('content')
     <div>
-        {{-- Kolom cari surat
         <nav class="flex items-center justify-end w-full p-2 font-normal bg-blue-500 h-fit rounded-xl">
             <div class="">
-                <form action="" method="GET" class="flex items-center max-w-sm mx-auto">
+                <form action="{{ route('admin.manage_users.dosen') }}" method="GET"
+                    class="flex items-center max-w-sm mx-auto">
                     @csrf
                     @method('GET')
 
@@ -28,12 +28,20 @@
                         </div>
                         <input type="text" id="user_search" name="user_search"
                             class="bg-gray-50 border-none text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  "
-                            placeholder="Cari User..." required />
+                            placeholder="Cari Dosen" required />
                     </div>
                     <button type="submit" hidden></button>
                 </form>
             </div>
-        </nav> --}}
+        </nav>
+
+        <div class="flex justify-end">
+            <!-- Button untuk trigger modals, modals harus diinclude (di bawah) -->
+            <button data-modal-target="add-dosen-modal" data-modal-toggle="add-dosen-modal"
+                class="m-2 text-white bg-blue-600 btn no-animation hover:bg-blue-700" type="button">
+                Tambah Dosen
+            </button>
+        </div>
 
         {{-- Pagination --}}
         <div class="my-5">
@@ -90,6 +98,7 @@
         {{-- Iterasi supaya modals edit dari semua data dapat keluar --}}
         @foreach ($data_dosens as $dosen)
             @include('admin.users.dosen.modals.edit')
+            @include('admin.users.dosen.modals.add')
         @endforeach
 
     </div>

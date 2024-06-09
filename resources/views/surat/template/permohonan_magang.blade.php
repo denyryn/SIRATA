@@ -91,7 +91,7 @@
                     <th style="border: 1px solid #000; padding: 0.1cm;">NIM</th>
                     <th style="border: 1px solid #000; padding: 0.1cm;">Program Studi</th>
                 </thead>
-                <tbody>
+                <tbody id="user_containerContent">
                     @if (isset($data_surat))
                         @foreach ($data_surat['data_pemohons'] as $pemohon)
                             <tr style="border: 1px solid #000; padding: 0.1cm;">
@@ -113,17 +113,19 @@
                             </tr>
                         @endforeach
                     @else
-                        <tr style="border: 1px solid #000; padding: 0.1cm;">
+                        <tr id="id_user1Content" style="border: 1px solid #000; padding: 0.1cm;">
                             <td style="border: 1px solid #000; padding: 0.1cm; text-align: center;">
                                 {!! $no++ !!}
                             </td>
-                            <td id="namaContent" style="border: 1px solid #000; padding: 0.1cm; text-align: justify;">
+                            <td id="nama_id_user1Content"
+                                style="border: 1px solid #000; padding: 0.1cm; text-align: justify;">
                                 ...........
                             </td>
-                            <td id="nimContent" style="border: 1px solid #000; padding: 0.1cm; text-align: center;">
+                            <td id="nim_id_user1Content"
+                                style="border: 1px solid #000; padding: 0.1cm; text-align: center;">
                                 ...........
                             </td>
-                            <td id="program_studiContent"
+                            <td id="prodi_id_user1Content"
                                 style="border: 1px solid #000; padding: 0.1cm; text-align: center;">
                                 ...........
                             </td>
@@ -160,7 +162,11 @@
                 </td>
             </tr>
             <tr>
-                <td>{!! isset($data_surat['nama_jabatan']) ? $data_surat['nama_jabatan'] : 'Ketua Jurusan ..........' !!},</td>
+                <td>
+                    <span id="nama_jabatanContent">
+                        {!! isset($data_surat['nama_jabatan']) ? $data_surat['nama_jabatan'] : '' !!}
+                    </span>
+                </td>
             </tr>
             <tr>
                 <td>
@@ -169,18 +175,22 @@
             </tr>
             <tr>
                 <td>
-                    {!! isset($data_surat['pemilik_jabatan']->nama_dosen)
-                        ? $data_surat['pemilik_jabatan']->gelar_depan .
-                            ' ' .
-                            ucwords(strtolower($data_surat['pemilik_jabatan']->nama_dosen)) .
-                            ' ' .
-                            $data_surat['pemilik_jabatan']->gelar_belakang
-                        : '...........' !!}
+                    <span id="pemilik_jabatanContent">
+                        {!! isset($data_surat['pemilik_jabatan']->nama_dosen)
+                            ? $data_surat['pemilik_jabatan']->gelar_depan .
+                                ' ' .
+                                ucwords(strtolower($data_surat['pemilik_jabatan']->nama_dosen)) .
+                                ' ' .
+                                $data_surat['pemilik_jabatan']->gelar_belakang
+                            : '' !!}
+                    </span>
                 </td>
             </tr>
             <tr>
                 <td>
-                    NIP. {!! isset($data_surat['pemilik_jabatan']->nip) ? $data_surat['pemilik_jabatan']->nip : '...........' !!}
+                    <span id="nip_jabatanContent">
+                        NIP. {!! isset($data_surat['pemilik_jabatan']->nip) ? $data_surat['pemilik_jabatan']->nip : '' !!}
+                    </span>
                 </td>
             </tr>
         </table>

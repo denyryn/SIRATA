@@ -111,7 +111,7 @@ class LayananSuratDosenController extends Controller
 
             if ($request->hasFile('lampiran')) {
                 $file_lampiran = $request->file('lampiran');
-                $filename = 'lampiran_' . $data_surat->id_surat . '_' . $data_surat->nama_perihal . '_' . $data_surat->nama_kategori . '_' . time() . '.' . $file_lampiran->getClientOriginalExtension();
+                $filename = 'lampiran_' . $data_surat->id_surat . '_' . preg_replace('/[^A-Za-z0-9\-]/', '', str_replace(' ', '-', $data_surat->nama_perihal)) . '_' . preg_replace('/[^A-Za-z0-9\-]/', '', str_replace(' ', '-', $data_surat->nama_kategori)) . '_' . time() . '.' . $file_lampiran->getClientOriginalExtension();
                 $path = "uploads/lampiran/";
                 $file_lampiran->move($path, $filename);
                 $data_surat->lampiran = $path . $filename;

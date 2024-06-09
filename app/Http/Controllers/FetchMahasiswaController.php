@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\DB;
+
 use App\Models\Program_Studi;
 use App\Models\Mahasiswa;
 use App\Models\User;
@@ -32,6 +34,7 @@ class FetchMahasiswaController extends Controller
         $data = json_decode($response->body());
 
         $total_duplikat = 0;
+        $total_insert = 0;
 
         // Memeriksa jika data tidak kosong
         if (empty($data->data)) {
@@ -42,41 +45,53 @@ class FetchMahasiswaController extends Controller
         } else {
             // Looping melalui setiap mahasiswa dalam data
             foreach ($data->data as $mahasiswa) {
-                $mahasiswa = (object) array_change_key_case((array) $mahasiswa, CASE_LOWER);
+                try {
+                    DB::beginTransaction(); // Begin transaction
 
-                //menghapus tanda titik pada nim
-                $nim = str_replace('.', '', $mahasiswa->nim);
-                $prodi = Program_Studi::whereRaw('LOWER(nama_prodi) = ?', [strtolower($mahasiswa->program_studi)])->first();
-                $dosen_pembimbing = Dosen::where('nip', $mahasiswa->nip_dosen_wali)->first();
+                    $mahasiswa = (object) array_change_key_case((array) $mahasiswa, CASE_LOWER);
 
-                if ($mahasiswa) {
-                    $duplikat = User::where('username', $nim)->first();
-                    if ($duplikat) {
-                        $total_duplikat++;
-                    } else {
-                        // If user with nim doesn't exist, create new user and student record
-                        $data_user = new User;
-                        $data_user->username = $nim;
-                        $data_user->akses = "mahasiswa";
-                        $data_user->password = bcrypt("polinesjaya");
-                        $data_user->remember_token = Str::random(60);
-                        $data_user->email = $mahasiswa->email;
-                        $data_user->save();
+                    //menghapus tanda titik pada nim
+                    $nim = str_replace('.', '', $mahasiswa->nim);
+                    $prodi = Program_Studi::whereRaw('LOWER(nama_prodi) = ?', [strtolower($mahasiswa->program_studi)])->first();
+                    $dosen_pembimbing = Dosen::where('nip', $mahasiswa->nip_dosen_wali)->first();
 
-                        $data_mahasiswa = new Mahasiswa;
-                        $data_mahasiswa->nim = $nim;
-                        $data_mahasiswa->id_user = $data_user->id_user;
-                        $data_mahasiswa->id_prodi = $prodi->id_prodi;
-                        $data_mahasiswa->id_dosen_pembimbing = ((!is_null($dosen_pembimbing) && !is_null($dosen_pembimbing->id_dosen)) ? $dosen_pembimbing->id_dosen : null);
-                        $data_mahasiswa->nama_mahasiswa = $mahasiswa->nama;
-                        $data_mahasiswa->save();
+                    if ($mahasiswa) {
+                        $duplikat = User::where('username', $nim)->first();
+                        if ($duplikat) {
+                            $total_duplikat++;
+                        } else {
+                            // If user with nim doesn't exist, create new user and student record
+                            $data_user = new User;
+                            $data_user->username = $nim;
+                            $data_user->akses = "mahasiswa";
+                            $data_user->password = bcrypt("polinesjaya");
+                            $data_user->remember_token = Str::random(60);
+                            $data_user->email = $mahasiswa->email;
+                            $data_user->save();
+
+                            $data_mahasiswa = new Mahasiswa;
+                            $data_mahasiswa->nim = $nim;
+                            $data_mahasiswa->id_user = $data_user->id_user;
+                            $data_mahasiswa->id_prodi = $prodi->id_prodi;
+                            $data_mahasiswa->id_dosen_pembimbing = ((!is_null($dosen_pembimbing) && !is_null($dosen_pembimbing->id_dosen)) ? $dosen_pembimbing->id_dosen : null);
+                            $data_mahasiswa->nama_mahasiswa = $mahasiswa->nama;
+                            $data_mahasiswa->save();
+                            $total_insert++;
+                        }
                     }
+
+                    DB::commit(); // Commit transaction
+
+                } catch (\Exception $e) {
+                    DB::rollBack(); // Rollback transaction if an error occurs
+                    continue; // Move to the next data
                 }
             }
 
             return response()->json([
                 'success' => true,
-                'message' => 'Data mahasiswa berhasil ditambahkan dengan total duplikat ' . ($duplikat ? $total_duplikat + 1 : $total_duplikat),
+                'message' => 'Data mahasiswa berhasil ditambahkan dengan total duplikat ' . ($duplikat ? $total_duplikat + 1 : $total_duplikat) .
+                    ' dan total insert ' . ($total_insert),
             ], 201);
         }
     }

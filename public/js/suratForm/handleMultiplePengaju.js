@@ -107,6 +107,16 @@ document.addEventListener("DOMContentLoaded", function () {
             // Add options from dosens data
             dosens.forEach(function (item) {
                 const newOption = document.createElement("option");
+                newOption.setAttribute("data-nama_user", item.nama_dosen);
+                newOption.setAttribute("data-ni_user", item.nip);
+                newOption.setAttribute(
+                    "data-prodi_user",
+                    item.nama_prodi ? item.nama_prodi : "",
+                );
+                newOption.setAttribute(
+                    "data-golongan_user",
+                    item.golongan ? item.golongan : "",
+                );
                 newOption.setAttribute("value", item.id_user);
                 newOption.textContent = item.nama_dosen;
                 newSelect.appendChild(newOption);
@@ -119,6 +129,16 @@ document.addEventListener("DOMContentLoaded", function () {
             // Add options from mahasiswas data
             mahasiswas.forEach(function (item) {
                 const newOption = document.createElement("option");
+                newOption.setAttribute("data-nama_user", item.nama_mahasiswa);
+                newOption.setAttribute("data-ni_user", item.nim);
+                newOption.setAttribute(
+                    "data-prodi_user",
+                    item.nama_prodi ? item.nama_prodi : "",
+                );
+                newOption.setAttribute(
+                    "data-golongan_user",
+                    item.golongan ? item.golongan : "",
+                );
                 newOption.setAttribute("value", item.id_user);
                 newOption.textContent = item.nama_mahasiswa;
                 newSelect.appendChild(newOption);

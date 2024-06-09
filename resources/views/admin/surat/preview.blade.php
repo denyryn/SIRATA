@@ -14,6 +14,12 @@
                 srcdoc="{{ $rendered_template }}" frameborder="0"></iframe>
 
             <div class="flex flex-col w-1/4">
+                @if ($data_surat['surat']->lampiran)
+                    <a class="text-white flex-grow bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center mb-5"
+                        href="{{ route('admin.surat.lampiran', $data_surat['surat']->id_surat) }}">
+                        Lihat Lampiran
+                    </a>
+                @endif
                 <form class="flex flex-col flex-grow min-w-full"
                     action="{{ route('admin.surat.update', $data_surat['surat']->id_surat) }}" method="POST">
                     @csrf
