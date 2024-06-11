@@ -27,8 +27,7 @@
             <div class="flex flex-col items-center m-14">
 
                 <div class="flex flex-row items-center mb-5">
-                    <img class="size-12 w-fit" src="{{ asset('images/polines-wquote.png') }}"
-                        alt="Politeknik Negeri Semarang">
+                    <img class="h-12" src="{{ asset('images/polines-wquote.png') }}" alt="Politeknik Negeri Semarang">
                     <div class="flex flex-row items-center ms-4">
                         <img class="size-10" src="{{ asset('images/sirata-gradient-logo.png') }}" alt="Sirata Blue Logo">
                         <img class="h-14 ps-1" src="{{ asset('images/sirata-gradient-letters.png') }}"

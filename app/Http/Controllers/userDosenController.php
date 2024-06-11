@@ -34,7 +34,7 @@ class UserDosenController extends Controller
         $no = 1;
 
         foreach ($data_surat as $item) {
-            $item->tanggal_buat = Carbon::parse($item->created_at)->format('Y-m-d');
+            $item->tanggal_buat = Carbon::parse($item->created_at)->format('d M Y');
             $item->jam_buat = Carbon::parse($item->created_at)->format('H:i:s');
 
             // Fetch the latest related Riwayat entry for this Surat

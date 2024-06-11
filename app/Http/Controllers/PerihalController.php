@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Kategori_Surat;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Exception;
+
 use App\Models\perihal;
 use Carbon\Carbon;
 
@@ -31,15 +34,27 @@ class perihalController extends Controller
 
     public function store(Request $request)
     {
-        $data_perihal = new perihal;
-        $data_perihal->nama_perihal = $request->nama_perihal;
-        $data_perihal->id_kategori_surat = $request->id_kategori_surat;
-        $data_perihal->nama_tujuan = $request->nama_tujuan;
-        $data_perihal->alamat_tujuan = $request->alamat_tujuan;
-        $data_perihal->upper_body = $request->upper_body;
-        $data_perihal->lower_body = $request->lower_body;
-        $data_perihal->save();
-        return redirect()->route("admin.perihal");
+        try {
+            DB::beginTransaction();
+
+            $data_perihal = new perihal;
+            $data_perihal->nama_perihal = $request->nama_perihal;
+            $data_perihal->id_kategori_surat = $request->id_kategori_surat;
+            $data_perihal->nama_tujuan = $request->nama_tujuan;
+            $data_perihal->alamat_tujuan = $request->alamat_tujuan;
+            $data_perihal->upper_body = $request->upper_body;
+            $data_perihal->lower_body = $request->lower_body;
+            $data_perihal->save();
+
+            DB::commit();
+
+            return redirect()->route("admin.perihal")->with('success', 'Perihal berhasil ditambahkan.');
+        } catch (Exception $e) {
+            DB::rollBack();
+
+            // Handle the exception
+            return redirect()->route("admin.perihal")->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
+        }
     }
 
     public function read($id_perihal)
@@ -87,15 +102,32 @@ class perihalController extends Controller
 
     public function update(Request $request, $id_perihal)
     {
-        $data_perihal = perihal::find($id_perihal);
-        $data_perihal->nama_perihal = $request->nama_perihal;
-        $data_perihal->id_kategori_surat = $request->id_kategori_surat;
-        $data_perihal->nama_tujuan = $request->nama_tujuan;
-        $data_perihal->alamat_tujuan = $request->alamat_tujuan;
-        $data_perihal->upper_body = $request->upper_body;
-        $data_perihal->lower_body = $request->lower_body;
-        $data_perihal->update();
-        return redirect(route('admin.perihal'));
+        try {
+            DB::beginTransaction();
+
+            $data_perihal = perihal::find($id_perihal);
+
+            if (!$data_perihal) {
+                throw new Exception("Perihal not found.");
+            }
+
+            $data_perihal->nama_perihal = $request->nama_perihal;
+            $data_perihal->id_kategori_surat = $request->id_kategori_surat;
+            $data_perihal->nama_tujuan = $request->nama_tujuan;
+            $data_perihal->alamat_tujuan = $request->alamat_tujuan;
+            $data_perihal->upper_body = $request->upper_body;
+            $data_perihal->lower_body = $request->lower_body;
+            $data_perihal->update();
+
+            DB::commit();
+
+            return redirect(route('admin.perihal'))->with('success', 'Perihal berhasil diperbarui.');
+        } catch (Exception $e) {
+            DB::rollBack();
+
+            // Handle the exception
+            return redirect(route('admin.perihal'))->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
+        }
     }
 
     public function delete($id_perihal)
@@ -103,7 +135,7 @@ class perihalController extends Controller
         $data_perihal = perihal::find($id_perihal);
         $data_perihal->delete();
 
-        return redirect(route('admin.perihal'))->with('success', 'perihal has been deleted successfully');
+        return redirect(route('admin.perihal'))->with('success', 'Perihal telah dihapus.');
     }
 
 }

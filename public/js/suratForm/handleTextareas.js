@@ -23,6 +23,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
         var quill = new Quill(container, {
             theme: "snow",
+            modules: {
+                toolbar: [["bold", "italic", "underline", "strike"]],
+            },
         });
 
         quill.root.style.color = "black";

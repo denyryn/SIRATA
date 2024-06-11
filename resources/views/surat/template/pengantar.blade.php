@@ -152,7 +152,7 @@
                 </td>
             </tr>
             <tr>
-                <td id="nim_engajuContent">
+                <td id="nim_pengajuContent">
                     NIM. {!! isset($data_surat['data_pemohons'][0]['identitas']->nim)
                         ? $data_surat['data_pemohons'][0]['identitas']->nim
                         : '...........' !!}

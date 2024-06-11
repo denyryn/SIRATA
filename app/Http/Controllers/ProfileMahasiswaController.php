@@ -53,10 +53,10 @@ class ProfileMahasiswaController extends Controller
 
             DB::commit(); // Commit transaction if all updates succeed
 
-            return redirect()->back()->with('success', 'Profile updated successfully.');
+            return redirect()->back()->with('success', 'Profile berhasil diperbarui.');
         } catch (\Exception $e) {
             DB::rollBack(); // Rollback transaction on exception
-            return redirect()->back()->with('error', 'Failed to update profile: ' . $e->getMessage());
+            return redirect()->back()->with('error', 'Gagal memperbarui diperbarui: ' . $e->getMessage());
         }
     }
 }

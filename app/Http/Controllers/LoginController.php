@@ -38,7 +38,7 @@ class LoginController extends Controller
 
 
             if ($akses === 'admin') {
-                return redirect(route('admin.index'));
+                return redirect(route('admin.index'))->with('success', 'Login Berhasil');
             } elseif ($akses === 'mahasiswa') {
                 $data_mahasiswa = Mahasiswa::where('id_user', $user->id_user)->first();
                 if (!$data_mahasiswa) {
