@@ -20,7 +20,11 @@ class SuratController extends Controller
 {
     public function index(Request $request)
     {
-        $query = Surat::query(); // Start with a query builder instance
+        $statuses = Riwayat::distinct()->get(['nama_status']);
+
+        $filterByStatus = $request->input('filter_by_status');
+
+        $query = Surat::query()->with('riwayat');
 
         $searchQuery = $request->input('surat_search');
 
@@ -33,12 +37,22 @@ class SuratController extends Controller
             });
         }
 
-        $data_surat = $query->latest()->paginate(10);
+        if (empty($filterByStatus)) {
+            $data_surat = $query->latest()->paginate(10);
+        } else {
+            $data_surat = $query->whereHas('riwayat', function ($query) use ($filterByStatus) {
+                $query->where('nama_status', $filterByStatus)
+                    ->where('created_at', function ($query) {
+                        $query->selectRaw('MAX(created_at)')
+                            ->from('riwayats')
+                            ->whereColumn('riwayats.id_surat', 'surats.id_surat');
+                    });
+            })->latest()->paginate(10);
+        }
 
-        // Assuming $data_surat is a collection of Surat model instances
         foreach ($data_surat as $surat) {
             // Parse the created_at date using Carbon and format it
-            $surat->tanggal_buat = Carbon::parse($surat->created_at)->format('Y-m-d');
+            $surat->tanggal_buat = Carbon::parse($surat->created_at)->format('j M Y');
             $surat->jam_buat = Carbon::parse($surat->created_at)->format('H:i:s');
 
             // Fetch the latest related Riwayat entry for this Surat
@@ -52,19 +66,16 @@ class SuratController extends Controller
             // Fetch all related Riwayat entries for this Surat
             $riwayat = Riwayat::where('id_surat', $surat->id_surat)->get();
 
-            // Extract the nama_status from each Riwayat and assign it to $item->riwayat
-            // dd($surat->riwayat);
-
-            // $pemohon = Pemohon::where('id_surat', $surat->id_surat)->first()->user->username;
             $pemohon = $surat->user->username;
             $surat->pemohon = $pemohon;
+
 
             // Fetch the Kategori Surat for this Surat
             $kategori_surat = Kategori_Surat::find($surat->id_kategori_surat);
             $surat->nama_kategori = $kategori_surat ? $kategori_surat->nama_kategori : 'Not Found';
         }
 
-        return view("admin.surat.index", compact('data_surat'));
+        return view("admin.surat.index", compact('data_surat', 'statuses'));
     }
 
     public function edit(Request $request, $id_surat)
@@ -165,6 +176,36 @@ class SuratController extends Controller
         return redirect(route('admin.surat'));
     }
 
+
+    public function approve(Request $request, $id_surat)
+    {
+        $data_surat = Surat::find($id_surat);
+        $nama_status_terakhir = $data_surat->riwayat->last()->nama_status;
+
+        $request->validate([
+            'surat_selesai' => 'required|mimes:pdf',
+        ]);
+
+        $file_surat = $request->file('surat_selesai');
+        $filename = preg_replace('/[^\w]/', '_', $data_surat->id_surat . '_' . $data_surat->nama_perihal . '_' . $data_surat->nama_kategori . '_' . time() . '.' . $file_surat->getClientOriginalExtension());
+        $path = "uploads/surat_selesai/";
+        $file_surat->move($path, $filename);
+
+        $data_surat->surat_selesai = $path . $filename;
+        $data_surat->save();
+
+        if (!(str_contains(strtolower($nama_status_terakhir), 'disetujui'))) {
+            $status_setuju = 'Disetujui';
+
+            $data_riwayat = new Riwayat;
+            $data_riwayat->nama_status = $status_setuju;
+            $data_riwayat->id_surat = $data_surat->id_surat;
+            $data_riwayat->save();
+        }
+
+        return redirect(route('admin.surat'));
+    }
+
     public function reject(Request $request, $id_surat)
     {
         $status_ditolak = 'Ditolak - Admin';
@@ -178,7 +219,7 @@ class SuratController extends Controller
         $data_riwayat->id_surat = $data_surat->id_surat;
         $data_riwayat->save();
 
-        return redirect(route('admin.surat'));
+        return redirect(route('admin.users.send_mail', compact('id_surat')));
     }
 
 }

@@ -5,6 +5,9 @@ namespace App\Providers;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Pagination\Paginator;
 
+use App\Models\Surat;
+use App\Observers\SuratObserver;
+
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -21,5 +24,6 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Paginator::useTailwind();
+        Surat::observe(SuratObserver::class);
     }
 }

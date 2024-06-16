@@ -55,12 +55,12 @@
                 <tbody class="text-gray-900">
                     @foreach ($data_surat as $surat)
                         <tr>
-                            <td>{{ $surat->id_surat }}</td>
-                            <td>{{ $surat->tanggal_buat }}</td>
-                            <td>{{ $surat->nama_perihal }}</td>
-                            <td>{{ $surat->nama_kategori }}</td>
-                            <td>{{ $surat->jam_buat }}</td>
-                            <td class="flex flex-row">
+                            <td class="text-center">{{ $surat->id_surat }}</td>
+                            <td class="text-center">{{ $surat->tanggal_buat }}</td>
+                            <td class="text-center">{{ $surat->nama_perihal }}</td>
+                            <td class="text-center">{{ $surat->nama_kategori }}</td>
+                            <td class="text-center">{{ $surat->jam_buat }}</td>
+                            <td class="flex flex-row justify-center">
                                 @if (str_contains(strtolower($surat->status_terbaru), 'disetujui'))
                                     <a href="{{ route('dosen.surat.stream', $surat->id_surat) }}"
                                         class="p-2 px-4 text-center text-white duration-150 bg-green-600 rounded-lg btn animate-none hover:bg-green-700"

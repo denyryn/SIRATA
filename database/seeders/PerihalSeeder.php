@@ -17,7 +17,7 @@ class PerihalSeeder extends Seeder
             [
                 "id_kategori_surat" => "1",
                 "nama_perihal" => "Permohonan Izin Observasi / PKL / Pinjam Data",
-                "nama_tujuan" => "Yth. Kaprodi Kuwat Santoso",
+                "nama_tujuan" => "Kaprodi Kuwat Santoso",
                 "alamat_tujuan" => "Politeknik Negeri Semarang",
                 "upper_body" => "Dengan ini mohon dibuatkan surat pengantar Permohonan Izin Observasi / PKL / Pinjam Data atas nama mahasiswa di bawah ini :",
                 "lower_body" => "Tempat Observasi / PKL / Pinjam Data : <br>
@@ -29,7 +29,7 @@ Tanggal Pelaksanaan : <br>"
             [
                 "id_kategori_surat" => "2",
                 "nama_perihal" => "Permohonan Magang",
-                "nama_tujuan" => "Yth. Direktur PT. Educa Sisfomedia Indonesia",
+                "nama_tujuan" => "Direktur PT. Educa Sisfomedia Indonesia",
                 "alamat_tujuan" => "Jalan Gilingrejo No.10, Gendongan, Tingkir, Salatiga",
                 "upper_body" => "Guna memenuhi kurikulum Jurusan Teknik Elektro, Prodi D3 Teknik Informatika dengan hormat disampaikan permohonan kesempatan melaksanakan Magang di PT.Educa Sisfomedia Indonesia selama 6 (enam) bulan, sebanyak 1 (satu) orang mahasiswa sebagai berikut :",
                 "lower_body" => "Mohon dapat memberikan konfirmasinya dalam waktu yang tidak terlalu lama, ditujukan kepada Ketua Jurusan Teknik Elektro Politeknik Negeri Semarang.<br>
@@ -42,7 +42,7 @@ Demikian, atas ketersediaan dan kerjasamanya diucapkan terimakasih."
             [
                 "id_kategori_surat" => "3",
                 "nama_perihal" => "Permohonan Pinjam Ruang",
-                "nama_tujuan" => "Yth. Kepala Sub Bagian Umum",
+                "nama_tujuan" => "Kepala Sub Bagian Umum",
                 "alamat_tujuan" => "Polines",
                 "upper_body" => "Sehubungan dengan kegiatan Kuliah Tamu Prodi D3 Teknik Informatika dan Prodi STr Teknologi Rekayasa Komputer Jurusan Teknik Elektro, kami mohon izin untuk meminjam ruang pada :",
                 "lower_body" => '<table style="padding-left: 1cm" class="tabel-rata">
@@ -130,7 +130,7 @@ Demikian permohonan kami, atas izin dan kesempatan yang diberikan diucapkan Teri
             [
                 "id_kategori_surat" => "4",
                 "nama_perihal" => "Permohonan Surat Tugas",
-                "nama_tujuan" => "Yth. Ketua Jurusan Elektro",
+                "nama_tujuan" => "Ketua Jurusan Elektro",
                 "alamat_tujuan" => "Politeknik Negeri Semarang",
                 "upper_body" => '<p id="hormatContent">
             Dengan Hormat, <br>
@@ -195,7 +195,9 @@ Demikian permohonan kami, atas izin dan kesempatan yang diberikan diucapkan Teri
                 "nama_perihal" => "Permohonan Izin Kunjungan Kuliah Kerja Lapangan",
                 "nama_tujuan" => "Yth. Pimpinan ....",
                 "alamat_tujuan" => "Jl. .....",
-                "upper_body" => 'Sehubungan dengan akan dilaksanakan Kuliah Kerja Lapangan (KKL) Program Studi D3 Teknik Informatika dan D4 Teknologi Rekayasa Komputer Politeknik Negeri Semarang, maka kami mengajukan permohonan izin untuk melaksanakan kunjungan Kuliah Kerja Lapangan di ...',
+                "upper_body" => 'Sehubungan dengan akan dilaksanakan Kuliah Kerja Lapangan (KKL) Program Studi D3 Teknik Informatika dan D4 Teknologi Rekayasa Komputer Politeknik Negeri Semarang, maka kami mengajukan permohonan izin untuk melaksanakan kunjungan Kuliah Kerja Lapangan di ...<br>
+<br>
+Adapun rencana pelaksanaannya adalah:',
                 "lower_body" => '<p id="lower_body_part1Content">
 Adapun rencana pelaksanaannya adalah:
         </p>
@@ -261,7 +263,7 @@ Demikian permohonan kami, atas izin dan kesempatan yang diberikan diucapkan Teri
             [
                 "id_kategori_surat" => "6",
                 "nama_perihal" => "Permohonan Surat Tugas dan SPPD",
-                "nama_tujuan" => "Yth. Ketua Jurusan Elektro",
+                "nama_tujuan" => "Ketua Jurusan Elektro",
                 "alamat_tujuan" => "Politeknik Negeri Semarang",
                 "upper_body" => '<p id="hormatContent"><br>
 Dengan Hormat,<br>

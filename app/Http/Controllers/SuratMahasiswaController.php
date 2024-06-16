@@ -24,8 +24,6 @@ class SuratMahasiswaController extends Controller
 
         $tanggal_surat = Carbon::parse($surat->created_at)->translatedFormat('d F Y');
 
-        // dd($tanggal_surat);
-
         $pemohons = $surat->Pemohon()->get();
 
         foreach ($pemohons as $pemohon) {
@@ -69,8 +67,6 @@ class SuratMahasiswaController extends Controller
         if (!view()->exists($template)) {
             abort(404, __('Template not found.'));
         }
-
-        // dd($data_surat);
 
         $rendered_template = view($template, compact('data_surat', 'no'))->render();
         return view('mahasiswa.surat.preview', compact('data_surat', 'rendered_template'));

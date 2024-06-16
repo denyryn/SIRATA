@@ -4,10 +4,10 @@
 
 @section('content')
     <div>
-        {{-- Kolom cari surat
         <nav class="flex items-center justify-end w-full p-2 font-normal bg-blue-500 h-fit rounded-xl">
             <div class="">
-                <form action="" method="GET" class="flex items-center max-w-sm mx-auto">
+                <form action="{{ route('admin.manage_users.mahasiswa') }}" method="GET"
+                    class="flex items-center max-w-sm mx-auto">
                     @csrf
                     @method('GET')
 
@@ -28,12 +28,19 @@
                         </div>
                         <input type="text" id="user_search" name="user_search"
                             class="bg-gray-50 border-none text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  "
-                            placeholder="Cari User..." required />
+                            placeholder="Cari Mahasiswa" required />
                     </div>
                     <button type="submit" hidden></button>
                 </form>
             </div>
-        </nav> --}}
+        </nav>
+        <div class="flex justify-end">
+            <!-- Button untuk trigger modals, modals harus diinclude (di bawah) -->
+            <button data-modal-target="add-mahasiswa-modal" data-modal-toggle="add-mahasiswa-modal"
+                class="m-2 text-white bg-blue-600 btn no-animation hover:bg-blue-700" type="button">
+                Tambah Mahasiswa
+            </button>
+        </div>
 
         {{-- Pagination --}}
         <div class="my-5">
@@ -48,7 +55,8 @@
                     <th>NIM</th>
                     <th>Nama</th>
                     <th>Nama Dosen Pembimbing</th>
-                    {{-- <th>Aksi</th> --}}
+                    <th>Program Studi</th>
+                    <th>Aksi</th>
                 </thead>
                 <tbody class="text-gray-900">
                     @foreach ($data_mahasiswas as $mahasiswa)
@@ -64,6 +72,9 @@
                             </td>
                             <td>
                                 {{ $mahasiswa->id_dosen_pembimbing ? $mahasiswa->dosen->nama_dosen : '-' }}
+                            </td>
+                            <td>
+                                {{ $mahasiswa->id_prodi ? $mahasiswa->program_studi->nama_prodi : '-' }}
                             </td>
                             <td>
                                 <button data-modal-target="edit-mahasiswa-modal{{ $mahasiswa->id_mahasiswa }}"
@@ -86,6 +97,7 @@
         {{-- Iterasi supaya modals edit dari semua data dapat keluar --}}
         @foreach ($data_mahasiswas as $mahasiswa)
             @include('admin.users.mahasiswa.modals.edit')
+            @include('admin.users.mahasiswa.modals.add')
         @endforeach
 
     </div>

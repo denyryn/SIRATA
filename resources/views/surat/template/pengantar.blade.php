@@ -34,6 +34,7 @@
     <div style="padding-top: 0.5cm;"></div>
 
     <div>
+        <span>Yth. </span>
         <span id="nama_tujuanContent">
             {!! isset($data_surat['surat']->nama_tujuan)
                 ? $data_surat['surat']->nama_tujuan
@@ -151,13 +152,14 @@
                 </td>
             </tr>
             <tr>
-                <td id="nim_engajuContent">
+                <td id="nim_pengajuContent">
                     NIM. {!! isset($data_surat['data_pemohons'][0]['identitas']->nim)
                         ? $data_surat['data_pemohons'][0]['identitas']->nim
                         : '...........' !!}
                 </td>
             </tr>
         </table>
+
     </div>
 @endsection
 

@@ -31,28 +31,14 @@
                         <tr>
                             <td>{{ $prodi->id_prodi }}</td>
                             <td>{{ $prodi->nama_prodi }}</td>
-                            <form class="w-full" method="POST" action="{{ route('prodi.delete', $prodi->id_prodi) }}">
-                                @csrf
-                                @method('DELETE')
-
-                                <td class="grid grid-cols-2">
-                                    {{-- <a class="m-2 text-white bg-blue-600 btn no-animation hover:bg-blue-400"
-                                        href="{{ route('prodi.edit', $prodi->id_prodi) }}">
-                                        Edit
-                                    </a> --}}
-
-                                    <a data-modal-target="edit-prodi-modal{{ $prodi->id_prodi }}"
-                                        data-modal-toggle="edit-prodi-modal{{ $prodi->id_prodi }}"
-                                        class="m-2 text-white bg-blue-600 btn no-animation hover:bg-blue-700"
-                                        href="#">
-                                        Edit
-                                    </a>
-
-                                    <button type="submit"
-                                        class="m-2 text-white bg-red-600 btn no-animation hover:bg-red-700"
-                                        onclick="return confirm('Confirm delete?')">Delete</button>
-                                </td>
-                            </form>
+                            <td>
+                                <a data-modal-target="edit-prodi-modal{{ $prodi->id_prodi }}"
+                                    data-modal-toggle="edit-prodi-modal{{ $prodi->id_prodi }}"
+                                    class="w-full m-2 text-white bg-blue-600 btn no-animation hover:bg-blue-700"
+                                    href="#">
+                                    Edit
+                                </a>
+                            </td>
                         </tr>
                     @endforeach
                 @endif
@@ -69,3 +55,4 @@
     @endforeach
 
 @endsection
+

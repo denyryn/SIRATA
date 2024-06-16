@@ -41,9 +41,6 @@ class CariLayananSuratController extends Controller
             }
         }
 
-        // dd($searchQuery);
-        // dd($data_perihal);
-
         return view('surat.index', compact('data_perihal'));
     }
 }

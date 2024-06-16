@@ -15,26 +15,23 @@ class LayananLacakSuratController extends Controller
     public function index($id_surat)
     {
         $data_surat = Surat::find($id_surat);
-        $tanggal_surat = Carbon::parse($data_surat->created_at)->format('d-m-Y');
+        $tanggal_surat = Carbon::parse($data_surat->created_at)->translatedFormat('d M Y');
 
         $riwayats = $data_surat->riwayat;
-        $waktu_tanggal = [];
 
         foreach ($riwayats as $riwayat) {
             $created_at = Carbon::parse($riwayat->created_at);
-            $formatted_date = $created_at->format('Y-m-d h:i A');
+            $formatted_date = $created_at->format('j M Y, H:i');
 
-            $waktu_tanggal[] = [
-                'created_at' => $formatted_date,
-            ];
+            $riwayat->waktu_status = $formatted_date;
         }
 
         $data_surat = [
             'surat' => $data_surat,
             'tanggal_surat' => $tanggal_surat,
-            'riwayats' => $riwayats,
-            'waktu' => $waktu_tanggal
+            'riwayats' => $riwayats
         ];
+
         return view('mahasiswa.surat.lacak_surat', compact('data_surat'));
     }
 }

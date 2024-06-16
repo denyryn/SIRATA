@@ -14,7 +14,9 @@
                             <span class="block text-4xl font-semibold md:text-5xl">
                                 {{ $total_surat }}
                             </span>
-                            <span class="block text-sm font-light">Total Surat</span>
+                            <div class="flex flex-row items-center">
+                                <span class="block text-sm font-light me-2">Total Surat</span>
+                            </div>
                         </div>
                         <div class="flex items-center justify-center">
                             <svg class="text-blue-700 size-16 md:size-20" fill="currentColor" viewBox="0 0 24 24"

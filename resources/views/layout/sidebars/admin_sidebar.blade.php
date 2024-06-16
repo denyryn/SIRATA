@@ -115,6 +115,28 @@
             </li>
 
             <li>
+                {{-- SURAT MASUK --}}
+                <a href="{{ route('admin.surat') }}" class="border-none outline-none group">
+                    <div
+                        class="flex items-center justify-start w-full p-2 py-3 border-none outline-none hover:bg-blue-lighter px-7">
+                        <svg class="w-5 h-5 transition duration-75" viewBox="0 0 24 24" fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                            <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                            <g id="SVGRepo_iconCarrier">
+                                <path
+                                    d="M19 15V21M19 21L21 19M19 21L17 19M13 19H6.2C5.0799 19 4.51984 19 4.09202 18.782C3.71569 18.5903 3.40973 18.2843 3.21799 17.908C3 17.4802 3 16.9201 3 15.8V8.2C3 7.0799 3 6.51984 3.21799 6.09202C3.40973 5.71569 3.71569 5.40973 4.09202 5.21799C4.51984 5 5.0799 5 6.2 5H17.8C18.9201 5 19.4802 5 19.908 5.21799C20.2843 5.40973 20.5903 5.71569 20.782 6.09202C21 6.51984 21 7.0799 21 8.2V11M20.6067 8.26204L15.5499 11.6333C14.2669 12.4886 13.6254 12.9163 12.932 13.0824C12.3192 13.2293 11.6804 13.2293 11.0677 13.0824C10.3743 12.9163 9.73279 12.4886 8.44975 11.6333L3.14746 8.09839"
+                                    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round"></path>
+                            </g>
+                        </svg>
+
+                        <span class="ms-3">Surat Masuk</span>
+                    </div>
+                </a>
+            </li>
+
+            <li>
                 {{-- LAYANAN SURAT --}}
                 <a href="{{ route('admin.surat.layanan') }}" class="border-none outline-none group">
                     <div

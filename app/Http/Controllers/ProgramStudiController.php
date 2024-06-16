@@ -24,7 +24,7 @@ class ProgramStudiController extends Controller
         $data_prodi = new Program_Studi;
         $data_prodi->nama_prodi = $request->nama_prodi;
         $data_prodi->save();
-        return redirect()->route("admin.prodi");
+        return redirect(route("admin.prodi"))->with('success', 'Prodi berhasil dibuat.');
     }
 
     public function edit(Request $request, $id_prodi)
@@ -37,7 +37,7 @@ class ProgramStudiController extends Controller
         $data_prodi = Program_Studi::find($id_prodi);
         $data_prodi->nama_prodi = $request->nama_prodi;
         $data_prodi->update();
-        return redirect(route('admin.prodi'));
+        return redirect(route('admin.prodi'))->with('success', 'Prodi berhasil diperbarui.');
     }
 
     public function delete($id_prodi)
@@ -45,7 +45,7 @@ class ProgramStudiController extends Controller
         $data_prodi = Program_Studi::find($id_prodi);
         $data_prodi->delete();
 
-        return redirect(route('admin.prodi'))->with('success', 'Prodi has been deleted successfully');
+        return redirect(route('admin.prodi'))->with('success', 'Prodi berhasil dihapus.');
     }
 
 }

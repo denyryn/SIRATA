@@ -5,7 +5,27 @@
 @section('content')
     <div>
         {{-- Kolom cari surat --}}
-        <nav class="flex items-center justify-end w-full p-2 font-normal bg-blue-500 h-fit rounded-xl">
+        <nav class="flex items-center justify-between w-full p-2 font-normal bg-blue-500 h-fit rounded-xl">
+            <div>
+                <form method="GET" class="flex flex-row" action="{{ route('admin.surat') }}">
+                    @csrf
+                    @method('GET')
+                    <div class="relative w-full me-2">
+                        <select
+                            class="bg-gray-50 border-none text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5"
+                            name="filter_by_status" id="filter_by_status" onchange="this.form.submit()">
+                            <option value="">
+                                Filter
+                            </option>
+                            @foreach ($statuses as $status)
+                                <option value="{{ $status->nama_status }}">
+                                    {{ $status->nama_status }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
+                </form>
+            </div>
             <div class="">
                 <form action="{{ route('admin.surat') }}" method="GET" class="flex items-center max-w-sm mx-auto">
                     @csrf
@@ -27,7 +47,7 @@
                             </svg>
                         </div>
                         <input type="text" id="surat_search" name="surat_search"
-                            class="bg-gray-50 border-none text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  "
+                            class="bg-gray-50 border-none text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5"
                             placeholder="Cari Template..." required />
                     </div>
                     <button type="submit" hidden></button>

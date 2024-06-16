@@ -35,7 +35,7 @@ class UploadSuratController extends Controller
             $data_riwayat->save();
         }
 
-        return redirect(route('admin.surat'));
+        return redirect(route('admin.users.send_mail', compact('id_surat')));
     }
 
 }

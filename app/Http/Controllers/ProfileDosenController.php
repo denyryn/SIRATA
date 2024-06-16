@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
-use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\DB;
 
 use App\Models\Dosen;
 use App\Models\User;
@@ -18,32 +18,49 @@ class ProfileDosenController extends Controller
         return view("dosen.profile", compact("data_dosen", "data_user"));
     }
 
-    public function update(Request $request, $id_dosen)
+    public function update(Request $request)
     {
         // Validate the incoming request, ensuring it contains a file
         $request->validate([
-            'foto_profil' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'foto_profil' => 'image|mimes:jpeg,png,jpg|max:2048',
         ]);
 
-        $data_dosen = Dosen::find($id_dosen);
-        $data_user = User::find($data_dosen->id_user);
+        $data_dosen = Dosen::find($request->session()->get('data_dosen')->id_dosen);
+        $data_user = User::find($request->session()->get('data_user')->id_user);
 
-        // Handle the uploaded image
-        if ($request->hasFile('foto_profil')) {
-            if ($data_user->foto_profil) {
-                unlink(public_path($data_user->foto_profil));
+        DB::beginTransaction(); // Start database transaction
+
+        try {
+            // Handle the uploaded image (with rollback on failure)
+            if ($request->hasFile('foto_profil')) {
+                if ($data_user->foto_profil) {
+                    unlink(public_path($data_user->foto_profil));
+                }
+
+                $image = $request->file('foto_profil');
+                $imageName = "[" . $data_user->id_user . "]" . time() . '.' . $image->getClientOriginalExtension();
+                $image->move('users/images/profile', $imageName);
+
+                $data_user->foto_profil = 'users/images/profile/' . $imageName;
             }
 
-            $image = $request->file('foto_profil');
-            $imageName = $data_dosen->id_user . time() . '.' . $image->getClientOriginalExtension();
-            $image->move('users/images/profile', $imageName);
+            $data_user->email = $request->input('email');
 
-            $data_user->foto_profil = 'users/images/profile/' . $imageName;
-            $data_user->save();
+            $data_dosen->golongan = $request->input('golongan');
+            $data_dosen->update();
 
-            return redirect()->back()->with('success', 'Profile image updated successfully.');
+
+            $data_user->update();
+
+            Session::put('data_dosen', $data_dosen);
+            Session::put('data_user', $data_user);
+
+            DB::commit();
+
+            return redirect()->back()->with('success', 'Profile berhasil diperbarui.');
+        } catch (\Exception $e) {
+            DB::rollBack(); // Rollback transaction on exception
+            return redirect()->back()->with('error', 'Gagal memperbarui diperbarui: ' . $e->getMessage());
         }
-
-        return redirect()->back()->with('error', 'Failed to update profile image.');
     }
 }

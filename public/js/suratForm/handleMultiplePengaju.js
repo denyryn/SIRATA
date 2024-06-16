@@ -3,10 +3,12 @@ document.addEventListener("DOMContentLoaded", function () {
     const addButton = document.getElementById("addPengajuBtn");
     const removeButton = document.getElementById("removePengajuBtn");
     const form = document.getElementById("surat_form");
+
+    const maxPengajus = 7;
     let count = 1;
 
     addButton.addEventListener("click", function () {
-        if (count <= 8) {
+        if (count < maxPengajus) {
             count++;
             const newDiv = document.createElement("div");
             newDiv.setAttribute("name", "pemohon" + count); // Update name attribute
@@ -32,7 +34,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 allowClear: true,
             });
         } else {
-            alert("Maximum limit reached (8)");
+            alert("Maksimal Pengaju sudah Tercapai.");
         }
     });
 
@@ -105,6 +107,16 @@ document.addEventListener("DOMContentLoaded", function () {
             // Add options from dosens data
             dosens.forEach(function (item) {
                 const newOption = document.createElement("option");
+                newOption.setAttribute("data-nama_user", item.nama_dosen);
+                newOption.setAttribute("data-ni_user", item.nip);
+                newOption.setAttribute(
+                    "data-prodi_user",
+                    item.nama_prodi ? item.nama_prodi : "",
+                );
+                newOption.setAttribute(
+                    "data-golongan_user",
+                    item.golongan ? item.golongan : "",
+                );
                 newOption.setAttribute("value", item.id_user);
                 newOption.textContent = item.nama_dosen;
                 newSelect.appendChild(newOption);
@@ -117,6 +129,16 @@ document.addEventListener("DOMContentLoaded", function () {
             // Add options from mahasiswas data
             mahasiswas.forEach(function (item) {
                 const newOption = document.createElement("option");
+                newOption.setAttribute("data-nama_user", item.nama_mahasiswa);
+                newOption.setAttribute("data-ni_user", item.nim);
+                newOption.setAttribute(
+                    "data-prodi_user",
+                    item.nama_prodi ? item.nama_prodi : "",
+                );
+                newOption.setAttribute(
+                    "data-golongan_user",
+                    item.golongan ? item.golongan : "",
+                );
                 newOption.setAttribute("value", item.id_user);
                 newOption.textContent = item.nama_mahasiswa;
                 newSelect.appendChild(newOption);
