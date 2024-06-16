@@ -16,15 +16,6 @@
                             </span>
                             <div class="flex flex-row items-center">
                                 <span class="block text-sm font-light me-2">Total Surat</span>
-                                <span id="surat-pending" href="#"
-                                    class="text-[0.6rem] me-1 justify-center items-center hidden md:flex duration-150 bg-yellow-700 rounded-full hover:bg-yellow-600 h-7 w-5">
-                                    120</span>
-                                <span id="surat-pending" href="#"
-                                    class="text-[0.6rem] me-1 justify-center items-center hidden md:flex duration-150 bg-red-700 rounded-full hover:bg-red-600 h-7 w-5">
-                                    120</span>
-                                <span id="surat-pending" href="#"
-                                    class="text-[0.6rem] me-1 justify-center items-center hidden md:flex duration-150 bg-green-700 rounded-full hover:bg-green-600 h-7 w-5">
-                                    120</span>
                             </div>
                         </div>
                         <div class="flex items-center justify-center">

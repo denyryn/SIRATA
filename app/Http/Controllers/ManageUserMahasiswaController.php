@@ -63,11 +63,11 @@ class ManageUserMahasiswaController extends Controller
             $data_user->save();
 
             $data_mahasiswa = new Mahasiswa();
-            $data_mahasiswa->id_user = $data_user->id_user; // Assuming id_user is the primary key
-            $data_mahasiswa->nim = $request->nim;
-            $data_mahasiswa->nama_mahasiswa = $request->nama_mahasiswa;
-            $data_mahasiswa->id_dosen_pembimbing = $request->id_dosen_pembimbing;
+            $data_mahasiswa->id_user = $data_user->id_user;
             $data_mahasiswa->id_prodi = $request->id_prodi;
+            $data_mahasiswa->nim = $request->nim;
+            $data_mahasiswa->id_dosen_pembimbing = $request->id_dosen_pembimbing;
+            $data_mahasiswa->nama_mahasiswa = $request->nama_mahasiswa;
             $data_mahasiswa->save();
 
             DB::commit();

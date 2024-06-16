@@ -10,23 +10,25 @@ use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Mail\Mailables\Address;
 
-class SendToUserMail extends Mailable
+class NotifyAdminMail extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $data_surat;
-    public $data_pengaju;
-    public $data_status_terakhir;
-
+    public $data_email;
+    public $email_admin;
+    public $nama_pembuat;
+    public $perihal;
+    public $kategori_surat;
 
     /**
      * Create a new message instance.
      */
     public function __construct(array $data_email)
     {
-        $this->data_surat = $data_email['data_surat'];
-        $this->data_pengaju = $data_email['data_pengaju'];
-        $this->data_status_terakhir = $data_email['data_status_terakhir'];
+        $this->data_email = $data_email;
+        $this->email_admin = $data_email['email_admin'];
+        $this->nama_pembuat = $data_email['nama_pembuat'];
+        $this->perihal = $data_email['perihal'];
     }
 
     /**
@@ -35,8 +37,8 @@ class SendToUserMail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            from: new Address('admin@sirata.com'),
-            subject: "Suratmu Baru Saja {$this->data_status_terakhir}"
+            from: new Address('admin@sirata.com', 'Admin Sirata'),
+            subject: 'Surat Masuk dari ' . $this->nama_pembuat,
         );
     }
 
@@ -46,7 +48,7 @@ class SendToUserMail extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'email.send_to_user',
+            view: 'email.send_to_admin',
         );
     }
 

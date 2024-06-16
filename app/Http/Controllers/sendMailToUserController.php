@@ -17,29 +17,29 @@ class SendMailToUserController extends Controller
     {
 
         $surat = Surat::find($id_surat);
-        $admin = User::where('username', 'adminel')->first();
-        $tanggal_surat = Carbon::parse($surat->created_at)->locale('id_ID')->translatedFormat('l, j F Y');
-        $pengaju = $surat->user->dosen ?? $surat->user->mahasiswa;
-        $status_terakhir = $surat->Riwayat()->latest()->first()->nama_status;
 
-        $email_user = $surat->user->email;
-        $data_status_terakhir = $status_terakhir;
-        $data_admin = $admin;
-        $data_pengaju = $pengaju;
+        if ($surat->user->email) {
+            $tanggal_surat = Carbon::parse($surat->created_at)->locale('id_ID')->translatedFormat('l, j F Y');
+            $pengaju = $surat->user->dosen ?? $surat->user->mahasiswa;
+            $status_terakhir = $surat->Riwayat()->latest()->first()->nama_status;
 
-        $data_surat = [
-            'surat' => $surat,
-            'tanggal_surat' => $tanggal_surat
-        ];
+            $email_user = $surat->user->email;
+            $data_status_terakhir = $status_terakhir;
+            $data_pengaju = $pengaju;
 
-        $data_email = [
-            'data_surat' => $data_surat,
-            'data_admin' => $data_admin,
-            'data_status_terakhir' => $data_status_terakhir,
-            'data_pengaju' => $data_pengaju,
-        ];
+            $data_surat = [
+                'surat' => $surat,
+                'tanggal_surat' => $tanggal_surat
+            ];
 
-        Mail::to($email_user)->send(new SendToUserMail($data_email));
+            $data_email = [
+                'data_surat' => $data_surat,
+                'data_status_terakhir' => $data_status_terakhir,
+                'data_pengaju' => $data_pengaju,
+            ];
+
+            Mail::to($email_user)->send(new SendToUserMail($data_email));
+        }
 
         return redirect(route('admin.surat'));
     }

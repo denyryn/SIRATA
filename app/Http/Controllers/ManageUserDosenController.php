@@ -62,7 +62,7 @@ class ManageUserDosenController extends Controller
             $data_user->save();
 
             $data_dosen = new Dosen();
-            $data_dosen->id_user = $data_user->id;
+            $data_dosen->id_user = $data_user->id_user;
             $data_dosen->nip = $request->nip;
             $data_dosen->nidn = $request->nidn;
             $data_dosen->id_prodi = $request->id_prodi;

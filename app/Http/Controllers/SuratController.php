@@ -20,7 +20,11 @@ class SuratController extends Controller
 {
     public function index(Request $request)
     {
-        $query = Surat::query(); // Start with a query builder instance
+        $statuses = Riwayat::distinct()->get(['nama_status']);
+
+        $filterByStatus = $request->input('filter_by_status');
+
+        $query = Surat::query()->with('riwayat');
 
         $searchQuery = $request->input('surat_search');
 
@@ -33,9 +37,19 @@ class SuratController extends Controller
             });
         }
 
-        $data_surat = $query->latest()->paginate(10);
+        if (empty($filterByStatus)) {
+            $data_surat = $query->latest()->paginate(10);
+        } else {
+            $data_surat = $query->whereHas('riwayat', function ($query) use ($filterByStatus) {
+                $query->where('nama_status', $filterByStatus)
+                    ->where('created_at', function ($query) {
+                        $query->selectRaw('MAX(created_at)')
+                            ->from('riwayats')
+                            ->whereColumn('riwayats.id_surat', 'surats.id_surat');
+                    });
+            })->latest()->paginate(10);
+        }
 
-        // Assuming $data_surat is a collection of Surat model instances
         foreach ($data_surat as $surat) {
             // Parse the created_at date using Carbon and format it
             $surat->tanggal_buat = Carbon::parse($surat->created_at)->format('j M Y');
@@ -52,10 +66,6 @@ class SuratController extends Controller
             // Fetch all related Riwayat entries for this Surat
             $riwayat = Riwayat::where('id_surat', $surat->id_surat)->get();
 
-            // Extract the nama_status from each Riwayat and assign it to $item->riwayat
-            // dd($surat->riwayat);
-
-            // $pemohon = Pemohon::where('id_surat', $surat->id_surat)->first()->user->username;
             $pemohon = $surat->user->username;
             $surat->pemohon = $pemohon;
 
@@ -65,7 +75,7 @@ class SuratController extends Controller
             $surat->nama_kategori = $kategori_surat ? $kategori_surat->nama_kategori : 'Not Found';
         }
 
-        return view("admin.surat.index", compact('data_surat'));
+        return view("admin.surat.index", compact('data_surat', 'statuses'));
     }
 
     public function edit(Request $request, $id_surat)
@@ -165,6 +175,7 @@ class SuratController extends Controller
 
         return redirect(route('admin.surat'));
     }
+
 
     public function approve(Request $request, $id_surat)
     {
